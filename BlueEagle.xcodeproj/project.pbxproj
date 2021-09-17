@@ -1,0 +1,637 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3D085B732707630F007DEB5B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D085B722707630F007DEB5B /* HealthKit.framework */; };
+		3D085B752709D3F3007DEB5B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D085B742709D3F3007DEB5B /* User.swift */; };
+		3D085B772709ED3E007DEB5B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D085B762709ED3D007DEB5B /* LoginView.swift */; };
+		3D340751270609160089E234 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D340750270609160089E234 /* SettingsView.swift */; };
+		3D34075327060FE10089E234 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34075227060FE10089E234 /* HeartRateView.swift */; };
+		3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */; };
+		3DE371FD26F4DC8700CC1F3F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE371FC26F4DC8700CC1F3F /* ContentView.swift */; };
+		3DE371FF26F4DC8700CC1F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */; };
+		3DE3720226F4DC8700CC1F3F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DE3720126F4DC8700CC1F3F /* Preview Assets.xcassets */; };
+		3DE3720D26F4DC8800CC1F3F /* BlueEagleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3720C26F4DC8800CC1F3F /* BlueEagleTests.swift */; };
+		3DE3721826F4DC8800CC1F3F /* BlueEagleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3721726F4DC8800CC1F3F /* BlueEagleUITests.swift */; };
+		3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3722526FA076500CC1F3F /* BluetoothService.swift */; };
+		3DFD9BE926FE054A005903EA /* GATT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD9BE826FE054A005903EA /* GATT.swift */; };
+		3DFD9BEB2700D0CA005903EA /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD9BEA2700D0CA005903EA /* Profile.swift */; };
+		3DFD9BED2700E698005903EA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD9BEC2700E698005903EA /* ProfileView.swift */; };
+		3DFD9BEF27020A6E005903EA /* BluetoothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD9BEE27020A6E005903EA /* BluetoothView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3DE3720926F4DC8800CC1F3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3DE371EF26F4DC8700CC1F3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3DE371F626F4DC8700CC1F3F;
+			remoteInfo = BlueEagle;
+		};
+		3DE3721426F4DC8800CC1F3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3DE371EF26F4DC8700CC1F3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3DE371F626F4DC8700CC1F3F;
+			remoteInfo = BlueEagle;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3D085B702707630F007DEB5B /* BlueEagle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlueEagle.entitlements; sourceTree = "<group>"; };
+		3D085B722707630F007DEB5B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		3D085B742709D3F3007DEB5B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3D085B762709ED3D007DEB5B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		3D340750270609160089E234 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3D34075227060FE10089E234 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
+		3DE371F726F4DC8700CC1F3F /* BlueEagle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueEagle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueEagleApp.swift; sourceTree = "<group>"; };
+		3DE371FC26F4DC8700CC1F3F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3DE3720126F4DC8700CC1F3F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3DE3720326F4DC8700CC1F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DE3720826F4DC8800CC1F3F /* BlueEagleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueEagleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DE3720C26F4DC8800CC1F3F /* BlueEagleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueEagleTests.swift; sourceTree = "<group>"; };
+		3DE3720E26F4DC8800CC1F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DE3721326F4DC8800CC1F3F /* BlueEagleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueEagleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DE3721726F4DC8800CC1F3F /* BlueEagleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueEagleUITests.swift; sourceTree = "<group>"; };
+		3DE3721926F4DC8800CC1F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DE3722526FA076500CC1F3F /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
+		3DFD9BE826FE054A005903EA /* GATT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GATT.swift; sourceTree = "<group>"; };
+		3DFD9BEA2700D0CA005903EA /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		3DFD9BEC2700E698005903EA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		3DFD9BEE27020A6E005903EA /* BluetoothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3DE371F426F4DC8700CC1F3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D085B732707630F007DEB5B /* HealthKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DE3720526F4DC8800CC1F3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DE3721026F4DC8800CC1F3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3D085B712707630F007DEB5B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D085B722707630F007DEB5B /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3DE371EE26F4DC8700CC1F3F = {
+			isa = PBXGroup;
+			children = (
+				3DE371F926F4DC8700CC1F3F /* BlueEagle */,
+				3DE3720B26F4DC8800CC1F3F /* BlueEagleTests */,
+				3DE3721626F4DC8800CC1F3F /* BlueEagleUITests */,
+				3DE371F826F4DC8700CC1F3F /* Products */,
+				3D085B712707630F007DEB5B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3DE371F826F4DC8700CC1F3F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3DE371F726F4DC8700CC1F3F /* BlueEagle.app */,
+				3DE3720826F4DC8800CC1F3F /* BlueEagleTests.xctest */,
+				3DE3721326F4DC8800CC1F3F /* BlueEagleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3DE371F926F4DC8700CC1F3F /* BlueEagle */ = {
+			isa = PBXGroup;
+			children = (
+				3D085B702707630F007DEB5B /* BlueEagle.entitlements */,
+				3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */,
+				3DE371FC26F4DC8700CC1F3F /* ContentView.swift */,
+				3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */,
+				3DE3720326F4DC8700CC1F3F /* Info.plist */,
+				3DE3720026F4DC8700CC1F3F /* Preview Content */,
+				3DE3722526FA076500CC1F3F /* BluetoothService.swift */,
+				3DFD9BE826FE054A005903EA /* GATT.swift */,
+				3DFD9BEA2700D0CA005903EA /* Profile.swift */,
+				3DFD9BEC2700E698005903EA /* ProfileView.swift */,
+				3DFD9BEE27020A6E005903EA /* BluetoothView.swift */,
+				3D340750270609160089E234 /* SettingsView.swift */,
+				3D34075227060FE10089E234 /* HeartRateView.swift */,
+				3D085B742709D3F3007DEB5B /* User.swift */,
+				3D085B762709ED3D007DEB5B /* LoginView.swift */,
+			);
+			path = BlueEagle;
+			sourceTree = "<group>";
+		};
+		3DE3720026F4DC8700CC1F3F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				3DE3720126F4DC8700CC1F3F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3DE3720B26F4DC8800CC1F3F /* BlueEagleTests */ = {
+			isa = PBXGroup;
+			children = (
+				3DE3720C26F4DC8800CC1F3F /* BlueEagleTests.swift */,
+				3DE3720E26F4DC8800CC1F3F /* Info.plist */,
+			);
+			path = BlueEagleTests;
+			sourceTree = "<group>";
+		};
+		3DE3721626F4DC8800CC1F3F /* BlueEagleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3DE3721726F4DC8800CC1F3F /* BlueEagleUITests.swift */,
+				3DE3721926F4DC8800CC1F3F /* Info.plist */,
+			);
+			path = BlueEagleUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3DE371F626F4DC8700CC1F3F /* BlueEagle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3DE3721C26F4DC8800CC1F3F /* Build configuration list for PBXNativeTarget "BlueEagle" */;
+			buildPhases = (
+				3DE371F326F4DC8700CC1F3F /* Sources */,
+				3DE371F426F4DC8700CC1F3F /* Frameworks */,
+				3DE371F526F4DC8700CC1F3F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BlueEagle;
+			productName = BlueEagle;
+			productReference = 3DE371F726F4DC8700CC1F3F /* BlueEagle.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3DE3720726F4DC8800CC1F3F /* BlueEagleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3DE3721F26F4DC8800CC1F3F /* Build configuration list for PBXNativeTarget "BlueEagleTests" */;
+			buildPhases = (
+				3DE3720426F4DC8800CC1F3F /* Sources */,
+				3DE3720526F4DC8800CC1F3F /* Frameworks */,
+				3DE3720626F4DC8800CC1F3F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3DE3720A26F4DC8800CC1F3F /* PBXTargetDependency */,
+			);
+			name = BlueEagleTests;
+			productName = BlueEagleTests;
+			productReference = 3DE3720826F4DC8800CC1F3F /* BlueEagleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3DE3721226F4DC8800CC1F3F /* BlueEagleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3DE3722226F4DC8800CC1F3F /* Build configuration list for PBXNativeTarget "BlueEagleUITests" */;
+			buildPhases = (
+				3DE3720F26F4DC8800CC1F3F /* Sources */,
+				3DE3721026F4DC8800CC1F3F /* Frameworks */,
+				3DE3721126F4DC8800CC1F3F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3DE3721526F4DC8800CC1F3F /* PBXTargetDependency */,
+			);
+			name = BlueEagleUITests;
+			productName = BlueEagleUITests;
+			productReference = 3DE3721326F4DC8800CC1F3F /* BlueEagleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3DE371EF26F4DC8700CC1F3F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					3DE371F626F4DC8700CC1F3F = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+					3DE3720726F4DC8800CC1F3F = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 3DE371F626F4DC8700CC1F3F;
+					};
+					3DE3721226F4DC8800CC1F3F = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 3DE371F626F4DC8700CC1F3F;
+					};
+				};
+			};
+			buildConfigurationList = 3DE371F226F4DC8700CC1F3F /* Build configuration list for PBXProject "BlueEagle" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3DE371EE26F4DC8700CC1F3F;
+			productRefGroup = 3DE371F826F4DC8700CC1F3F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3DE371F626F4DC8700CC1F3F /* BlueEagle */,
+				3DE3720726F4DC8800CC1F3F /* BlueEagleTests */,
+				3DE3721226F4DC8800CC1F3F /* BlueEagleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3DE371F526F4DC8700CC1F3F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DE3720226F4DC8700CC1F3F /* Preview Assets.xcassets in Resources */,
+				3DE371FF26F4DC8700CC1F3F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DE3720626F4DC8800CC1F3F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DE3721126F4DC8800CC1F3F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3DE371F326F4DC8700CC1F3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DE371FD26F4DC8700CC1F3F /* ContentView.swift in Sources */,
+				3D340751270609160089E234 /* SettingsView.swift in Sources */,
+				3DFD9BEF27020A6E005903EA /* BluetoothView.swift in Sources */,
+				3DFD9BEB2700D0CA005903EA /* Profile.swift in Sources */,
+				3DFD9BE926FE054A005903EA /* GATT.swift in Sources */,
+				3D34075327060FE10089E234 /* HeartRateView.swift in Sources */,
+				3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */,
+				3DFD9BED2700E698005903EA /* ProfileView.swift in Sources */,
+				3D085B772709ED3E007DEB5B /* LoginView.swift in Sources */,
+				3D085B752709D3F3007DEB5B /* User.swift in Sources */,
+				3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DE3720426F4DC8800CC1F3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DE3720D26F4DC8800CC1F3F /* BlueEagleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DE3720F26F4DC8800CC1F3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DE3721826F4DC8800CC1F3F /* BlueEagleUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3DE3720A26F4DC8800CC1F3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3DE371F626F4DC8700CC1F3F /* BlueEagle */;
+			targetProxy = 3DE3720926F4DC8800CC1F3F /* PBXContainerItemProxy */;
+		};
+		3DE3721526F4DC8800CC1F3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3DE371F626F4DC8700CC1F3F /* BlueEagle */;
+			targetProxy = 3DE3721426F4DC8800CC1F3F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3DE3721A26F4DC8800CC1F3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3DE3721B26F4DC8800CC1F3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3DE3721D26F4DC8800CC1F3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BlueEagle/BlueEagle.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"BlueEagle/Preview Content\"";
+				DEVELOPMENT_TEAM = LK4ALGF966;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = BlueEagle/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.copios.BlueEagle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3DE3721E26F4DC8800CC1F3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BlueEagle/BlueEagle.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"BlueEagle/Preview Content\"";
+				DEVELOPMENT_TEAM = LK4ALGF966;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = BlueEagle/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.copios.BlueEagle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3DE3722026F4DC8800CC1F3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LK4ALGF966;
+				INFOPLIST_FILE = BlueEagleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.copios.BlueEagleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BlueEagle.app/BlueEagle";
+			};
+			name = Debug;
+		};
+		3DE3722126F4DC8800CC1F3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LK4ALGF966;
+				INFOPLIST_FILE = BlueEagleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.copios.BlueEagleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BlueEagle.app/BlueEagle";
+			};
+			name = Release;
+		};
+		3DE3722326F4DC8800CC1F3F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LK4ALGF966;
+				INFOPLIST_FILE = BlueEagleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.copios.BlueEagleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BlueEagle;
+			};
+			name = Debug;
+		};
+		3DE3722426F4DC8800CC1F3F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LK4ALGF966;
+				INFOPLIST_FILE = BlueEagleUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.copios.BlueEagleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BlueEagle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3DE371F226F4DC8700CC1F3F /* Build configuration list for PBXProject "BlueEagle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DE3721A26F4DC8800CC1F3F /* Debug */,
+				3DE3721B26F4DC8800CC1F3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3DE3721C26F4DC8800CC1F3F /* Build configuration list for PBXNativeTarget "BlueEagle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DE3721D26F4DC8800CC1F3F /* Debug */,
+				3DE3721E26F4DC8800CC1F3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3DE3721F26F4DC8800CC1F3F /* Build configuration list for PBXNativeTarget "BlueEagleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DE3722026F4DC8800CC1F3F /* Debug */,
+				3DE3722126F4DC8800CC1F3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3DE3722226F4DC8800CC1F3F /* Build configuration list for PBXNativeTarget "BlueEagleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DE3722326F4DC8800CC1F3F /* Debug */,
+				3DE3722426F4DC8800CC1F3F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3DE371EF26F4DC8700CC1F3F /* Project object */;
+}
