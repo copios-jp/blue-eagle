@@ -12,6 +12,8 @@
 		3D085B772709ED3E007DEB5B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D085B762709ED3D007DEB5B /* LoginView.swift */; };
 		3D340751270609160089E234 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D340750270609160089E234 /* SettingsView.swift */; };
 		3D34075327060FE10089E234 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34075227060FE10089E234 /* HeartRateView.swift */; };
+		3D56CD5E270B3AD500B4A043 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CD5D270B3AD500B4A043 /* RegisterView.swift */; };
+		3D56CD60270B3C0900B4A043 /* AccountApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CD5F270B3C0900B4A043 /* AccountApi.swift */; };
 		3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */; };
 		3DE371FD26F4DC8700CC1F3F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE371FC26F4DC8700CC1F3F /* ContentView.swift */; };
 		3DE371FF26F4DC8700CC1F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */; };
@@ -49,6 +51,8 @@
 		3D085B762709ED3D007DEB5B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3D340750270609160089E234 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3D34075227060FE10089E234 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
+		3D56CD5D270B3AD500B4A043 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		3D56CD5F270B3C0900B4A043 /* AccountApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountApi.swift; sourceTree = "<group>"; };
 		3DE371F726F4DC8700CC1F3F /* BlueEagle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueEagle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueEagleApp.swift; sourceTree = "<group>"; };
 		3DE371FC26F4DC8700CC1F3F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +106,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3D56CD5C270B3A5900B4A043 /* AccountManagement */ = {
+			isa = PBXGroup;
+			children = (
+				3D085B742709D3F3007DEB5B /* User.swift */,
+				3D085B762709ED3D007DEB5B /* LoginView.swift */,
+				3D56CD5D270B3AD500B4A043 /* RegisterView.swift */,
+				3D56CD5F270B3C0900B4A043 /* AccountApi.swift */,
+			);
+			path = AccountManagement;
+			sourceTree = "<group>";
+		};
 		3DE371EE26F4DC8700CC1F3F = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +141,7 @@
 		3DE371F926F4DC8700CC1F3F /* BlueEagle */ = {
 			isa = PBXGroup;
 			children = (
+				3D56CD5C270B3A5900B4A043 /* AccountManagement */,
 				3D085B702707630F007DEB5B /* BlueEagle.entitlements */,
 				3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */,
 				3DE371FC26F4DC8700CC1F3F /* ContentView.swift */,
@@ -139,8 +155,6 @@
 				3DFD9BEE27020A6E005903EA /* BluetoothView.swift */,
 				3D340750270609160089E234 /* SettingsView.swift */,
 				3D34075227060FE10089E234 /* HeartRateView.swift */,
-				3D085B742709D3F3007DEB5B /* User.swift */,
-				3D085B762709ED3D007DEB5B /* LoginView.swift */,
 			);
 			path = BlueEagle;
 			sourceTree = "<group>";
@@ -306,9 +320,11 @@
 				3DFD9BEB2700D0CA005903EA /* Profile.swift in Sources */,
 				3DFD9BE926FE054A005903EA /* GATT.swift in Sources */,
 				3D34075327060FE10089E234 /* HeartRateView.swift in Sources */,
+				3D56CD60270B3C0900B4A043 /* AccountApi.swift in Sources */,
 				3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */,
 				3DFD9BED2700E698005903EA /* ProfileView.swift in Sources */,
 				3D085B772709ED3E007DEB5B /* LoginView.swift in Sources */,
+				3D56CD5E270B3AD500B4A043 /* RegisterView.swift in Sources */,
 				3D085B752709D3F3007DEB5B /* User.swift in Sources */,
 				3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */,
 			);

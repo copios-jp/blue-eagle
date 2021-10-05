@@ -19,6 +19,8 @@ import SwiftUI
 struct LoginView: View {
     @State var emailAddress: String = ""
     @State var password: String = ""
+    @ObservedObject private var api: AccountApi = AccountApi()
+    
     var body: some View {
         VStack {
             Text(String("Blue Eagle"))
@@ -33,9 +35,12 @@ struct LoginView: View {
                 Text("Let's get started")
             }
             .padding()
+            if(self.api.loginFailed) {
+                Text("Login Failed")
+            }
             HStack {
                 Button(action: {
-                    Api().login(
+                    api.login(
                         email: emailAddress,
                         password: password,
                         completion: { (account) in
@@ -57,10 +62,10 @@ struct LoginView: View {
                 }
             }
             Spacer()
-
+            
         }
-
     }
+    
 }
 
 struct LoginView_Previews: PreviewProvider {
