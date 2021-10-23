@@ -19,7 +19,7 @@ import SwiftUI
 struct RegisterView: View {
     @State var emailAddress: String = ""
     @State var password: String = ""
-    @ObservedObject private var api: AccountApi = AccountApi()
+    @ObservedObject private var api: UserApi = UserApi()
     
     var body: some View {
         VStack {
@@ -45,8 +45,8 @@ struct RegisterView: View {
                     api.createAccount(
                         email: emailAddress,
                         password: password,
-                        completion: { (account) in
-                            print("DUDE \(account)")
+                        completion: { (user) in
+                            print("DUDE \(user)")
                         })
                     
                 }) {

@@ -7,12 +7,18 @@
 
 import SwiftUI
 
+
+
 @main
 struct BlueEagleApp: App {
+    
+    var userController : UserController = UserController()
     var body: some Scene {
         WindowGroup {
+
             NavigationView {
               ContentView()
+                    .environmentObject(userController)
             }
             .navigationViewStyle(StackNavigationViewStyle())
         }

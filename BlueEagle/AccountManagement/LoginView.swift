@@ -16,11 +16,13 @@
 
 import SwiftUI
 
+
 struct LoginView: View {
     @State var emailAddress: String = ""
     @State var password: String = ""
-    @ObservedObject private var api: AccountApi = AccountApi()
+    @State var loginFailed: Bool = false
     
+    @EnvironmentObject var userController: UserController
     var body: some View {
         VStack {
             Text(String("Blue Eagle"))
@@ -35,21 +37,16 @@ struct LoginView: View {
                 Text("Let's get started")
             }
             .padding()
-            if(self.api.loginFailed) {
+            if(loginFailed) {
                 Text("Login Failed")
             }
             HStack {
-                Button(action: {
-                    api.login(
-                        email: emailAddress,
-                        password: password,
-                        completion: { (account) in
-                            print("DUDE \(account)")
-                        })
-                    
-                    print("sign in") }) {
-                        Text("Sign In")
-                    }.padding()
+                Button {
+                    Task {
+                     try await loginFailed = !userController.authenticate(email: emailAddress, password: password )
+                        
+                    }
+                } label:  { Text("Sign In").padding() }
                 
             }
             .padding(20)

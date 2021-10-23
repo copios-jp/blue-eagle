@@ -13,19 +13,15 @@ enum BiologicalSex: Codable {
     case male
     case female
 }
-
-class User: Codable {
-    var id: UUID = UUID()
-    var familyName: String
-    var givenName: String
-    var emailAddress: String
-    var useHealthKit: Bool = false
-    var biologicalSex: BiologicalSex = .notSet
-    var dateOfBirthComponents: DateComponents
+func encodeEmail(email: String) -> String {
+    guard let clean = email.addingPercentEncoding(withAllowedCharacters: .rfc3986Unreserved) else { return "" }
+    return clean
 }
 
-struct Account: Codable {
-    var lastLogin: Date
-    var sessionId: String
-    var user: User
+struct User: Codable {
+    var id: Int
+    var fullName: String
+    var isSuperAdmin: Bool = false
 }
+ 
+

@@ -12,16 +12,19 @@ struct ContentView: View {
     
     var bluetoothService : BluetoothService = BluetoothService()
     var profileService : ProfileService = ProfileService()
+    @EnvironmentObject var userController: UserController
     @State private var showSettings = false
     @State private var hasAccount = false
+    
     var body: some View {
-        if(hasAccount == false) {
-            LoginView()
+        if(userController.user == nil) {
+            LoginView().environmentObject(userController)
         } else {
         VStack() {
             
                 HeartRateView().environmentObject(bluetoothService)
                     .environmentObject(profileService)
+                    .environmentObject(userController)
             
         }
         .navigationTitle("Blue Eagle")
@@ -52,6 +55,7 @@ struct ContentView_Previews: PreviewProvider {
         NavigationView {
             ContentView().environmentObject(BluetoothService())
                 .environmentObject(ProfileService())
+                .environmentObject(UserController())
             
         }
     }
