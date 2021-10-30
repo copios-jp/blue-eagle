@@ -6,13 +6,11 @@
 //
 
 import Foundation
-import HealthKit
 
-enum BiologicalSex: Codable {
-    case notSet
-    case male
-    case female
+extension CharacterSet {
+    static let rfc3986Unreserved = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~")
 }
+
 func encodeEmail(email: String) -> String {
     guard let clean = email.addingPercentEncoding(withAllowedCharacters: .rfc3986Unreserved) else { return "" }
     return clean
@@ -24,4 +22,13 @@ struct User: Codable {
     var isSuperAdmin: Bool = false
 }
  
+struct Signup: Codable {
+    var fullName: String
+    var emailAddress: String
+    var password: String
 
+    func asParams() -> String {
+        let emailAddress = encodeEmail(email: self.emailAddress)
+      return "emailAddress=\(emailAddress)&fullName=\(self.fullName)&password=\(self.password)"
+    }
+}

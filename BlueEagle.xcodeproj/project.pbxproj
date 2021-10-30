@@ -10,6 +10,12 @@
 		3D085B732707630F007DEB5B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D085B722707630F007DEB5B /* HealthKit.framework */; };
 		3D085B752709D3F3007DEB5B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D085B742709D3F3007DEB5B /* User.swift */; };
 		3D085B772709ED3E007DEB5B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D085B762709ED3D007DEB5B /* LoginView.swift */; };
+		3D2FB8A627258F7A001C473D /* TrainingMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8A527258F7A001C473D /* TrainingMonitor.swift */; };
+		3D2FB8A8272ABF64001C473D /* TrainingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8A7272ABF64001C473D /* TrainingTest.swift */; };
+		3D2FB8AB272ABFA3001C473D /* Training.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8AA272ABFA3001C473D /* Training.swift */; };
+		3D2FB8AD272ABFEE001C473D /* HRSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8AC272ABFEE001C473D /* HRSample.swift */; };
+		3D2FB8AF272AC0C7001C473D /* TrainingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8AE272AC0C7001C473D /* TrainingStyle.swift */; };
+		3D2FB8B2272C21B5001C473D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D2FB8B4272C21B5001C473D /* Localizable.strings */; };
 		3D302F2B2721A51C00E958A4 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D302F2A2721A51C00E958A4 /* UserController.swift */; };
 		3D340751270609160089E234 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D340750270609160089E234 /* SettingsView.swift */; };
 		3D34075327060FE10089E234 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34075227060FE10089E234 /* HeartRateView.swift */; };
@@ -19,9 +25,12 @@
 		3DE371FD26F4DC8700CC1F3F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE371FC26F4DC8700CC1F3F /* ContentView.swift */; };
 		3DE371FF26F4DC8700CC1F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */; };
 		3DE3720226F4DC8700CC1F3F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DE3720126F4DC8700CC1F3F /* Preview Assets.xcassets */; };
-		3DE3720D26F4DC8800CC1F3F /* BlueEagleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3720C26F4DC8800CC1F3F /* BlueEagleTests.swift */; };
 		3DE3721826F4DC8800CC1F3F /* BlueEagleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3721726F4DC8800CC1F3F /* BlueEagleUITests.swift */; };
 		3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3722526FA076500CC1F3F /* BluetoothService.swift */; };
+		3DF928D9272C54A3007BF669 /* StopWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928D8272C54A3007BF669 /* StopWatch.swift */; };
+		3DF928DB272CCA02007BF669 /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DA272CCA02007BF669 /* StopwatchView.swift */; };
+		3DF928DD272CCB7A007BF669 /* TrainingZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */; };
+		3DF928DF272CCCE4007BF669 /* TrainingStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */; };
 		3DFD9BE926FE054A005903EA /* GATT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD9BE826FE054A005903EA /* GATT.swift */; };
 		3DFD9BEB2700D0CA005903EA /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD9BEA2700D0CA005903EA /* Profile.swift */; };
 		3DFD9BED2700E698005903EA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD9BEC2700E698005903EA /* ProfileView.swift */; };
@@ -50,6 +59,13 @@
 		3D085B722707630F007DEB5B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		3D085B742709D3F3007DEB5B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3D085B762709ED3D007DEB5B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		3D2FB8A527258F7A001C473D /* TrainingMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingMonitor.swift; sourceTree = "<group>"; };
+		3D2FB8A7272ABF64001C473D /* TrainingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingTest.swift; sourceTree = "<group>"; };
+		3D2FB8AA272ABFA3001C473D /* Training.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Training.swift; sourceTree = "<group>"; };
+		3D2FB8AC272ABFEE001C473D /* HRSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRSample.swift; sourceTree = "<group>"; };
+		3D2FB8AE272AC0C7001C473D /* TrainingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingStyle.swift; sourceTree = "<group>"; };
+		3D2FB8B3272C21B5001C473D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3D2FB8B5272C21BA001C473D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D302F2A2721A51C00E958A4 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		3D340750270609160089E234 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3D34075227060FE10089E234 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
@@ -62,12 +78,15 @@
 		3DE3720126F4DC8700CC1F3F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3DE3720326F4DC8700CC1F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DE3720826F4DC8800CC1F3F /* BlueEagleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueEagleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DE3720C26F4DC8800CC1F3F /* BlueEagleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueEagleTests.swift; sourceTree = "<group>"; };
 		3DE3720E26F4DC8800CC1F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DE3721326F4DC8800CC1F3F /* BlueEagleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueEagleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE3721726F4DC8800CC1F3F /* BlueEagleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueEagleUITests.swift; sourceTree = "<group>"; };
 		3DE3721926F4DC8800CC1F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DE3722526FA076500CC1F3F /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
+		3DF928D8272C54A3007BF669 /* StopWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatch.swift; sourceTree = "<group>"; };
+		3DF928DA272CCA02007BF669 /* StopwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
+		3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZoneView.swift; sourceTree = "<group>"; };
+		3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingStatsView.swift; sourceTree = "<group>"; };
 		3DFD9BE826FE054A005903EA /* GATT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GATT.swift; sourceTree = "<group>"; };
 		3DFD9BEA2700D0CA005903EA /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		3DFD9BEC2700E698005903EA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -108,6 +127,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3D2FB8A427258EF6001C473D /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				3DFD9BE826FE054A005903EA /* GATT.swift */,
+				3DE3722526FA076500CC1F3F /* BluetoothService.swift */,
+				3DFD9BEE27020A6E005903EA /* BluetoothView.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		3D2FB8A9272ABF75001C473D /* Training */ = {
+			isa = PBXGroup;
+			children = (
+				3D34075227060FE10089E234 /* HeartRateView.swift */,
+				3D2FB8A527258F7A001C473D /* TrainingMonitor.swift */,
+				3D2FB8AA272ABFA3001C473D /* Training.swift */,
+				3D2FB8AC272ABFEE001C473D /* HRSample.swift */,
+				3D2FB8AE272AC0C7001C473D /* TrainingStyle.swift */,
+				3DF928D8272C54A3007BF669 /* StopWatch.swift */,
+				3DF928DA272CCA02007BF669 /* StopwatchView.swift */,
+				3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */,
+				3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */,
+			);
+			path = Training;
+			sourceTree = "<group>";
+		};
 		3D56CD5C270B3A5900B4A043 /* AccountManagement */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +168,7 @@
 		3DE371EE26F4DC8700CC1F3F = {
 			isa = PBXGroup;
 			children = (
+				3D2FB8B4272C21B5001C473D /* Localizable.strings */,
 				3DE371F926F4DC8700CC1F3F /* BlueEagle */,
 				3DE3720B26F4DC8800CC1F3F /* BlueEagleTests */,
 				3DE3721626F4DC8800CC1F3F /* BlueEagleUITests */,
@@ -144,6 +190,8 @@
 		3DE371F926F4DC8700CC1F3F /* BlueEagle */ = {
 			isa = PBXGroup;
 			children = (
+				3D2FB8A9272ABF75001C473D /* Training */,
+				3D2FB8A427258EF6001C473D /* Bluetooth */,
 				3D56CD5C270B3A5900B4A043 /* AccountManagement */,
 				3D085B702707630F007DEB5B /* BlueEagle.entitlements */,
 				3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */,
@@ -151,13 +199,9 @@
 				3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */,
 				3DE3720326F4DC8700CC1F3F /* Info.plist */,
 				3DE3720026F4DC8700CC1F3F /* Preview Content */,
-				3DE3722526FA076500CC1F3F /* BluetoothService.swift */,
-				3DFD9BE826FE054A005903EA /* GATT.swift */,
 				3DFD9BEA2700D0CA005903EA /* Profile.swift */,
 				3DFD9BEC2700E698005903EA /* ProfileView.swift */,
-				3DFD9BEE27020A6E005903EA /* BluetoothView.swift */,
 				3D340750270609160089E234 /* SettingsView.swift */,
-				3D34075227060FE10089E234 /* HeartRateView.swift */,
 			);
 			path = BlueEagle;
 			sourceTree = "<group>";
@@ -173,8 +217,8 @@
 		3DE3720B26F4DC8800CC1F3F /* BlueEagleTests */ = {
 			isa = PBXGroup;
 			children = (
-				3DE3720C26F4DC8800CC1F3F /* BlueEagleTests.swift */,
 				3DE3720E26F4DC8800CC1F3F /* Info.plist */,
+				3D2FB8A7272ABF64001C473D /* TrainingTest.swift */,
 			);
 			path = BlueEagleTests;
 			sourceTree = "<group>";
@@ -273,6 +317,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 3DE371EE26F4DC8700CC1F3F;
 			productRefGroup = 3DE371F826F4DC8700CC1F3F /* Products */;
@@ -292,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DE3720226F4DC8700CC1F3F /* Preview Assets.xcassets in Resources */,
+				3D2FB8B2272C21B5001C473D /* Localizable.strings in Resources */,
 				3DE371FF26F4DC8700CC1F3F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,18 +364,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DE371FD26F4DC8700CC1F3F /* ContentView.swift in Sources */,
+				3DF928DD272CCB7A007BF669 /* TrainingZoneView.swift in Sources */,
 				3D340751270609160089E234 /* SettingsView.swift in Sources */,
 				3DFD9BEF27020A6E005903EA /* BluetoothView.swift in Sources */,
 				3DFD9BEB2700D0CA005903EA /* Profile.swift in Sources */,
 				3D302F2B2721A51C00E958A4 /* UserController.swift in Sources */,
+				3DF928DF272CCCE4007BF669 /* TrainingStatsView.swift in Sources */,
+				3D2FB8AB272ABFA3001C473D /* Training.swift in Sources */,
+				3D2FB8A627258F7A001C473D /* TrainingMonitor.swift in Sources */,
 				3DFD9BE926FE054A005903EA /* GATT.swift in Sources */,
 				3D34075327060FE10089E234 /* HeartRateView.swift in Sources */,
 				3D56CD60270B3C0900B4A043 /* UserApi.swift in Sources */,
 				3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */,
+				3D2FB8AF272AC0C7001C473D /* TrainingStyle.swift in Sources */,
+				3D2FB8AD272ABFEE001C473D /* HRSample.swift in Sources */,
 				3DFD9BED2700E698005903EA /* ProfileView.swift in Sources */,
 				3D085B772709ED3E007DEB5B /* LoginView.swift in Sources */,
 				3D56CD5E270B3AD500B4A043 /* RegisterView.swift in Sources */,
+				3DF928D9272C54A3007BF669 /* StopWatch.swift in Sources */,
 				3D085B752709D3F3007DEB5B /* User.swift in Sources */,
+				3DF928DB272CCA02007BF669 /* StopwatchView.swift in Sources */,
 				3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,7 +392,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DE3720D26F4DC8800CC1F3F /* BlueEagleTests.swift in Sources */,
+				3D2FB8A8272ABF64001C473D /* TrainingTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +418,18 @@
 			targetProxy = 3DE3721426F4DC8800CC1F3F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3D2FB8B4272C21B5001C473D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3D2FB8B3272C21B5001C473D /* ja */,
+				3D2FB8B5272C21BA001C473D /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3DE3721A26F4DC8800CC1F3F /* Debug */ = {
@@ -417,7 +483,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -472,7 +538,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -500,7 +566,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.copios.BlueEagle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -524,7 +590,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.copios.BlueEagle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -538,7 +604,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LK4ALGF966;
 				INFOPLIST_FILE = BlueEagleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -560,7 +626,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LK4ALGF966;
 				INFOPLIST_FILE = BlueEagleTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

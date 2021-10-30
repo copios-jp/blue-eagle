@@ -4,9 +4,6 @@
 //
 //  Created by Randy Morgan on 2021/10/04.
 //
-extension CharacterSet {
-    static let rfc3986Unreserved = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~")
-}
 
 import Foundation
 

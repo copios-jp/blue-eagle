@@ -1,0 +1,18 @@
+
+/* login */
+"login" = "login";
+"email" = "email address";
+"password" = "password";
+"login-failed" = "invalid login";
+
+
+"bluetooth-status" = "status";
+"training-zone" = "training zone";
+"zone-zero" = "RECOVERY";
+"zone-one" = "WARM UP";
+"zone-two" = "AEROBIC";
+"one-three" = "OPTIMAL";
+"zone-four" = "THRESHOLD";
+"zone-five" = "MAXIMUM";
+"average-hr: %lld" = "average heart rate: %lld";
+"calories-burnt: %lld" = "calories: %lld";

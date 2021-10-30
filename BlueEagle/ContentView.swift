@@ -9,43 +9,17 @@ import SwiftUI
 
 
 struct ContentView: View {
-    
-    var bluetoothService : BluetoothService = BluetoothService()
-    var profileService : ProfileService = ProfileService()
-    @EnvironmentObject var userController: UserController
     @State private var showSettings = false
-    @State private var hasAccount = false
-    
+    @EnvironmentObject private var userController: UserController
     var body: some View {
         if(userController.user == nil) {
-            LoginView().environmentObject(userController)
+            LoginView()
+                .environmentObject(userController)
         } else {
-        VStack() {
-            
-                HeartRateView().environmentObject(bluetoothService)
-                    .environmentObject(profileService)
+            VStack() {
+                HeartRateView()
                     .environmentObject(userController)
-            
-        }
-        .navigationTitle("Blue Eagle")
-        .navigationBarItems(trailing: Button(action: {
-            showSettings = true
-        }) {
-            Image(systemName: "pencil")
-        })
-        .sheet(isPresented: $showSettings) {
-            NavigationView {
-                SettingsView()
-                    .navigationBarItems(leading: Button("Done") {
-                        showSettings = false
-                    })
-                    .environmentObject(bluetoothService)
-                    .environmentObject(profileService)
-                    
             }
-            
-        }
-    
         }
     }
 }
@@ -53,8 +27,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ContentView().environmentObject(BluetoothService())
-                .environmentObject(ProfileService())
+            ContentView()
                 .environmentObject(UserController())
             
         }

@@ -10,6 +10,8 @@ import Foundation
 struct GATT {
     static let heartRateMeasurement:CBUUID = CBUUID(string: "2A37")
     static let bodySensorLocation: CBUUID = CBUUID(string: "2A38")
+
+    
     static     let heartRate: CBUUID = CBUUID(string: "0x180D")
     static     let headset:CBUUID = CBUUID(string: "0x1108")
     static     let headsetAudioGateway:CBUUID = CBUUID(string:"0x1112")
