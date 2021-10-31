@@ -19,14 +19,12 @@ struct TrainingView: View {
                 Spacer()
                 Image(systemName: training.broadcasting ? "person.wave.2.fill" : "person.wave.2")
                     .padding()
-                    .font(.system(.largeTitle))
                     .onTapGesture {
                         training.broadcasting.toggle()
                     }
             }
             TrainingZoneView()
                 .environmentObject(training)
-                .padding()
             TrainingStatsView()
                 .environmentObject(training)
         }

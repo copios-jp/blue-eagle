@@ -31,33 +31,54 @@ class BluetoothService: NSObject, ObservableObject {
     @Published var peripheral: CBPeripheral!
     @Published var state: CBManagerState = CBManagerState.unknown
     @Published var receiving: Bool = false
+    @Published var pulse: Bool = false
+    @Published var enabled: Bool = true {
+        didSet {
+            print(oldValue, enabled)
+            if(oldValue == false && enabled == true) {
+                scan()
+            }
+            if(oldValue == true && enabled == false) {
+                centralManager!.cancelPeripheralConnection(peripheral)
+                receiving = false
+            }
+        }
+    }
     private var identicalReadingCount: Int = 0
     private var lastHeartRate: Int = 0
     
     func scan() {
-        if let manager = centralManager {
-            if manager.isScanning {
-                manager.stopScan()
+        print(String(describing:centralManager!.state))
+        if(centralManager!.state == CBManagerState.poweredOn) {
+            if let manager = centralManager {
+                if manager.isScanning {
+                    manager.stopScan()
+                }
+                manager.scanForPeripherals(withServices: [GATT.heartRate] , options: nil)
             }
-            manager.scanForPeripherals(withServices: [GATT.heartRate] , options: nil)
         }
     }
     
     override init() {
         super.init()
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
-        if(centralManager!.state == CBManagerState.poweredOn) {
-            scan()
-        }
+        scan()
     }
+   
     
     func onHeartRateReceived(_ inHeartRate: Int) {
-        
+       
         self.identicalReadingCount = inHeartRate != lastHeartRate ? 0 : identicalReadingCount + 1
         
         self.receiving = identicalReadingCount < MAX_IDENTICAL_READING_COUNT
        
         NotificationCenter.default.post(name: NSNotification.Name.HeartRate, object:self, userInfo: ["heart_rate" : inHeartRate])
+        self.pulse.toggle()
+        Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { timer in
+            DispatchQueue.main.async {
+                self.pulse.toggle()
+            }
+        }
     }
 }
 
@@ -87,6 +108,11 @@ extension BluetoothService: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected!")
         peripheral.discoverServices([GATT.heartRate])
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        print("Disconnected")
+        self.receiving = false
     }
     
 }

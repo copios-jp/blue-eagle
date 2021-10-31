@@ -9,9 +9,9 @@
 "training-zone" = "トレーニングゾーン";
 "zone-zero" = "回復";
 "zone-one" = "基礎作り";
-"zone-two" = "心肺機能向上";
-"one-three" = "有酸素性能力向上";
-"zone-four" = "無酸素性持久力";
+"zone-two" = "心肺機能";
+"zone-three" = "有酸素能力";
+"zone-four" = "無酸素持久力";
 "zone-five" = "最大";
 "average-hr: %lld" = "平均心拍数: %lld";
 "calories-burnt: %lld" = "消費カロリー: %lld";

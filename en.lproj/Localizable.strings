@@ -11,7 +11,7 @@
 "zone-zero" = "RECOVERY";
 "zone-one" = "WARM UP";
 "zone-two" = "AEROBIC";
-"one-three" = "OPTIMAL";
+"zone-three" = "OPTIMAL";
 "zone-four" = "THRESHOLD";
 "zone-five" = "MAXIMUM";
 "average-hr: %lld" = "average heart rate: %lld";

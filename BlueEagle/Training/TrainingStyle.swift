@@ -11,6 +11,7 @@ import Foundation
 struct TrainingZone {
     var maxHRPercent: Double
     var description: String
+    var position: Int
     var minHR: Int?
     var maxHR: Int?
 }
@@ -25,12 +26,12 @@ struct GarminTraining: TrainingStyle {
     var zones: [TrainingZone] {
         get {
             [
-                TrainingZone(maxHRPercent: 0.5, description: String(localized: "zone-zero")),
-                TrainingZone(maxHRPercent: 0.6, description: String(localized: "zone-one")),
-                TrainingZone(maxHRPercent: 0.7, description: String(localized: "zone-two")),
-                TrainingZone(maxHRPercent: 0.8, description: String(localized: "zone-three")),
-                TrainingZone(maxHRPercent: 0.9, description: String(localized: "zone-four")),
-                TrainingZone(maxHRPercent: Double.infinity, description: String(localized: "zone-five"))
+                TrainingZone(maxHRPercent: 0.5, description: String(localized: "zone-zero"), position: 0),
+                TrainingZone(maxHRPercent: 0.6, description: String(localized: "zone-one"), position: 1),
+                TrainingZone(maxHRPercent: 0.7, description: String(localized: "zone-two"), position: 2),
+                TrainingZone(maxHRPercent: 0.8, description: String(localized: "zone-three"), position: 3),
+                TrainingZone(maxHRPercent: 0.9, description: String(localized: "zone-four"), position: 4),
+                TrainingZone(maxHRPercent: Double.infinity, description: String(localized: "zone-five"), position: 5)
             ]
         }
     }
@@ -65,6 +66,7 @@ struct GarminTraining: TrainingStyle {
         return TrainingZone(
             maxHRPercent: zone.maxHRPercent,
             description: zone.description,
+            position: zone.position,
             minHR: minHR,
             maxHR: maxHR
         )

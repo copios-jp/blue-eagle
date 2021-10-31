@@ -17,11 +17,13 @@ class Training: NSObject, Encodable, ObservableObject {
     var trainingStyle: TrainingStyle = GarminTraining()
     var samples: [HRSample] = []
     var broadcasting = false
+    var calorieCounter: CalorieCounter = CalorieCounter()
     @Published var currentHR: Int = 0
     
     override init() {
         super.init()
         
+        self.calorieCounter.configure(age: age, sex: sex, weight: weight)
         NotificationCenter.default.addObserver(self, selector: #selector(heartRateReceived(notification:)), name: NSNotification.Name.HeartRate, object: nil)
     }
     
@@ -85,6 +87,7 @@ class Training: NSObject, Encodable, ObservableObject {
         addSample(sample: HRSample(rate: heartRate, at: Date()))
         
         self.currentHR = heartRate
+        
         if(broadcasting) {
             do {
                 try broadcast()
@@ -150,24 +153,22 @@ class Training: NSObject, Encodable, ObservableObject {
     
     var calories: Int {
         get{
-            if(samples.isEmpty) {
-                return 0
-            }
-            let durationDouble: Double = (endedAt ?? Date()).timeIntervalSince(startedAt ?? Date()) / 60.0
-            return Int(maleCalorieBurnPerMinuteAtHR(heartRate: averageHR, weight: weight, age: age) * durationDouble)
+            return Int(calorieCounter.calories)
         }
     }
     
     
     var maxHR: Int {
-        return 220 - age
+        get {
+        return Int(maxHRForAge(age))
+        }
     }
     
     func addSample(sample: HRSample) {
         if(samples.isEmpty) {
             self.startedAt = Date()
         }
-        
+        self.calorieCounter.add(sample)
         self.samples.append(sample)
     }
 }

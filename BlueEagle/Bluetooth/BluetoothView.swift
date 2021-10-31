@@ -11,12 +11,17 @@ import CoreBluetooth
 
 struct BluetoothView: View {
     @StateObject var bluetoothService: BluetoothService = BluetoothService()
-    @State var showList: Bool = false
     var body: some View {
         VStack {
             Image(systemName: bluetoothService.receiving ? "heart.fill" : "heart")
                 .padding()
-                .font(.system(.largeTitle))
+                .symbolRenderingMode(.palette)
+                .font(.headline)
+                .onTapGesture {
+                    bluetoothService.enabled.toggle()
+                }
+                
+                .foregroundStyle(bluetoothService.pulse ? .red : .white)
            
         }
     }

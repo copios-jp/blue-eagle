@@ -6,8 +6,21 @@
 //
 
 import SwiftUI
+private let colors: [Color] = [
+    .black, .blue, .green, .yellow, .orange, .red
+]
+private let stops: [Gradient.Stop] = [
+    Gradient.Stop(color: colors[0], location: 0),
+    Gradient.Stop(color: colors[1], location: 0.5),
+    Gradient.Stop(color: colors[2], location: 0.6),
+    Gradient.Stop(color: colors[3], location: 0.75),
+    Gradient.Stop(color: colors[4], location: 0.85),
+    Gradient.Stop(color: colors[5], location: 0.9)
+]
 private let gradient = AngularGradient(
-    gradient: Gradient(colors: [.black, .blue, .yellow, .green, .orange, .red]),
+    // gradient: Gradient(colors: colors),
+    
+    gradient: Gradient(stops: stops),
     center: .center,
     startAngle: .degrees(-90),
     endAngle: .degrees(270))
@@ -16,20 +29,28 @@ struct TrainingZoneView: View {
     var body: some View {
         ZStack {
             Circle()
-                .stroke(lineWidth: 25.0)
-                .opacity(0.3)
-                .foregroundColor(Color.accentColor)
+                .stroke(gradient, style: StrokeStyle(lineWidth: 0))
+                .background(Circle().fill(colors[training.currentTrainingZone.position]))
+                .opacity(0.2)
+                .padding()
+            Circle()
+                .stroke(gradient, style: StrokeStyle(lineWidth: 35.0))
+                .opacity(0.5)
             Circle()
                 .trim(from: 0.0, to: CGFloat(training.percentOfMax ))
                 .rotation(Angle(degrees: -90))
-                .stroke(gradient, style: StrokeStyle(lineWidth: 25.0))
+                .stroke(gradient, style: StrokeStyle(lineWidth: 40.0))
+            
             VStack {
                 Text("training-zone")
                 Text("\(training.currentTrainingZone.description)")
-                    .font(.largeTitle)
-                    .padding()
+                
+                    .font(.system(size: 40))
+                    .padding(20)
                 Text("\(Int(training.percentOfMax * 100.0))%")
-                    .font(.largeTitle)
+                
+                    .font(.title)
+                
             }
         }
         

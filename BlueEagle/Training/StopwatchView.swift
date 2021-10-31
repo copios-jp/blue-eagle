@@ -11,19 +11,19 @@ struct StopwatchView: View {
     @StateObject private var stopwatch: StopWatch = StopWatch()
     var body: some View {
         HStack {
-        Text(String(stopwatch.formattedValue))
-            .frame(width: 100, alignment: .center)
-            .font(.largeTitle)
-        Image(systemName: stopwatch.status == .stopped ? "stopwatch" : "stopwatch.fill")
-            .font(.system(.largeTitle))
-            .onTapGesture() {
-                stopwatch.status == .running ? stopwatch.pause() : stopwatch.start()
-            }
-            .onLongPressGesture() {
-                stopwatch.stop()
-            }
+            Text(String(stopwatch.formattedValue))
+            Image(systemName: stopwatch.status == .stopped ? "stopwatch" : "stopwatch.fill")
+                .onTapGesture() {
+                    stopwatch.status == .running ? stopwatch.pause() : stopwatch.start()
+                }
+            
+                .onLongPressGesture() {
+                    stopwatch.stop()
+                }
+                .foregroundStyle(stopwatch.status == .paused ? .secondary : .primary)
+            
         }
-        .font(Font.body.monospacedDigit())
+        .font(.system(.largeTitle).monospacedDigit())
     }
 }
 

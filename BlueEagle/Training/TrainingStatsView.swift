@@ -11,12 +11,14 @@ struct TrainingStatsView: View {
     @EnvironmentObject var training: Training
     var body: some View {
         VStack {
-        Text("average-hr: \(training.averageHR)")
-        Text("calories-burnt: \(training.calories)")
-        Text("\(training.currentHR)")
-            .font(.custom("GIGANTIC", size: 120))
+                Text("\(training.currentHR) bpm")
+                .font(.largeTitle)
+            Text("\(training.currentTrainingZone.minHR!) - \(training.currentTrainingZone.maxHR!)")
+
             .padding(.bottom)
-        Text("\(training.currentTrainingZone.minHR!) - \(training.currentTrainingZone.maxHR!)")
+            Text("average-hr: \(training.averageHR)")
+        Text("calories-burnt: \(training.calories)")
+
         }
         
     }
