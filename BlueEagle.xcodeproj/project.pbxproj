@@ -10,7 +10,7 @@
 		3D085B732707630F007DEB5B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D085B722707630F007DEB5B /* HealthKit.framework */; };
 		3D085B752709D3F3007DEB5B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D085B742709D3F3007DEB5B /* User.swift */; };
 		3D085B772709ED3E007DEB5B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D085B762709ED3D007DEB5B /* LoginView.swift */; };
-		3D2FB8A627258F7A001C473D /* TrainingMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8A527258F7A001C473D /* TrainingMonitor.swift */; };
+		3D2FB8A627258F7A001C473D /* Calorie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8A527258F7A001C473D /* Calorie.swift */; };
 		3D2FB8A8272ABF64001C473D /* TrainingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8A7272ABF64001C473D /* TrainingTest.swift */; };
 		3D2FB8AB272ABFA3001C473D /* Training.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8AA272ABFA3001C473D /* Training.swift */; };
 		3D2FB8AD272ABFEE001C473D /* HRSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8AC272ABFEE001C473D /* HRSample.swift */; };
@@ -18,7 +18,7 @@
 		3D2FB8B2272C21B5001C473D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D2FB8B4272C21B5001C473D /* Localizable.strings */; };
 		3D302F2B2721A51C00E958A4 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D302F2A2721A51C00E958A4 /* UserController.swift */; };
 		3D340751270609160089E234 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D340750270609160089E234 /* SettingsView.swift */; };
-		3D34075327060FE10089E234 /* HeartRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34075227060FE10089E234 /* HeartRateView.swift */; };
+		3D34075327060FE10089E234 /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34075227060FE10089E234 /* TrainingView.swift */; };
 		3D56CD5E270B3AD500B4A043 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CD5D270B3AD500B4A043 /* RegisterView.swift */; };
 		3D56CD60270B3C0900B4A043 /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CD5F270B3C0900B4A043 /* UserApi.swift */; };
 		3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */; };
@@ -59,7 +59,7 @@
 		3D085B722707630F007DEB5B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		3D085B742709D3F3007DEB5B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3D085B762709ED3D007DEB5B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		3D2FB8A527258F7A001C473D /* TrainingMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingMonitor.swift; sourceTree = "<group>"; };
+		3D2FB8A527258F7A001C473D /* Calorie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calorie.swift; sourceTree = "<group>"; };
 		3D2FB8A7272ABF64001C473D /* TrainingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingTest.swift; sourceTree = "<group>"; };
 		3D2FB8AA272ABFA3001C473D /* Training.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Training.swift; sourceTree = "<group>"; };
 		3D2FB8AC272ABFEE001C473D /* HRSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRSample.swift; sourceTree = "<group>"; };
@@ -68,7 +68,7 @@
 		3D2FB8B5272C21BA001C473D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D302F2A2721A51C00E958A4 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		3D340750270609160089E234 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		3D34075227060FE10089E234 /* HeartRateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateView.swift; sourceTree = "<group>"; };
+		3D34075227060FE10089E234 /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
 		3D56CD5D270B3AD500B4A043 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		3D56CD5F270B3C0900B4A043 /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
 		3DE371F726F4DC8700CC1F3F /* BlueEagle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueEagle.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,8 +140,8 @@
 		3D2FB8A9272ABF75001C473D /* Training */ = {
 			isa = PBXGroup;
 			children = (
-				3D34075227060FE10089E234 /* HeartRateView.swift */,
-				3D2FB8A527258F7A001C473D /* TrainingMonitor.swift */,
+				3D34075227060FE10089E234 /* TrainingView.swift */,
+				3D2FB8A527258F7A001C473D /* Calorie.swift */,
 				3D2FB8AA272ABFA3001C473D /* Training.swift */,
 				3D2FB8AC272ABFEE001C473D /* HRSample.swift */,
 				3D2FB8AE272AC0C7001C473D /* TrainingStyle.swift */,
@@ -295,7 +295,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					3DE371F626F4DC8700CC1F3F = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -371,9 +371,9 @@
 				3D302F2B2721A51C00E958A4 /* UserController.swift in Sources */,
 				3DF928DF272CCCE4007BF669 /* TrainingStatsView.swift in Sources */,
 				3D2FB8AB272ABFA3001C473D /* Training.swift in Sources */,
-				3D2FB8A627258F7A001C473D /* TrainingMonitor.swift in Sources */,
+				3D2FB8A627258F7A001C473D /* Calorie.swift in Sources */,
 				3DFD9BE926FE054A005903EA /* GATT.swift in Sources */,
-				3D34075327060FE10089E234 /* HeartRateView.swift in Sources */,
+				3D34075327060FE10089E234 /* TrainingView.swift in Sources */,
 				3D56CD60270B3C0900B4A043 /* UserApi.swift in Sources */,
 				3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */,
 				3D2FB8AF272AC0C7001C473D /* TrainingStyle.swift in Sources */,
@@ -436,6 +436,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -497,6 +498,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

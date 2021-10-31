@@ -17,6 +17,7 @@ class StopWatch: ObservableObject {
     
     @Published var status: StopWatchStatus = .stopped
     @Published var value: Int = 0
+
     private var timer: Timer?
     
     init() {

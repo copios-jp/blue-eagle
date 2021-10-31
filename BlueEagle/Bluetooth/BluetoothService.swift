@@ -18,14 +18,21 @@ import Foundation
  
  Heart Rate
  
-
+ 
  */
+let MAX_IDENTICAL_READING_COUNT = 10
+
+extension NSNotification.Name {
+    static let HeartRate = NSNotification.Name(rawValue: "heart_rate")
+}
 
 class BluetoothService: NSObject, ObservableObject {
     var centralManager: CBCentralManager? = nil
     @Published var peripheral: CBPeripheral!
     @Published var state: CBManagerState = CBManagerState.unknown
-    @Published var heartRate: Int = 0
+    @Published var receiving: Bool = false
+    private var identicalReadingCount: Int = 0
+    private var lastHeartRate: Int = 0
     
     func scan() {
         if let manager = centralManager {
@@ -45,9 +52,12 @@ class BluetoothService: NSObject, ObservableObject {
     }
     
     func onHeartRateReceived(_ inHeartRate: Int) {
+        
+        self.identicalReadingCount = inHeartRate != lastHeartRate ? 0 : identicalReadingCount + 1
+        
+        self.receiving = identicalReadingCount < MAX_IDENTICAL_READING_COUNT
+       
         NotificationCenter.default.post(name: NSNotification.Name.HeartRate, object:self, userInfo: ["heart_rate" : inHeartRate])
-                                        
-        self.heartRate = inHeartRate
     }
 }
 
@@ -58,6 +68,7 @@ extension BluetoothService: CBCentralManagerDelegate {
     /// Bluetoothのステータスを取得する(CBCentralManagerの状態が変わる度に呼び出される)
     ///
     /// - Parameter central: CBCentralManager
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         state = central.state
         if(state == CBManagerState.poweredOn) {
@@ -109,12 +120,12 @@ extension BluetoothService: CBPeripheralDelegate {
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-       
-        switch characteristic.uuid {
         
+        switch characteristic.uuid {
+            
         case GATT.bodySensorLocation:
             let bodySensorLocation = bodyLocation(from: characteristic)
-            print("\(bodySensorLocation)")
+            print("ERM..... \(bodySensorLocation)")
         case GATT.heartRateMeasurement:
             let bpm = heartRate(from: characteristic)
             onHeartRateReceived(bpm)
@@ -143,7 +154,7 @@ extension BluetoothService: CBPeripheralDelegate {
     private func heartRate(from characteristic: CBCharacteristic) -> Int {
         guard let characteristicData = characteristic.value else { return -1 }
         let byteArray = [UInt8](characteristicData)
-       
+        
         // See: https://www.bluetooth.com/specifications/gatt/viewer?attributeXmlFile=org.bluetooth.characteristic.heart_rate_measurement.xml
         // The heart rate mesurement is in the 2nd, or in the 2nd and 3rd bytes, i.e. one one or in two bytes
         // The first byte of the first bit specifies the length of the heart rate data, 0 == 1 byte, 1 == 2 bytes

@@ -17,7 +17,6 @@ struct StopwatchView: View {
         Image(systemName: stopwatch.status == .stopped ? "stopwatch" : "stopwatch.fill")
             .font(.system(.largeTitle))
             .onTapGesture() {
-                print("toggle")
                 stopwatch.status == .running ? stopwatch.pause() : stopwatch.start()
             }
             .onLongPressGesture() {

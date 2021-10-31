@@ -17,8 +17,7 @@ struct ContentView: View {
                 .environmentObject(userController)
         } else {
             VStack() {
-                HeartRateView()
-                    .environmentObject(userController)
+                TrainingView()
             }
         }
     }

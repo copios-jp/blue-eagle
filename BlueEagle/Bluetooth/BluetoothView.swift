@@ -7,30 +7,24 @@
 
 import Foundation
 import SwiftUI
+import CoreBluetooth
 
 struct BluetoothView: View {
-    @EnvironmentObject var bluetoothService: BluetoothService
+    @StateObject var bluetoothService: BluetoothService = BluetoothService()
+    @State var showList: Bool = false
     var body: some View {
         VStack {
-            if(bluetoothService.peripheral == nil) {
-                Button("Scan"){
-                    bluetoothService.scan()
-                }
-            } else {
-                if let name = bluetoothService.peripheral.name {
-                    Text(String(name))
-                } else {
-                    Text("No Monitor Detected")
-                }
-            }
+            Image(systemName: bluetoothService.receiving ? "heart.fill" : "heart")
+                .padding()
+                .font(.system(.largeTitle))
+           
         }
-        .padding()
     }
 }
 
 struct BluetoothView_Previews: PreviewProvider {
     static var previews: some View {
-        BluetoothView().environmentObject(BluetoothService())
+        BluetoothView()
     }
 }
 

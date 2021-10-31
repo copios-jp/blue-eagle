@@ -6,7 +6,10 @@
 //
 
 import Foundation
-
+/*
+  Once we have some kind of pub/sub "app" running against BlueAerie
+  User should have the channelId so we knwo where to post training data snapshots
+ */
 extension CharacterSet {
     static let rfc3986Unreserved = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~")
 }
@@ -20,6 +23,8 @@ struct User: Codable {
     var id: Int
     var fullName: String
     var isSuperAdmin: Bool = false
+    var sid: String
+//    var channelId: UUID
 }
  
 struct Signup: Codable {

@@ -8,16 +8,93 @@
 import Foundation
 
 
-class Training :ObservableObject {
+class Training: NSObject, Encodable, ObservableObject {
     var sex: Sex = Sex.male
     var weight: Int = 100
     var restingHR: Int = 70
     var age: Int = 47
     var endedAt: Date?
-    
     var trainingStyle: TrainingStyle = GarminTraining()
     var samples: [HRSample] = []
+    var broadcasting = false
+    @Published var currentHR: Int = 0
+    
+    override init() {
+        super.init()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(heartRateReceived(notification:)), name: NSNotification.Name.HeartRate, object: nil)
+    }
+    
     private var startedAt: Date?
+    
+    private enum CodingKeys: String, CodingKey {
+        case currentHR
+        case trainingZone
+        case trainingZoneMax
+        case trainingZoneMin
+        case percentOfMax
+        case averageHR
+        case calories
+        case at
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(currentHR, forKey: .currentHR)
+        try container.encode(currentTrainingZone.description, forKey: .trainingZone)
+        try container.encode(currentTrainingZone.minHR, forKey: .trainingZoneMin)
+        try container.encode(currentTrainingZone.maxHR, forKey: .trainingZoneMax)
+        try container.encode(currentTrainingZone.maxHRPercent, forKey: .percentOfMax)
+        try container.encode(averageHR, forKey: .averageHR)
+        try container.encode(calories, forKey: .calories)
+        try container.encode(Date(), forKey: .at)
+    }
+    
+    public func toJson() -> String {
+        guard let json = try? JSONEncoder().encode(self)
+        else {
+            return "{\"error\": \"Training is unencodable\"}"
+        }
+        return String(data: json, encoding: .utf8)!
+    }
+    
+    private func broadcast() throws {
+        Task {
+        let url = URL(string: "https://blue-aerie.herokuapp.com/api/v1/training/publish")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpBody = "sample=\(self.toJson())".data(using: .utf8)
+        
+        let (_, response) = try await URLSession.shared.data(for: request)
+        
+        guard
+            let httpResponse = response as? HTTPURLResponse,
+            httpResponse.statusCode == 200
+        else {
+            
+            print("bad status error")
+            throw DownloadError.statusNotOk
+        }
+        }
+    }
+    
+    @objc func heartRateReceived(notification: Notification) {
+        let heartRate = notification.userInfo!["heart_rate"] as! Int
+        addSample(sample: HRSample(rate: heartRate, at: Date()))
+        
+        self.currentHR = heartRate
+        if(broadcasting) {
+            do {
+                try broadcast()
+            } catch {
+                print(error)
+            }
+        }
+            
+    }
+    
     
     var duration: DateComponents {
         get {
@@ -37,16 +114,6 @@ class Training :ObservableObject {
                 return 0
             }
             return self.samples.reduce(0) { (memo, sample) -> Int in memo + sample.rate } / samples.count
-        }
-    }
-    
-    var currentHR: Int {
-        get {
-            if(samples.isEmpty) {
-                return 0
-            }
-            
-            return samples[samples.count - 1].rate
         }
     }
     
@@ -96,7 +163,7 @@ class Training :ObservableObject {
         return 220 - age
     }
     
-   func addSample(sample: HRSample) {
+    func addSample(sample: HRSample) {
         if(samples.isEmpty) {
             self.startedAt = Date()
         }

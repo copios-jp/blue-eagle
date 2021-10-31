@@ -79,6 +79,18 @@ class UserController: ObservableObject {
         }
         
         DispatchQueue.main.async {
+            if let cookie = HTTPCookie(properties: [
+                .domain: "blue-aerie.herokuapp.com",
+                .path: "/",
+                .name: "sails.sid",
+                .value: user.sid,
+                .secure: "FALSE",
+                .discard: "TRUE"
+            ]) {
+                HTTPCookieStorage.shared.setCookie(cookie)
+                print("Cookie inserted: \(cookie)")
+            }
+            
             self.user = user
         }
     }
