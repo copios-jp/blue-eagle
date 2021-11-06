@@ -12,14 +12,17 @@ struct ContentView: View {
     @State private var showSettings = false
     @EnvironmentObject private var userController: UserController
     var body: some View {
-        if(userController.user == nil) {
-            LoginView()
-                .environmentObject(userController)
-        } else {
-            VStack() {
-                TrainingView()
-            }
+        VStack() {
+            TrainingView()
         }
+        /*
+         if(userController.user == nil) {
+         LoginView()
+         .environmentObject(userController)
+         } else {
+         
+         }
+         */
     }
 }
 
@@ -30,5 +33,5 @@ struct ContentView_Previews: PreviewProvider {
                 .environmentObject(UserController())
             
         }
-            }
+    }
 }

@@ -62,13 +62,11 @@ class Training: NSObject, Encodable, ObservableObject {
     
     private func broadcast() throws {
         Task {
-        let url = URL(string: "https://blue-aerie.herokuapp.com/api/v1/training/publish")!
+        let url = URL(string: "https://blue-eagle-hide.herokuapp.com/publish/1")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpBody = "sample=\(self.toJson())".data(using: .utf8)
-        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = self.toJson().data(using: .utf8)
         let (_, response) = try await URLSession.shared.data(for: request)
         
         guard
