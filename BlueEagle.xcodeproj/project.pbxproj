@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2554F9CF2738356C00D72D3B /* builpani120.png in Resources */ = {isa = PBXBuildFile; fileRef = 2554F9CE2738356C00D72D3B /* builpani120.png */; };
+		2554F9D427383A3D00D72D3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */; };
+		2554F9D527383A3E00D72D3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */; };
+		2554F9D627383A3E00D72D3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */; };
+		256386232737D09500942037 /* ObserverQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256386222737D09500942037 /* ObserverQRCode.swift */; };
 		3D085B732707630F007DEB5B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D085B722707630F007DEB5B /* HealthKit.framework */; };
 		3D085B752709D3F3007DEB5B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D085B742709D3F3007DEB5B /* User.swift */; };
 		3D085B772709ED3E007DEB5B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D085B762709ED3D007DEB5B /* LoginView.swift */; };
@@ -23,7 +28,6 @@
 		3D56CD60270B3C0900B4A043 /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CD5F270B3C0900B4A043 /* UserApi.swift */; };
 		3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */; };
 		3DE371FD26F4DC8700CC1F3F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE371FC26F4DC8700CC1F3F /* ContentView.swift */; };
-		3DE371FF26F4DC8700CC1F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */; };
 		3DE3720226F4DC8700CC1F3F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DE3720126F4DC8700CC1F3F /* Preview Assets.xcassets */; };
 		3DE3721826F4DC8800CC1F3F /* BlueEagleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3721726F4DC8800CC1F3F /* BlueEagleUITests.swift */; };
 		3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3722526FA076500CC1F3F /* BluetoothService.swift */; };
@@ -55,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2554F9CE2738356C00D72D3B /* builpani120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = builpani120.png; path = Assets.xcassets/AppIcon.appiconset/builpani120.png; sourceTree = "<group>"; };
+		256386222737D09500942037 /* ObserverQRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverQRCode.swift; sourceTree = "<group>"; };
 		3D085B702707630F007DEB5B /* BlueEagle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlueEagle.entitlements; sourceTree = "<group>"; };
 		3D085B722707630F007DEB5B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		3D085B742709D3F3007DEB5B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -74,7 +80,7 @@
 		3DE371F726F4DC8700CC1F3F /* BlueEagle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueEagle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueEagleApp.swift; sourceTree = "<group>"; };
 		3DE371FC26F4DC8700CC1F3F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "/Users/randy/copios/blue-eagle/BlueEagle/Assets.xcassets"; sourceTree = "<absolute>"; };
 		3DE3720126F4DC8700CC1F3F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3DE3720326F4DC8700CC1F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DE3720826F4DC8800CC1F3F /* BlueEagleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueEagleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +155,7 @@
 				3DF928DA272CCA02007BF669 /* StopwatchView.swift */,
 				3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */,
 				3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */,
+				256386222737D09500942037 /* ObserverQRCode.swift */,
 			);
 			path = Training;
 			sourceTree = "<group>";
@@ -198,6 +205,7 @@
 				3DE371FC26F4DC8700CC1F3F /* ContentView.swift */,
 				3DE371FE26F4DC8700CC1F3F /* Assets.xcassets */,
 				3DE3720326F4DC8700CC1F3F /* Info.plist */,
+				2554F9CE2738356C00D72D3B /* builpani120.png */,
 				3DE3720026F4DC8700CC1F3F /* Preview Content */,
 				3DFD9BEA2700D0CA005903EA /* Profile.swift */,
 				3DFD9BEC2700E698005903EA /* ProfileView.swift */,
@@ -337,8 +345,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DE3720226F4DC8700CC1F3F /* Preview Assets.xcassets in Resources */,
+				2554F9CF2738356C00D72D3B /* builpani120.png in Resources */,
+				2554F9D427383A3D00D72D3B /* Assets.xcassets in Resources */,
 				3D2FB8B2272C21B5001C473D /* Localizable.strings in Resources */,
-				3DE371FF26F4DC8700CC1F3F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +355,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2554F9D527383A3E00D72D3B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +363,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2554F9D627383A3E00D72D3B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +385,7 @@
 				3D2FB8A627258F7A001C473D /* Calorie.swift in Sources */,
 				3DFD9BE926FE054A005903EA /* GATT.swift in Sources */,
 				3D34075327060FE10089E234 /* TrainingView.swift in Sources */,
+				256386232737D09500942037 /* ObserverQRCode.swift in Sources */,
 				3D56CD60270B3C0900B4A043 /* UserApi.swift in Sources */,
 				3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */,
 				3D2FB8AF272AC0C7001C473D /* TrainingStyle.swift in Sources */,
@@ -555,6 +567,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = BlueEagle/BlueEagle.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"BlueEagle/Preview Content\"";
@@ -570,7 +583,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -579,6 +592,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = BlueEagle/BlueEagle.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"BlueEagle/Preview Content\"";
@@ -594,7 +608,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
