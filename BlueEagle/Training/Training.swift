@@ -7,7 +7,10 @@
 
 import Foundation
 
-
+struct Endpoints {
+    static let publish = "https://blue-eagle-hide.herokuapp.com/publish/1"
+    static let observe = "https://blue-eagle-hide.herokuapp.com?channel=1"
+}
 class Training: NSObject, Encodable, ObservableObject {
     var sex: Sex = Sex.male
     var weight: Int = 100
@@ -31,6 +34,7 @@ class Training: NSObject, Encodable, ObservableObject {
     
     private enum CodingKeys: String, CodingKey {
         case currentHR
+        case trainingZoneDescription
         case trainingZone
         case trainingZoneMax
         case trainingZoneMin
@@ -43,11 +47,12 @@ class Training: NSObject, Encodable, ObservableObject {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(currentHR, forKey: .currentHR)
-        try container.encode(currentTrainingZone.description, forKey: .trainingZone)
+        try container.encode(currentTrainingZone.description, forKey: .trainingZoneDescription)
+        try container.encode(currentTrainingZone.position, forKey: .trainingZone)
         try container.encode(currentTrainingZone.minHR, forKey: .trainingZoneMin)
         try container.encode(currentTrainingZone.maxHR, forKey: .trainingZoneMax)
-        try container.encode(currentTrainingZone.maxHRPercent, forKey: .percentOfMax)
         try container.encode(averageHR, forKey: .averageHR)
+        try container.encode(percentOfMax, forKey: .percentOfMax)
         try container.encode(calories, forKey: .calories)
         try container.encode(Date(), forKey: .at)
     }
@@ -62,21 +67,21 @@ class Training: NSObject, Encodable, ObservableObject {
     
     private func broadcast() throws {
         Task {
-        let url = URL(string: "https://blue-eagle-hide.herokuapp.com/publish/1")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = self.toJson().data(using: .utf8)
-        let (_, response) = try await URLSession.shared.data(for: request)
-        
-        guard
-            let httpResponse = response as? HTTPURLResponse,
-            httpResponse.statusCode == 200
-        else {
+            let url = URL(string: Endpoints.publish)!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = self.toJson().data(using: .utf8)
+            let (_, response) = try await URLSession.shared.data(for: request)
             
-            print("bad status error")
-            throw DownloadError.statusNotOk
-        }
+            guard
+                let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 200
+            else {
+                
+                print("bad status error")
+                throw DownloadError.statusNotOk
+            }
         }
     }
     
@@ -93,7 +98,7 @@ class Training: NSObject, Encodable, ObservableObject {
                 print(error)
             }
         }
-            
+        
     }
     
     
@@ -158,7 +163,7 @@ class Training: NSObject, Encodable, ObservableObject {
     
     var maxHR: Int {
         get {
-        return Int(maxHRForAge(age))
+            return Int(maxHRForAge(age))
         }
     }
     

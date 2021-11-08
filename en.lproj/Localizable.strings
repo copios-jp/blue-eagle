@@ -16,3 +16,5 @@
 "zone-five" = "MAXIMUM";
 "average-hr: %lld" = "average heart rate: %lld";
 "calories-burnt: %lld" = "calories: %lld";
+
+"done" = "dismiss";

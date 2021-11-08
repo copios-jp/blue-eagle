@@ -4,7 +4,6 @@
 "password" = "パスワード";
 "login-failed" = "認証できません";
 
-
 "bluetooth-status" = "受信";
 "training-zone" = "トレーニングゾーン";
 "zone-zero" = "回復";
@@ -15,3 +14,5 @@
 "zone-five" = "最大";
 "average-hr: %lld" = "平均心拍数: %lld";
 "calories-burnt: %lld" = "消費カロリー: %lld";
+
+"done" = "閉じる";
