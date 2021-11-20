@@ -28,38 +28,67 @@ extension NSNotification.Name {
 
 class BluetoothService: NSObject, ObservableObject {
     var centralManager: CBCentralManager? = nil
-    var autoConnect: Bool = true
     @Published var peripheral: CBPeripheral!
     @Published var state: CBManagerState = CBManagerState.unknown
+    @Published var devices = Set<CBPeripheral>()
+    
     @Published var receiving: Bool = false
     @Published var pulse: Bool = false
-    @Published var devices = Set<CBPeripheral>()
-    @Published var enabled: Bool = true {
-        didSet {
-            print(enabled)
-            if(enabled == true) {
-                scan()
-            }
-            if(enabled == false) {
-                centralManager!.cancelPeripheralConnection(peripheral)
-                receiving = false
-                devices.removeAll()
-                
-            }
-        }
-    }
+    
     private var identicalReadingCount: Int = 0
     private var lastHeartRate: Int = 0
     
-    func scan() {
-        self.stopScan()
-        self.devices.removeAll()
+    func connect(_ peripheral: CBPeripheral) {
         guard let manager = centralManager else {
             return
         }
         
-        if(centralManager!.state == CBManagerState.poweredOn) {
+        if(peripheral == self.peripheral) {
+            return
+        }
+        
+        if(self.peripheral !== nil) {
+            disconnect(self.peripheral)
+        }
+        
+        self.peripheral = peripheral
+        peripheral.delegate = self
+        manager.connect(peripheral)
+        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
+             DispatchQueue.main.async {
+                 
+            if(peripheral.state != CBPeripheralState.connected) {
+                self.disconnect(peripheral)
+                self.devices.remove(peripheral)
+            }
+             }
+         }
+
+    }
+   
+    func disconnect(_ peripheral: CBPeripheral) {
+         guard let manager = centralManager else {
+            return
+        }
+        
+          manager.cancelPeripheralConnection(peripheral)
+               
+    }
+    func scan(_ timeout: Bool = true) {
+        stopScan()
+        guard let manager = centralManager else {
+            return
+        }
+        
+        if(manager.state == CBManagerState.poweredOn) {
             manager.scanForPeripherals(withServices: [GATT.heartRate] , options: nil)
+        }
+        if(timeout) {
+         Timer.scheduledTimer(withTimeInterval: 15.0, repeats: false) { timer in
+             DispatchQueue.main.async {
+                 self.stopScan()
+             }
+         }
         }
     }
     
@@ -76,6 +105,7 @@ class BluetoothService: NSObject, ObservableObject {
     override init() {
         super.init()
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
+        print("Bluetooth Service init")
         scan()
     }
     
@@ -87,6 +117,7 @@ class BluetoothService: NSObject, ObservableObject {
         self.receiving = identicalReadingCount < MAX_IDENTICAL_READING_COUNT
         
         NotificationCenter.default.post(name: NSNotification.Name.HeartRate, object:self, userInfo: ["heart_rate" : inHeartRate])
+        
         self.pulse.toggle()
         Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { timer in
             DispatchQueue.main.async {
@@ -105,8 +136,7 @@ extension BluetoothService: CBCentralManagerDelegate {
     /// - Parameter central: CBCentralManager
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        state = central.state
-        if(state == CBManagerState.poweredOn) {
+        if(central.state == CBManagerState.poweredOn) {
             scan()
         }
     }
@@ -114,16 +144,12 @@ extension BluetoothService: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didDiscover foundPeripheral: CBPeripheral,
                         advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        self.devices.insert(foundPeripheral)
-        
-        if(autoConnect) {
-            peripheral = foundPeripheral
-            peripheral.delegate = self
-            centralManager?.connect(peripheral)
-            centralManager?.stopScan()
-            self.autoConnect = false
+        devices.insert(foundPeripheral)
+        if(peripheral == nil) {
+            connect(foundPeripheral)
         }
     }
+    
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected!")
@@ -132,7 +158,14 @@ extension BluetoothService: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         print("Disconnected")
+        if(peripheral == self.peripheral) {
+            self.peripheral = nil
+        }
         self.receiving = false
+    }
+    
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        print("connection failed")
     }
     
 }

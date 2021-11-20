@@ -8,22 +8,27 @@
 import Foundation
 import SwiftUI
 import CoreBluetooth
-
+/*
+ 
+ NOT IN USE
+ 
+ SEE TRAINING VIEW
+ 
+ 
+ */
 struct BluetoothView: View {
     @StateObject var bluetoothService: BluetoothService = BluetoothService()
+    @State var showList: Bool = false
     var body: some View {
-        Text(String(bluetoothService.devices.count))
-        VStack {
-            Image(systemName: bluetoothService.receiving ? "heart.fill" : "heart")
-                .padding()
-                .symbolRenderingMode(.palette)
-                .font(.headline)
-                .onTapGesture {
-                    bluetoothService.enabled.toggle()
-                }
-                
-                .foregroundStyle(bluetoothService.pulse ? .red : .white)
-           
+            VStack {
+                Image(systemName: bluetoothService.receiving ? "heart.fill" : "heart")
+                    .padding()
+                    .symbolRenderingMode(.palette)
+                    .font(.headline)
+                    .onTapGesture {
+                        showList = true
+                    }
+                    .foregroundStyle(bluetoothService.pulse ? .red : .white)
         }
     }
 }

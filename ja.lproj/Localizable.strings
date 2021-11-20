@@ -16,3 +16,5 @@
 "calories-burnt: %lld" = "消費カロリー: %lld";
 
 "done" = "閉じる";
+
+"devices" = "心拍センサー";

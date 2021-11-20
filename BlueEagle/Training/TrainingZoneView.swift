@@ -27,6 +27,7 @@ private let gradient = AngularGradient(
 struct TrainingZoneView: View {
     @EnvironmentObject var training: Training
     var body: some View {
+        GeometryReader { geometry in
         ZStack {
             Circle()
                 .stroke(gradient, style: StrokeStyle(lineWidth: 0))
@@ -53,7 +54,8 @@ struct TrainingZoneView: View {
                 
             }
         }
-        
+                .padding()
+        }
     }
 }
 
