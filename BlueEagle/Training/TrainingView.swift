@@ -12,32 +12,37 @@ struct TrainingView: View {
     @State private var showQRCode: Bool = false
     
     var body: some View {
-        VStack {
-            HStack {
-                BluetoothView()
-                Spacer()
-                StopwatchView()
-                Spacer()
-                Image(systemName: training.broadcasting ? "person.wave.2.fill" : "person.wave.2")
-                    .padding()
-                    .onTapGesture {
-                        training.broadcasting.toggle()
-                        showQRCode = training.broadcasting
-                    }
-            }
-            TrainingZoneView()
-                .environmentObject(training)
-            TrainingStatsView()
-                .environmentObject(training)
-        }.sheet(isPresented: $showQRCode) {
+        GeometryReader { geometry in
             VStack {
-                Image(uiImage: UIImage(data: createObserverQRCode(text: Endpoints.observe)!)!)
-                    .resizable()
-                    .frame(width: 200, height: 200)
-            Button("done") {
-                showQRCode = false
+                HStack {
+                    BluetoothView()
+                    Spacer()
+                    StopwatchView()
+                    Spacer()
+                    Image(systemName: training.broadcasting ? "person.wave.2.fill" : "person.wave.2")
+                        .padding()
+                        .onTapGesture {
+                            training.broadcasting.toggle()
+                            showQRCode = training.broadcasting
+                        }
+                }
+                TrainingZoneView()
+                    .environmentObject(training)
+                TrainingStatsView()
+                    .environmentObject(training)
             }
+            
+            .sheet(isPresented: $showQRCode) {
+                VStack {
+                    Image(uiImage: UIImage(data: createObserverQRCode(text: Endpoints.observe)!)!)
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                    Button("done") {
+                        showQRCode = false
+                    }
+                }
             }
+        
         }
     }
 }

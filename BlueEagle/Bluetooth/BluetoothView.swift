@@ -12,6 +12,7 @@ import CoreBluetooth
 struct BluetoothView: View {
     @StateObject var bluetoothService: BluetoothService = BluetoothService()
     var body: some View {
+        Text(String(bluetoothService.devices.count))
         VStack {
             Image(systemName: bluetoothService.receiving ? "heart.fill" : "heart")
                 .padding()

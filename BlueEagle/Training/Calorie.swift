@@ -7,9 +7,9 @@
 /*
  
  Keytel LR, Goedecke JH, Noakes TD, Hiiloskorpi H, Laukkanen R, van der Merwe L, Lambert EV. Prediction of energy expenditure from heart rate monitoring during submaximal exercise. J Sports Sci. 2005 Mar;23(3):289-97.
-
+ 
  Swain DP, Abernathy KS, Smith CS, Lee SJ, Bunn SA. Target heart rates for the development of cardiorespiratory fitness. Med Sci Sports Exerc. January 1994. 26(1): 112-116.
-
+ 
  Tanaka, H., Monhan, K.D., Seals, D.G., Age-predicted maximal heart rate revisited. Am Coll Cardiol 2001; 37:153-156.
  
  Nes, B.M., Janszky, I., Wisløff, U., Støylen, A. and Karlsen, T. (2013), Maximal heart rate in a population. Scand J Med Sci Sports, 23: 697-704. https://doi.org/10.1111/j.1600-0838.2012.01445.x
@@ -64,6 +64,7 @@ class CalorieCounter {
     
     init(age: Int, weight: Int, sex: Sex) {
         self.configure(age: age, sex: sex, weight: weight)
+        
     }
     
     func configure(age: Int, sex: Sex, weight: Int) {
@@ -72,17 +73,21 @@ class CalorieCounter {
         self.sex = sex
     }
     
-    func add(_ sample: HRSample) {
+    func caloiesPerMinuteAt(_ heartRate: Int) -> Double {
         let max = maxHRForAge(age)
-        let r = Double(sample.rate)
+        let r = Double(heartRate)
         let w = Double(weight)
         let a = Double(age)
         
-        // Swain et al. correlation
         if((r / max) < 0.64) {
-            self.calories += 1.0 / 60.0
+            return 0
         }
-        self.calories += (intercept + rateCoef * r + weightCoef * w + ageCoef * a) / JEWEL_TO_KCAL / 60.0
+        
+        return (intercept + rateCoef * r + weightCoef * w + ageCoef * a) / JEWEL_TO_KCAL
+    }
+    
+    func add(_ sample: HRSample) {
+        self.calories += caloiesPerMinuteAt(sample.rate) / 60.0
     }
 }
 

@@ -28,19 +28,23 @@ extension NSNotification.Name {
 
 class BluetoothService: NSObject, ObservableObject {
     var centralManager: CBCentralManager? = nil
+    var autoConnect: Bool = true
     @Published var peripheral: CBPeripheral!
     @Published var state: CBManagerState = CBManagerState.unknown
     @Published var receiving: Bool = false
     @Published var pulse: Bool = false
+    @Published var devices = Set<CBPeripheral>()
     @Published var enabled: Bool = true {
         didSet {
-            print(oldValue, enabled)
-            if(oldValue == false && enabled == true) {
+            print(enabled)
+            if(enabled == true) {
                 scan()
             }
-            if(oldValue == true && enabled == false) {
+            if(enabled == false) {
                 centralManager!.cancelPeripheralConnection(peripheral)
                 receiving = false
+                devices.removeAll()
+                
             }
         }
     }
@@ -48,14 +52,24 @@ class BluetoothService: NSObject, ObservableObject {
     private var lastHeartRate: Int = 0
     
     func scan() {
-        print(String(describing:centralManager!.state))
+        self.stopScan()
+        self.devices.removeAll()
+        guard let manager = centralManager else {
+            return
+        }
+        
         if(centralManager!.state == CBManagerState.poweredOn) {
-            if let manager = centralManager {
-                if manager.isScanning {
-                    manager.stopScan()
-                }
-                manager.scanForPeripherals(withServices: [GATT.heartRate] , options: nil)
-            }
+            manager.scanForPeripherals(withServices: [GATT.heartRate] , options: nil)
+        }
+    }
+    
+    func stopScan() {
+        guard let manager = centralManager else {
+            return
+        }
+        
+        if(manager.isScanning) {
+            manager.stopScan()
         }
     }
     
@@ -64,14 +78,14 @@ class BluetoothService: NSObject, ObservableObject {
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
         scan()
     }
-   
+    
     
     func onHeartRateReceived(_ inHeartRate: Int) {
-       
+        
         self.identicalReadingCount = inHeartRate != lastHeartRate ? 0 : identicalReadingCount + 1
         
         self.receiving = identicalReadingCount < MAX_IDENTICAL_READING_COUNT
-       
+        
         NotificationCenter.default.post(name: NSNotification.Name.HeartRate, object:self, userInfo: ["heart_rate" : inHeartRate])
         self.pulse.toggle()
         Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { timer in
@@ -99,10 +113,16 @@ extension BluetoothService: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover foundPeripheral: CBPeripheral,
                         advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        peripheral = foundPeripheral
-        peripheral.delegate = self
-        centralManager?.stopScan()
-        centralManager?.connect(peripheral)
+        
+        self.devices.insert(foundPeripheral)
+        
+        if(autoConnect) {
+            peripheral = foundPeripheral
+            peripheral.delegate = self
+            centralManager?.connect(peripheral)
+            centralManager?.stopScan()
+            self.autoConnect = false
+        }
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
