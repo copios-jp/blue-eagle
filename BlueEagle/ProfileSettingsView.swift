@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsView: View {
+struct ProfileSettingsView: View {
     @EnvironmentObject var bluetoothService: BluetoothService
     @EnvironmentObject var profileService: ProfileService
     
@@ -22,9 +22,9 @@ struct SettingsView: View {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
+struct ProfileSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView().environmentObject(BluetoothService())
+        ProfileSettingsView().environmentObject(BluetoothService())
             .environmentObject(ProfileService())
     }
 }

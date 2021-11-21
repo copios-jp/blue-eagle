@@ -16,5 +16,36 @@
 "calories-burnt: %lld" = "消費カロリー: %lld";
 
 "done" = "閉じる";
-
 "devices" = "心拍センサー";
+"select activity" = "種目を設定する";
+"activity" = "種目";
+"configure activity" = "種目設定";
+
+"squat" = "スクワット";
+"chest press" = "チェストプレス";
+"deadlift" = "デッドリフト";
+"overhead press" = "オーバーヘッドプレス";
+"arm curl" = "アームカール";
+"triceps pushdown" = "プッシュダウン";
+"cable row" = "ケーブルロー";
+"lat pulldown" = "プルダウン";
+"crunch" = "クランチ";
+
+"activity weight" = "重量 - kg";
+"repetitions" = "回数";
+
+"settings" = "設定";
+"you" = "プロフィール";
+"gender" = "性別";
+"weight" = "体重";
+"age" = "年齢";
+
+"data" = "データ";
+"broadcast" = "トレーニングデータを送信する";
+"qr code" = "QR コード";
+
+"male" = "男性";
+"female" = "女性";
+"undeclared" = "指定しない";
+
+

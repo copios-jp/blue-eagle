@@ -4,23 +4,18 @@
 //
 //  Created by Randy Morgan on 2021/10/01.
 //
-struct Activity {
-    var weight: Int = 80
-    var reps:Int = 10
-    var startAt: Date?
-    
-    var endAt: Date?
-}
+
 import SwiftUI
 import CoreBluetooth
 struct TrainingView: View {
     @StateObject private var training: Training = Training()
     @StateObject private var bluetooth: BluetoothService = BluetoothService()
     
-    @State private var showQRCode: Bool = false
+    @State private var showSettings: Bool = false
     @State private var showList: Bool = false
     @State private var editActivity: Bool = false
-    @State private var activity :Activity = Activity()
+    @State private var activity :Activity = unselected
+    @State private var baseActivity: Activity = unselected
     var body: some View {
         VStack {
             HStack {
@@ -36,27 +31,39 @@ struct TrainingView: View {
                 Spacer()
                 StopwatchView()
                 Spacer()
+                Image(systemName:  "chart.xyaxis.line")
+                    .foregroundColor(.gray)
                 Image(systemName: training.broadcasting ? "person.wave.2.fill" : "person.wave.2")
                     .padding()
                     .onTapGesture {
-                        training.broadcasting.toggle()
-                        showQRCode = training.broadcasting
+                        showSettings.toggle()
                     }
             }
             
             HStack {
-                Text("Bench Press - Standard")
-                Text("\(activity.weight) kg")
-                Text("\(activity.reps)")
-                if(activity.endAt == nil) {
-                    Button(action: {
-                        if(activity.startAt != nil) {
-                            activity.endAt = Date()
-                        } else {
-                            activity.startAt = Date()
+                if(activity == unselected) {
+                    Text("select activity")
+                } else {
+                    Text(activity.name)
+                    Text("\(activity.weight) kg")
+                    Text("\(activity.reps)")
+                    if(activity.endAt == nil) {
+                        // todo -
+                        // need to add activity to training current.activity
+                        // when started so we can broadcast out the current activity
+                        // to remote client
+                        Button(action: {
+                            if(activity.startAt != nil) {
+                                activity.endAt = Date()
+                                training.activities.append(Activity(name: activity.name, weight: activity.weight, reps: activity.reps))
+                                activity = unselected
+                                print(training.activities.count)
+                            } else {
+                                activity.startAt = Date()
+                            }
+                        }) {
+                            Text("\(activity.startAt != nil ? "finish" : "start")")
                         }
-                    }) {
-                        Text("\(activity.startAt != nil ? "finish" : "start")")
                     }
                 }
             }.onTapGesture {
@@ -69,78 +76,13 @@ struct TrainingView: View {
                 .environmentObject(training)
         }
         .sheet(isPresented: $showList) {
-            VStack {
-                Text("devices")
-                    .font(.headline)
-                    .padding()
-                List {
-                    ForEach(Array(bluetooth.devices), id: \.identifier) { device in
-                        HStack {
-                            Text("\(device.name!)")
-                            Spacer()
-                            switch(device.state) {
-                            case .connected:
-                                Image(systemName: bluetooth.receiving ? "heart.fill" : "heart")
-                                    .symbolRenderingMode(.palette)
-                                    .font(.headline)
-                                    .foregroundStyle(bluetooth.pulse ? .red : .white)
-                            case .connecting:
-                                ProgressView()
-                            default:
-                                EmptyView()
-                            }
-                            
-                        }
-                        .onTapGesture {
-                            bluetooth.connect(device)
-                        }
-                    }
-                }
-                Button("done") {
-                    bluetooth.stopScan()
-                    showList = false
-                }.padding()
-                Spacer()
-            }
+            DevicesView(bluetooth: bluetooth, show: $showList)
         }
-        .sheet(isPresented: $showQRCode) {
-            VStack {
-                Spacer()
-                Image(uiImage: UIImage(data: createObserverQRCode(text: Endpoints.observe)!)!)
-                    .resizable()
-                    .frame(width: 200, height: 200)
-                Spacer()
-                Button("done") {
-                    showQRCode = false
-                }
-            }
+        .sheet(isPresented: $showSettings) {
+            SettingsView(training: training, show: $showSettings)
         }
         .sheet(isPresented: $editActivity) {
-            VStack {
-                Text("activity")
-                    .font(.headline)
-                    .padding()
-                
-                Form {
-                    Text("Bench Press - Standard")
-                    Section(header: Text("weight")) {
-                        Stepper(value: $activity.weight, in: 5...500, step: 5) {
-                            Text("\(activity.weight) kg")
-                        }
-                    }
-                    Section(header: Text("repetitions")) {
-                        Stepper(value: $activity.reps, in: 1...50, step: 1) {
-                            Text("\(activity.reps)")
-                        }
-                    }
-                    
-            }
-                    Spacer()
-                    
-                    Button("done") {
-                        editActivity = false
-                    }
-                }
+            ExerciseView(activity: $activity, show: $editActivity)
         }
     }
 }

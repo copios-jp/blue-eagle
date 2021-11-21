@@ -19,3 +19,27 @@
 
 "done" = "dismiss";
 "devices" = "Heart Rate Sensors";
+"select activity" = "Configure Exercise";
+"activity" = "Exercise";
+"configure activity" = "Configure Exercise";
+"squat" = "squat";
+"chest press" = "chest press";
+"deadlift" = "deadlift";
+"overhead press" = "overhead press";
+"arm curl" = "arm curl";
+"triceps pushdown" = "triceps pushdown";
+"cable row" = "cable row";
+"lat pulldown" = "lat pulldown";
+"crunch" = "crunch";
+
+"activity weight" = "weight - kg";
+"repetitions" = "repetitions";
+
+"you" = "Profile";
+"gender" = "gender";
+"weight" = "Weight";
+"age" = "age";
+
+"data" = "data";
+"broadcast" = "broadcast training data";
+"qr code" = "QR code";

@@ -8,19 +8,62 @@
 import Foundation
 
 struct Endpoints {
-    static let publish = "https://blue-eagle-hide.herokuapp.com/publish/1"
-    static let observe = "https://blue-eagle-hide.herokuapp.com?channel=1"
+    static let publish = "https://blue-eagle-hide.herokuapp.com/publish/"
+    static let observe = "https://blue-eagle-hide.herokuapp.com?channel="
 }
 class Training: NSObject, Encodable, ObservableObject {
-    var sex: Sex = Sex.male
-    var weight: Int = 100
+    private var _sex: Sex = Sex.male
+    var sex: Sex {
+        get {
+            return self._sex
+        }
+       set (newVal) {
+            self._sex = newVal
+            self.calorieCounter.sex = newVal
+        }
+    }
+    private var _weight = 100
+    var weight: Int {
+        get {
+            return _weight
+        }
+        set (newVal) {
+            self._weight = newVal
+            self.calorieCounter.weight = newVal
+        }
+    }
+    
+    private var _age = 47
+    var age: Int {
+        get {
+            return _age
+        }
+        
+        set (newVal) {
+            self._age = newVal
+            self.calorieCounter.age = newVal
+        }
+    }
+    private var _broadcasting = false
+    var broadcasting: Bool {
+        get {
+          return _broadcasting
+        }
+        set (newVal) {
+            self._broadcasting = newVal
+            if(_broadcasting == true) {
+                self.uuid = UUID()
+            }
+        }
+    }
+
+    var uuid = UUID()
     var restingHR: Int = 70
-    var age: Int = 47
     var endedAt: Date?
     var trainingStyle: TrainingStyle = GarminTraining()
     var samples: [HRSample] = []
-    var broadcasting = false
     var calorieCounter: CalorieCounter = CalorieCounter()
+    var activities: [Activity] = []
     @Published var currentHR: Int = 0
     
     override init() {
@@ -42,6 +85,7 @@ class Training: NSObject, Encodable, ObservableObject {
         case averageHR
         case calories
         case at
+        // TODO - encode activity
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -65,9 +109,10 @@ class Training: NSObject, Encodable, ObservableObject {
         return String(data: json, encoding: .utf8)!
     }
     
+    
     private func broadcast() throws {
         Task {
-            let url = URL(string: Endpoints.publish)!
+            let url = URL(string: Endpoints.publish + uuid.uuidString)!
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")

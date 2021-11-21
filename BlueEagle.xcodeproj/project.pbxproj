@@ -10,6 +10,10 @@
 		2554F9CF2738356C00D72D3B /* builpani120.png in Resources */ = {isa = PBXBuildFile; fileRef = 2554F9CE2738356C00D72D3B /* builpani120.png */; };
 		2554F9D427383A3D00D72D3B /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 3DE371FE26F4DC8700CC1F3F /* AppIcon.appiconset */; };
 		256386232737D09500942037 /* ObserverQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256386222737D09500942037 /* ObserverQRCode.swift */; };
+		25A15628274A7BFB0061D9E7 /* Sex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A15627274A7BFB0061D9E7 /* Sex.swift */; };
+		25F58FBF274A8B4000FCBDF1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F58FBE274A8B4000FCBDF1 /* SettingsView.swift */; };
+		25F58FC1274A8E7800FCBDF1 /* ExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F58FC0274A8E7800FCBDF1 /* ExerciseView.swift */; };
+		25F58FC3274A975900FCBDF1 /* DevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F58FC2274A975900FCBDF1 /* DevicesView.swift */; };
 		3D085B732707630F007DEB5B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D085B722707630F007DEB5B /* HealthKit.framework */; };
 		3D085B752709D3F3007DEB5B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D085B742709D3F3007DEB5B /* User.swift */; };
 		3D085B772709ED3E007DEB5B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D085B762709ED3D007DEB5B /* LoginView.swift */; };
@@ -20,7 +24,7 @@
 		3D2FB8AF272AC0C7001C473D /* TrainingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8AE272AC0C7001C473D /* TrainingStyle.swift */; };
 		3D2FB8B2272C21B5001C473D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D2FB8B4272C21B5001C473D /* Localizable.strings */; };
 		3D302F2B2721A51C00E958A4 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D302F2A2721A51C00E958A4 /* UserController.swift */; };
-		3D340751270609160089E234 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D340750270609160089E234 /* SettingsView.swift */; };
+		3D340751270609160089E234 /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D340750270609160089E234 /* ProfileSettingsView.swift */; };
 		3D34075327060FE10089E234 /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34075227060FE10089E234 /* TrainingView.swift */; };
 		3D56CD5E270B3AD500B4A043 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CD5D270B3AD500B4A043 /* RegisterView.swift */; };
 		3D56CD60270B3C0900B4A043 /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56CD5F270B3C0900B4A043 /* UserApi.swift */; };
@@ -59,6 +63,10 @@
 /* Begin PBXFileReference section */
 		2554F9CE2738356C00D72D3B /* builpani120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = builpani120.png; path = Assets.xcassets/AppIcon.appiconset/builpani120.png; sourceTree = "<group>"; };
 		256386222737D09500942037 /* ObserverQRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverQRCode.swift; sourceTree = "<group>"; };
+		25A15627274A7BFB0061D9E7 /* Sex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sex.swift; sourceTree = "<group>"; };
+		25F58FBE274A8B4000FCBDF1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		25F58FC0274A8E7800FCBDF1 /* ExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseView.swift; sourceTree = "<group>"; };
+		25F58FC2274A975900FCBDF1 /* DevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesView.swift; sourceTree = "<group>"; };
 		3D085B702707630F007DEB5B /* BlueEagle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlueEagle.entitlements; sourceTree = "<group>"; };
 		3D085B722707630F007DEB5B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		3D085B742709D3F3007DEB5B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -71,7 +79,7 @@
 		3D2FB8B3272C21B5001C473D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D2FB8B5272C21BA001C473D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D302F2A2721A51C00E958A4 /* UserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
-		3D340750270609160089E234 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3D340750270609160089E234 /* ProfileSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		3D34075227060FE10089E234 /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
 		3D56CD5D270B3AD500B4A043 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		3D56CD5F270B3C0900B4A043 /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
@@ -154,6 +162,10 @@
 				3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */,
 				3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */,
 				256386222737D09500942037 /* ObserverQRCode.swift */,
+				25A15627274A7BFB0061D9E7 /* Sex.swift */,
+				25F58FBE274A8B4000FCBDF1 /* SettingsView.swift */,
+				25F58FC0274A8E7800FCBDF1 /* ExerciseView.swift */,
+				25F58FC2274A975900FCBDF1 /* DevicesView.swift */,
 			);
 			path = Training;
 			sourceTree = "<group>";
@@ -207,7 +219,7 @@
 				3DE3720026F4DC8700CC1F3F /* Preview Content */,
 				3DFD9BEA2700D0CA005903EA /* Profile.swift */,
 				3DFD9BEC2700E698005903EA /* ProfileView.swift */,
-				3D340750270609160089E234 /* SettingsView.swift */,
+				3D340750270609160089E234 /* ProfileSettingsView.swift */,
 			);
 			path = BlueEagle;
 			sourceTree = "<group>";
@@ -372,26 +384,30 @@
 			files = (
 				3DE371FD26F4DC8700CC1F3F /* ContentView.swift in Sources */,
 				3DF928DD272CCB7A007BF669 /* TrainingZoneView.swift in Sources */,
-				3D340751270609160089E234 /* SettingsView.swift in Sources */,
+				3D340751270609160089E234 /* ProfileSettingsView.swift in Sources */,
 				3DFD9BEF27020A6E005903EA /* BluetoothView.swift in Sources */,
 				3DFD9BEB2700D0CA005903EA /* Profile.swift in Sources */,
 				3D302F2B2721A51C00E958A4 /* UserController.swift in Sources */,
 				3DF928DF272CCCE4007BF669 /* TrainingStatsView.swift in Sources */,
 				3D2FB8AB272ABFA3001C473D /* Training.swift in Sources */,
 				3D2FB8A627258F7A001C473D /* Calorie.swift in Sources */,
+				25F58FBF274A8B4000FCBDF1 /* SettingsView.swift in Sources */,
 				3DFD9BE926FE054A005903EA /* GATT.swift in Sources */,
 				3D34075327060FE10089E234 /* TrainingView.swift in Sources */,
 				256386232737D09500942037 /* ObserverQRCode.swift in Sources */,
 				3D56CD60270B3C0900B4A043 /* UserApi.swift in Sources */,
 				3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */,
+				25F58FC3274A975900FCBDF1 /* DevicesView.swift in Sources */,
 				3D2FB8AF272AC0C7001C473D /* TrainingStyle.swift in Sources */,
 				3D2FB8AD272ABFEE001C473D /* HRSample.swift in Sources */,
 				3DFD9BED2700E698005903EA /* ProfileView.swift in Sources */,
 				3D085B772709ED3E007DEB5B /* LoginView.swift in Sources */,
 				3D56CD5E270B3AD500B4A043 /* RegisterView.swift in Sources */,
 				3DF928D9272C54A3007BF669 /* StopWatch.swift in Sources */,
+				25A15628274A7BFB0061D9E7 /* Sex.swift in Sources */,
 				3D085B752709D3F3007DEB5B /* User.swift in Sources */,
 				3DF928DB272CCA02007BF669 /* StopwatchView.swift in Sources */,
+				25F58FC1274A8E7800FCBDF1 /* ExerciseView.swift in Sources */,
 				3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

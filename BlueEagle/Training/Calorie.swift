@@ -18,15 +18,10 @@
 
 
 import Foundation
+import SwiftUI
 
 func maxHRForAge(_ age: Int) -> Double {
     return 211.0 - 0.67 * Double(age)
-}
-
-enum Sex: Int {
-    case undeclared = 0
-    case female = 1
-    case male = 2
 }
 
 class CalorieCounter {
