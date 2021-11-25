@@ -2,33 +2,24 @@
 //  BluetoothView.swift
 //  BlueEagle
 //
-//  Created by Randy Morgan on 2021/09/27.
+//  Created by Randy Morgan on 2021/11/26.
 //
 
-import Foundation
 import SwiftUI
-import CoreBluetooth
-/*
- 
- NOT IN USE
- 
- SEE TRAINING VIEW
- 
- 
- */
+
 struct BluetoothView: View {
-    @StateObject var bluetoothService: BluetoothService = BluetoothService()
-    @State var showList: Bool = false
+    @StateObject private var bluetooth: BluetoothService = BluetoothService()
+    @State private var show: Bool = false
     var body: some View {
-            VStack {
-                Image(systemName: bluetoothService.receiving ? "heart.fill" : "heart")
+        Image(systemName: bluetooth.receiving ? "heart.fill" : "heart")
                     .padding()
-                    .symbolRenderingMode(.palette)
-                    .font(.headline)
                     .onTapGesture {
-                        showList = true
+                        bluetooth.scan(5.0)
+                        self.show = true
                     }
-                    .foregroundStyle(bluetoothService.pulse ? .red : .white)
+                    .foregroundStyle(bluetooth.pulse ? .primary : .secondary)
+        .sheet(isPresented: $show) {
+            DevicesView(bluetooth: bluetooth, show: $show)
         }
     }
 }
@@ -38,7 +29,3 @@ struct BluetoothView_Previews: PreviewProvider {
         BluetoothView()
     }
 }
-
-
-
-

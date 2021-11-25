@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-private let colors: [Color] = [
-    .black, .blue, .green, .yellow, .orange, .red
+let colors: [Color] = [
+    .gray, .blue, .green, .yellow, .orange, .red
 ]
 private let stops: [Gradient.Stop] = [
     Gradient.Stop(color: colors[0], location: 0),
@@ -25,10 +25,9 @@ private let gradient = AngularGradient(
     startAngle: .degrees(-90),
     endAngle: .degrees(270))
 struct TrainingZoneView: View {
-    @EnvironmentObject var training: Training
+    @StateObject var training: Training
     var body: some View {
-        GeometryReader { geometry in
-        ZStack {
+        ZStack(alignment: .center) {
             Circle()
                 .stroke(gradient, style: StrokeStyle(lineWidth: 0))
                 .background(Circle().fill(colors[training.currentTrainingZone.position]))
@@ -40,29 +39,25 @@ struct TrainingZoneView: View {
             Circle()
                 .trim(from: 0.0, to: CGFloat(training.percentOfMax ))
                 .rotation(Angle(degrees: -90))
-                .stroke(gradient, style: StrokeStyle(lineWidth: 40.0))
-            
-            VStack {
-                Text("training-zone")
-                Text("\(training.currentTrainingZone.description)")
-                
-                    .font(.system(size: 40))
-                    .padding(20)
-                Text("\(Int(training.percentOfMax * 100.0))%")
-                
-                    .font(.title)
-                
-            }
-        }
-                .padding()
+                .stroke(gradient, style: StrokeStyle(lineWidth: 35.0))
+                .animation(.easeIn, value: training.percentOfMax)
+            Text("training-zone")
+                .padding(.top, -40)
+            Text("\(training.currentTrainingZone.description)")
+                .font(.system(size: 35))
+                .foregroundColor(colors[training.currentTrainingZone.position])
+            Text("\(Int(training.percentOfMax * 100.0))%")
+                .font(.system(size: 35))
+                .padding(.top, 110)
+                .foregroundColor(colors[training.currentTrainingZone.position])
         }
     }
 }
 
 struct TrainingZoneView_Previews: PreviewProvider {
+    @StateObject static var training: Training = Training()
     static var previews: some View {
-        TrainingZoneView()
-            .environmentObject(Training())
+        TrainingZoneView(training: training)
             .preferredColorScheme(.dark)
     }
 }

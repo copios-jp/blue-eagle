@@ -11,12 +11,9 @@ import SwiftUI
 
 @main
 struct BlueEagleApp: App {
-    var userController: UserController = UserController()
-    
     var body: some Scene {
         WindowGroup {
               ContentView()
-                    .environmentObject(userController)
                     .padding()
         }
     }

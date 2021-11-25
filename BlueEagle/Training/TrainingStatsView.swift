@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct TrainingStatsView: View {
-    @EnvironmentObject var training: Training
+    @StateObject var training: Training
     var body: some View {
         VStack {
-                Text("\(training.currentHR) bpm")
-                .font(.largeTitle)
+            Text("\(training.currentHR)")
+                .font(.system(size: 35))
+                .foregroundColor(colors[training.currentTrainingZone.position])
             Text("\(training.currentTrainingZone.minHR!) - \(training.currentTrainingZone.maxHR!)")
-
-            .padding(.bottom)
+                .padding(.bottom)
             Text("average-hr: \(training.averageHR)")
-        Text("calories-burnt: \(training.calories)")
-
+            Text("calories-burnt: \(training.calories)")
+            
         }
         
     }
 }
 
 struct TrainingStatsView_Previews: PreviewProvider {
+    @StateObject static var training = Training()
     static var previews: some View {
-        TrainingStatsView()
-            .environmentObject(Training())
+        TrainingStatsView(training: training)
             .preferredColorScheme(.dark)
     }
 }

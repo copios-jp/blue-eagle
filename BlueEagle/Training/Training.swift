@@ -6,57 +6,18 @@
 //
 
 import Foundation
+enum DownloadError: Error {
+    case statusNotOk
+    case decoderError
+}
 
 struct Endpoints {
     static let publish = "https://blue-eagle-hide.herokuapp.com/publish/"
+    static let qrcode = "https://blue-eagle-hide.herokuapp.com/qr?channel="
     static let observe = "https://blue-eagle-hide.herokuapp.com?channel="
 }
 class Training: NSObject, Encodable, ObservableObject {
-    private var _sex: Sex = Sex.male
-    var sex: Sex {
-        get {
-            return self._sex
-        }
-       set (newVal) {
-            self._sex = newVal
-            self.calorieCounter.sex = newVal
-        }
-    }
-    private var _weight = 100
-    var weight: Int {
-        get {
-            return _weight
-        }
-        set (newVal) {
-            self._weight = newVal
-            self.calorieCounter.weight = newVal
-        }
-    }
-    
-    private var _age = 47
-    var age: Int {
-        get {
-            return _age
-        }
-        
-        set (newVal) {
-            self._age = newVal
-            self.calorieCounter.age = newVal
-        }
-    }
-    private var _broadcasting = false
-    var broadcasting: Bool {
-        get {
-          return _broadcasting
-        }
-        set (newVal) {
-            self._broadcasting = newVal
-            if(_broadcasting == true) {
-                self.uuid = UUID()
-            }
-        }
-    }
-
+    var broadcasting: Bool = false
     var uuid = UUID()
     var restingHR: Int = 70
     var endedAt: Date?
@@ -64,12 +25,12 @@ class Training: NSObject, Encodable, ObservableObject {
     var samples: [HRSample] = []
     var calorieCounter: CalorieCounter = CalorieCounter()
     var activities: [Activity] = []
+    @Published var activity :Activity = unselected
     @Published var currentHR: Int = 0
     
     override init() {
         super.init()
         
-        self.calorieCounter.configure(age: age, sex: sex, weight: weight)
         NotificationCenter.default.addObserver(self, selector: #selector(heartRateReceived(notification:)), name: NSNotification.Name.HeartRate, object: nil)
     }
     
@@ -85,6 +46,7 @@ class Training: NSObject, Encodable, ObservableObject {
         case averageHR
         case calories
         case at
+        case activity
         // TODO - encode activity
     }
     
@@ -99,6 +61,7 @@ class Training: NSObject, Encodable, ObservableObject {
         try container.encode(percentOfMax, forKey: .percentOfMax)
         try container.encode(calories, forKey: .calories)
         try container.encode(Date(), forKey: .at)
+        try container.encode(activity, forKey: .activity)
     }
     
     public func toJson() -> String {
@@ -133,7 +96,6 @@ class Training: NSObject, Encodable, ObservableObject {
     @objc func heartRateReceived(notification: Notification) {
         let heartRate = notification.userInfo!["heart_rate"] as! Int
         addSample(sample: HRSample(rate: heartRate, at: Date()))
-        
         self.currentHR = heartRate
         
         if(broadcasting) {
@@ -208,7 +170,7 @@ class Training: NSObject, Encodable, ObservableObject {
     
     var maxHR: Int {
         get {
-            return Int(maxHRForAge(age))
+            return Int(maxHRForAge(Preferences.standard.age))
         }
     }
     

@@ -7,12 +7,21 @@
 
 import SwiftUI
 
+func getColor(_ state: StopWatchStatus) -> Color {
+    switch(state) {
+                case .paused:
+                  return      .secondary
+    case .running:
+                  return      .blue
+                default:
+                   return     .primary
+                }
+}
 struct StopwatchView: View {
     @StateObject private var stopwatch: StopWatch = StopWatch()
     var body: some View {
         HStack {
             Text(String(stopwatch.formattedValue))
-            Image(systemName: stopwatch.status == .stopped ? "stopwatch" : "stopwatch.fill")
                 .onTapGesture() {
                     stopwatch.status == .running ? stopwatch.pause() : stopwatch.start()
                 }
@@ -20,10 +29,9 @@ struct StopwatchView: View {
                 .onLongPressGesture() {
                     stopwatch.stop()
                 }
-                .foregroundStyle(stopwatch.status == .paused ? .secondary : .primary)
-            
+                .foregroundStyle(getColor(stopwatch.status))
         }
-        .font(.system(.largeTitle).monospacedDigit())
+        .font(.system(.title).monospacedDigit())
     }
 }
 

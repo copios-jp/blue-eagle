@@ -25,11 +25,38 @@ func maxHRForAge(_ age: Int) -> Double {
 }
 
 class CalorieCounter {
-    var age: Int = 0
-    var weight: Int = 0
+    var age: Int {
+        get {
+       return Preferences.standard.age
+        }
+    }
+    var weight: Int {
+        get {
+            return Preferences.standard.weight
+        }
+    }
+    
+    var sex: Sex {
+        get {
+            return Sex(rawValue: Preferences.standard.sex) ?? .undeclared
+        }
+    }
+    
     var calories = 0.0
-    var sex: Sex = Sex.undeclared {
-        didSet {
+    
+    private var intercept = -37.74955
+    private var rateCoef = 0.53905
+    private var weightCoef = 0.16255
+    private var ageCoef = 0.13785
+    
+    init() {
+    }
+    
+   func caloiesPerMinuteAt(_ heartRate: Int) -> Double {
+        let max = maxHRForAge(age)
+        let r = Double(heartRate)
+        let w = Double(weight)
+        let a = Double(age)
             switch(sex) {
             case .male:
                 self.intercept = -55.0969
@@ -47,32 +74,7 @@ class CalorieCounter {
                 self.weightCoef = 0.16255
                 self.ageCoef = 0.13785
             }
-        }
-    }
-    
-    private var intercept = -37.74955
-    private var rateCoef = 0.53905
-    private var weightCoef = 0.16255
-    private var ageCoef = 0.13785
-    
-    init() {}
-    
-    init(age: Int, weight: Int, sex: Sex) {
-        self.configure(age: age, sex: sex, weight: weight)
-        
-    }
-    
-    func configure(age: Int, sex: Sex, weight: Int) {
-        self.age = age
-        self.weight = weight
-        self.sex = sex
-    }
-    
-    func caloiesPerMinuteAt(_ heartRate: Int) -> Double {
-        let max = maxHRForAge(age)
-        let r = Double(heartRate)
-        let w = Double(weight)
-        let a = Double(age)
+
         
         if((r / max) < 0.64) {
             return 0

@@ -20,7 +20,7 @@
 "select activity" = "種目を設定する";
 "activity" = "種目";
 "configure activity" = "種目設定";
-
+"unselected" = "設定しない";
 "squat" = "スクワット";
 "chest press" = "チェストプレス";
 "deadlift" = "デッドリフト";
@@ -30,6 +30,11 @@
 "cable row" = "ケーブルロー";
 "lat pulldown" = "プルダウン";
 "crunch" = "クランチ";
+
+"half deadlift" = "ハーフデッドリフト";
+"seated cable row" = "シーテッドローイング（ケーブル）";
+"single leg squat one hand row" = "シングルスクワット＆ワンハンドロー";
+"muscle rowing one hand" = "マッスルローイング（ワンハンド）";
 
 "activity weight" = "重量 - kg";
 "repetitions" = "回数";
