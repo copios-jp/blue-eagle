@@ -13,11 +13,11 @@ struct EditSettingsView: View {
     @Preference(\.age) var age
     @Preference(\.weight) var weight
     @Preference(\.sex) var sex
-    
-    
+
     var body: some View {
         NavigationView {
             VStack {
+               
                 Form {
                     Section(header: Text("you")) {
                         Picker(selection: $sex, label: Text("gender")) {
@@ -42,9 +42,14 @@ struct EditSettingsView: View {
                         Toggle(isOn: $training.broadcasting) {
                             Text("broadcast")
                         }
-                        AsyncImage(url: URL(string: Endpoints.qrcode + training.uuid.uuidString ), content: view)
+                       
+                            
                     }
+                    
                 }
+                AsyncImage(url: training.qr())
+            
+                
             }
             .navigationTitle("settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -58,26 +63,26 @@ struct EditSettingsView: View {
         }
     }
     @ViewBuilder
-       private func view(for phase: AsyncImagePhase) -> some View {
-           switch phase {
-           case .empty:
-               ProgressView()
-           case .success(let image):
-               image
-                   .resizable()
-                   .aspectRatio(contentMode: .fit)
-           case .failure(let error):
-               VStack(spacing: 16) {
-                   Image(systemName: "xmark.octagon.fill")
-                       .foregroundColor(.red)
-                   Text(error.localizedDescription)
-                       .multilineTextAlignment(.center)
-               }
-           @unknown default:
-               Text("Unknown")
-                   .foregroundColor(.gray)
-           }
-       }
+    private func view(for phase: AsyncImagePhase) -> some View {
+        switch phase {
+        case .empty:
+            ProgressView()
+        case .success(let image):
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        case .failure(let error):
+            VStack(spacing: 16) {
+                Image(systemName: "xmark.octagon.fill")
+                    .foregroundColor(.red)
+                Text(error.localizedDescription)
+                    .multilineTextAlignment(.center)
+            }
+        @unknown default:
+            Text("Unknown")
+                .foregroundColor(.gray)
+        }
+    }
 }
 
 struct EditSettingsView_Previews: PreviewProvider {

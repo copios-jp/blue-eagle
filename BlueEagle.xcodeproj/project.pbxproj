@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2554F9CF2738356C00D72D3B /* builpani120.png in Resources */ = {isa = PBXBuildFile; fileRef = 2554F9CE2738356C00D72D3B /* builpani120.png */; };
-		2554F9D427383A3D00D72D3B /* AppIcon.appiconset in Resources */ = {isa = PBXBuildFile; fileRef = 3DE371FE26F4DC8700CC1F3F /* AppIcon.appiconset */; };
 		255E0562274BC79A00E1DE8A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E0561274BC79A00E1DE8A /* Preferences.swift */; };
 		256386232737D09500942037 /* ObserverQRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256386222737D09500942037 /* ObserverQRCode.swift */; };
 		25A15628274A7BFB0061D9E7 /* Sex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A15627274A7BFB0061D9E7 /* Sex.swift */; };
@@ -69,7 +67,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2554F9CE2738356C00D72D3B /* builpani120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = builpani120.png; path = Assets.xcassets/AppIcon.appiconset/builpani120.png; sourceTree = "<group>"; };
 		255E0561274BC79A00E1DE8A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		256386222737D09500942037 /* ObserverQRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverQRCode.swift; sourceTree = "<group>"; };
 		25A15627274A7BFB0061D9E7 /* Sex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sex.swift; sourceTree = "<group>"; };
@@ -92,7 +89,6 @@
 		3DE371F726F4DC8700CC1F3F /* BlueEagle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueEagle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueEagleApp.swift; sourceTree = "<group>"; };
 		3DE371FC26F4DC8700CC1F3F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		3DE371FE26F4DC8700CC1F3F /* AppIcon.appiconset */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppIcon.appiconset; path = BlueEagle/Assets.xcassets/AppIcon.appiconset; sourceTree = SOURCE_ROOT; };
 		3DE3720126F4DC8700CC1F3F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Preview Assets.xcassets"; path = "BlueEagle/Preview Content/Preview Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		3DE3720326F4DC8700CC1F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DE3720826F4DC8800CC1F3F /* BlueEagleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlueEagleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,9 +210,7 @@
 				3D085B702707630F007DEB5B /* BlueEagle.entitlements */,
 				3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */,
 				3DE371FC26F4DC8700CC1F3F /* ContentView.swift */,
-				3DE371FE26F4DC8700CC1F3F /* AppIcon.appiconset */,
 				3DE3720326F4DC8700CC1F3F /* Info.plist */,
-				2554F9CE2738356C00D72D3B /* builpani120.png */,
 				3DE3720026F4DC8700CC1F3F /* Preview Content */,
 			);
 			path = BlueEagle;
@@ -354,8 +348,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DE3720226F4DC8700CC1F3F /* Preview Assets.xcassets in Resources */,
-				2554F9CF2738356C00D72D3B /* builpani120.png in Resources */,
-				2554F9D427383A3D00D72D3B /* AppIcon.appiconset in Resources */,
 				3D2FB8B2272C21B5001C473D /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,7 +18,7 @@ struct Endpoints {
 }
 class Training: NSObject, Encodable, ObservableObject {
     var broadcasting: Bool = false
-    var uuid = UUID()
+    let uuid = UUID()
     var restingHR: Int = 70
     var endedAt: Date?
     var trainingStyle: TrainingStyle = GarminTraining()
@@ -48,6 +48,12 @@ class Training: NSObject, Encodable, ObservableObject {
         case at
         case activity
         // TODO - encode activity
+    }
+    
+    public func qr() -> URL {
+        let url = URL(string: Endpoints.qrcode + uuid.uuidString )!
+        print(url)
+        return url
     }
     
     public func encode(to encoder: Encoder) throws {
