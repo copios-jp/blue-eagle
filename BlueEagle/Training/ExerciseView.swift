@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+
 struct Activity: Hashable, Equatable, Encodable  {
     var name: String
     var weight: Int = 80
@@ -19,20 +20,37 @@ let unselected = Activity(name: NSLocalizedString("unselected", comment: ""))
 
 let activities = [
     unselected,
-    Activity(name: NSLocalizedString("squat", comment: "")),
-    Activity(name: NSLocalizedString("chest press", comment: "")),
-    Activity(name: NSLocalizedString("deadlift", comment: "")),
+    Activity(name: NSLocalizedString("barbell squat", comment: "")),
+    Activity(name: NSLocalizedString("barbell bench press", comment: "")),
+    Activity(name: NSLocalizedString("dumbbell press", comment: "")),
+    
+    Activity(name: NSLocalizedString("cable crossover", comment: "")),
+    
+    Activity(name: NSLocalizedString("power cage bench press", comment:""), weight: 60),
     Activity(name: NSLocalizedString("overhead press", comment: ""), weight: 40),
+    
     Activity(name: NSLocalizedString("arm curl", comment: ""), weight: 30),
+    
     Activity(name: NSLocalizedString("triceps pushdown", comment: ""), weight: 60),
-    Activity(name: NSLocalizedString("cable row", comment: ""), weight: 80),
     Activity(name: NSLocalizedString("lat pulldown", comment: ""), weight: 40),
     Activity(name: NSLocalizedString("crunch", comment: ""), weight: 5),
     
+    
+    Activity(name: NSLocalizedString("deadlift", comment: "")),
     Activity(name: NSLocalizedString("half deadlift", comment:""), weight: 60),
+    Activity(name: NSLocalizedString("romainian deadlift", comment:""), weight: 60),
     Activity(name: NSLocalizedString("seated cable row", comment:""), weight: 170),
+    Activity(name: NSLocalizedString("cable row", comment: ""), weight: 80),
+    
     Activity(name: NSLocalizedString("single leg squat one hand row", comment:""), weight: 40),
-    Activity(name: NSLocalizedString("muscle rowing one hand", comment:""), weight: 15)
+    Activity(name: NSLocalizedString("single leg barbell squat", comment:""), weight: 40),
+   
+    // TANREN (real-fukuoka)
+    Activity(name: NSLocalizedString("leg extension", comment:""), weight: 60),
+    Activity(name: NSLocalizedString("leg press", comment:""), weight: 60),
+    Activity(name: NSLocalizedString("easy muscle dead machine", comment:""), weight: 60),
+    Activity(name: NSLocalizedString("muscle rowing one hand", comment:""), weight: 15),
+    Activity(name: NSLocalizedString("muscle press", comment:""), weight: 15),
 ]
 
 

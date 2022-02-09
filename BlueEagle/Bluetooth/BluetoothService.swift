@@ -20,7 +20,7 @@ import Foundation
  
  
  */
-let MAX_IDENTICAL_READING_COUNT = 10
+let MAX_IDENTICAL_READING_COUNT = 10 
 
 extension NSNotification.Name {
     static let HeartRate = NSNotification.Name(rawValue: "heart_rate")
@@ -28,68 +28,33 @@ extension NSNotification.Name {
 
 class BluetoothService: NSObject, ObservableObject {
     var centralManager: CBCentralManager? = nil
+    
     @Published var state: CBManagerState = CBManagerState.unknown
-    @Published var devices = Set<CBPeripheral>()
+    @Published var peripherals = Set<CBPeripheral>()
+    @Published var peripheral: CBPeripheral?
     
     @Published var receiving: Bool = false
+    @Published var isScanning: Bool = false
     @Published var pulse: Bool = false
-    
+   
     private var identicalReadingCount: Int = 0
     private var lastHeartRate: Int = 0
-    
-    func connect(_ peripheral: CBPeripheral) {
+     
+    func scan(_ timeout: Double = 5.0) {
         guard let manager = centralManager else {
             return
         }
-      
-        if(peripheral.state == CBPeripheralState.connected) {
-            return
-        }
-        
-        devices.forEach { device in
-            if(device !== peripheral) {
-                disconnect(device)
-            }
-        }
-        
-        peripheral.delegate = self
-        manager.connect(peripheral)
-        
-        Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
-            DispatchQueue.main.async {
-                if(peripheral.state != CBPeripheralState.connected) {
-                    self.disconnect(peripheral)
-                    self.devices.remove(peripheral)
-                }
-            }
-        }
-        
-    }
-    
-    func disconnect(_ peripheral: CBPeripheral) {
-        guard let manager = centralManager else {
-            return
-        }
-        
-        manager.cancelPeripheralConnection(peripheral)
-        
-    }
-    func scan(_ timeout: Double = 0.0) {
         stopScan()
-        guard let manager = centralManager else {
-            return
-        }
-        
         if(manager.state == CBManagerState.poweredOn) {
             manager.scanForPeripherals(withServices: [GATT.heartRate] , options: nil)
         }
-        if(timeout > 0.0) {
             Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { timer in
                 DispatchQueue.main.async {
                     self.stopScan()
                 }
             }
-        }
+        
+        isScanning = true
     }
     
     func stopScan() {
@@ -97,15 +62,52 @@ class BluetoothService: NSObject, ObservableObject {
             return
         }
         
+        isScanning = false
         if(manager.isScanning) {
             manager.stopScan()
         }
     }
+      
+   
+    func connect(_ peripheral: CBPeripheral) {
+        guard let manager = centralManager else {
+            return
+        }
+
+       peripherals.forEach { knownPeripheral in 
+            if(knownPeripheral.state == CBPeripheralState.connected) {
+                disconnect(knownPeripheral)
+            }
+        }
+         
+        self.peripheral = peripheral
+        peripheral.delegate = self
+        manager.connect(peripheral)
+    }
+   
+    func disconnectAll() {
+         guard let manager = centralManager else {
+            return
+        }
+
+        let peripherals = manager.retrieveConnectedPeripherals(withServices: [GATT.heartRate])
+        peripherals.forEach { connected in
+          disconnect(connected)
+        }
+    }
     
+    func disconnect(_ peripheral: CBPeripheral) {
+        guard let manager = centralManager else {
+            return
+        }
+
+       peripheral.delegate = nil 
+       manager.cancelPeripheralConnection(peripheral)
+    }
+   
     override init() {
         super.init()
         self.centralManager = CBCentralManager(delegate: self, queue: nil)
-        scan(5.0)
     }
     
     
@@ -118,22 +120,20 @@ class BluetoothService: NSObject, ObservableObject {
         NotificationCenter.default.post(name: NSNotification.Name.HeartRate, object:self, userInfo: ["heart_rate" : inHeartRate])
         
         self.pulse.toggle()
+
         Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { timer in
             DispatchQueue.main.async {
                 self.pulse.toggle()
             }
         }
+
+        lastHeartRate = inHeartRate
     }
 }
 
 // MARK: CBCentralManagerDelegate
 
 extension BluetoothService: CBCentralManagerDelegate {
-    
-    /// Bluetoothのステータスを取得する(CBCentralManagerの状態が変わる度に呼び出される)
-    ///
-    /// - Parameter central: CBCentralManager
-    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if(central.state == CBManagerState.poweredOn) {
             scan()
@@ -143,8 +143,8 @@ extension BluetoothService: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any], rssi RSSI: NSNumber) {
         
-        print("bluetooth device discovered", peripheral)
-        devices.insert(peripheral)
+        peripherals.insert(peripheral)
+        // print("found peripheral", peripheral.name ?? "unknown monitor")
         guard let preferred = Preferences.standard.heartRateMonitor else {
             connect(peripheral)
             return
@@ -157,30 +157,45 @@ extension BluetoothService: CBCentralManagerDelegate {
     
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        print("Connected!")
-        
         Preferences.standard.heartRateMonitor = peripheral.identifier.uuidString
+
         peripheral.discoverServices([GATT.heartRate])
+        self.peripheral = peripheral
+        print("connected", peripheral.name ?? "unknown")
+            peripherals.forEach { knownPeripheral in 
+                if(self.peripheral != knownPeripheral && knownPeripheral.state == CBPeripheralState.connected) {
+                    disconnect(knownPeripheral)
+                }
+            }
+
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        print("Disconnected")
-        self.receiving = false
+        peripheral.delegate = nil
+        print("disconnected", peripheral.name ?? "unknown peripheral")
+
+        guard let current = self.peripheral else {
+            return
+        }
+
+        if(current == peripheral) {
+            self.receiving = false
+            self.peripheral = nil
+        }
+
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        peripherals.remove(peripheral)
         print("connection failed")
     }
     
 }
-
 // MARK: CBPeripheralDelegate
-
 extension BluetoothService: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard let services = peripheral.services else { return }
         for service in services {
-            print(service)
             peripheral.discoverCharacteristics(nil, for: service)
         }
     }
@@ -189,49 +204,24 @@ extension BluetoothService: CBPeripheralDelegate {
         guard let characteristics = service.characteristics else { return }
         
         for characteristic in characteristics {
-            print(characteristic)
             
             if characteristic.properties.contains(.read) {
-                print("\(characteristic.uuid): properties contains .read")
                 peripheral.readValue(for: characteristic)
             }
             if characteristic.properties.contains(.notify) {
-                print("\(characteristic.uuid): properties contains .notify")
                 peripheral.setNotifyValue(true, for: characteristic)
             }
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        
-        switch characteristic.uuid {
-            
-        case GATT.bodySensorLocation:
-            let bodySensorLocation = bodyLocation(from: characteristic)
-            print("ERM..... \(bodySensorLocation)")
-        case GATT.heartRateMeasurement:
+       if(characteristic.uuid == GATT.heartRateMeasurement) {
             let bpm = heartRate(from: characteristic)
+
+           print(peripheral.name, bpm)
             onHeartRateReceived(bpm)
-        default:
-            print("Unhandled Characteristic UUID: \(characteristic.uuid)")
-        }
-    }
-    
-    private func bodyLocation(from characteristic: CBCharacteristic) -> String {
-        guard let characteristicData = characteristic.value,
-              let byte = characteristicData.first else { return "Error" }
-        
-        switch byte {
-        case 0: return "Other"
-        case 1: return "Chest"
-        case 2: return "Wrist"
-        case 3: return "Finger"
-        case 4: return "Hand"
-        case 5: return "Ear Lobe"
-        case 6: return "Foot"
-        default:
-            return "Reserved for future use"
-        }
+ 
+       } 
     }
     
     private func heartRate(from characteristic: CBCharacteristic) -> Int {

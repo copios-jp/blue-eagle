@@ -25,16 +25,9 @@ func maxHRForAge(_ age: Int) -> Double {
 }
 
 class CalorieCounter {
-    var age: Int {
-        get {
-       return Preferences.standard.age
-        }
-    }
-    var weight: Int {
-        get {
-            return Preferences.standard.weight
-        }
-    }
+    @Preference(\.age) var age
+    @Preference(\.weight) var weight
+    @Preference(\.height) var height
     
     var sex: Sex {
         get {
@@ -48,43 +41,27 @@ class CalorieCounter {
     private var rateCoef = 0.53905
     private var weightCoef = 0.16255
     private var ageCoef = 0.13785
+    private var heightCoef = 3.9485
     
     init() {
     }
     
-   func caloiesPerMinuteAt(_ heartRate: Int) -> Double {
-        let max = maxHRForAge(age)
+    func caloiesPerMinuteAt(_ heartRate: Int) -> Double {
         let r = Double(heartRate)
-        let w = Double(weight)
-        let a = Double(age)
-            switch(sex) {
-            case .male:
-                self.intercept = -55.0969
-                self.rateCoef = 0.6309
-                self.weightCoef = 0.1988
-                self.ageCoef = 0.2017
-            case .female:
-                self.intercept = -20.4022
-                self.rateCoef = 0.4472
-                self.weightCoef = 0.1263
-                self.ageCoef = 0.074
-            case .undeclared:
-                self.intercept = -37.74955
-                self.rateCoef = 0.53905
-                self.weightCoef = 0.16255
-                self.ageCoef = 0.13785
-            }
-
-        
-        if((r / max) < 0.64) {
-            return 0
+        let max = maxHRForAge(age)
+        if((r / max) < 0.60) {
+            return BasalCalculator.calories()
         }
         
-        return (intercept + rateCoef * r + weightCoef * w + ageCoef * a) / JEWEL_TO_KCAL
+        return ActiveCalculator.calories(heartRate)
     }
     
     func add(_ sample: HRSample) {
-        self.calories += caloiesPerMinuteAt(sample.rate) / 60.0
+        let max = maxHRForAge(age)
+        let r  = Double(sample.rate)
+        if(r / max > 0.60) {
+            self.calories += caloiesPerMinuteAt(sample.rate) / 60.0
+        }
     }
 }
 

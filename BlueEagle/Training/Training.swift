@@ -4,20 +4,10 @@
 //
 //  Created by Randy Morgan on 2021/10/28.
 //
-
 import Foundation
-enum DownloadError: Error {
-    case statusNotOk
-    case decoderError
-}
+import SwiftUI
 
-struct Endpoints {
-    static let publish = "https://blue-eagle-hide.herokuapp.com/publish/"
-    static let qrcode = "https://blue-eagle-hide.herokuapp.com/qr?channel="
-    static let observe = "https://blue-eagle-hide.herokuapp.com?channel="
-}
 class Training: NSObject, Encodable, ObservableObject {
-    var broadcasting: Bool = false
     let uuid = UUID()
     var restingHR: Int = 70
     var endedAt: Date?
@@ -25,6 +15,8 @@ class Training: NSObject, Encodable, ObservableObject {
     var samples: [HRSample] = []
     var calorieCounter: CalorieCounter = CalorieCounter()
     var activities: [Activity] = []
+    @Published var qrcode: QRCode?
+    @Published var broadcasting: Bool = false
     @Published var activity :Activity = unselected
     @Published var currentHR: Int = 0
     
@@ -32,6 +24,7 @@ class Training: NSObject, Encodable, ObservableObject {
         super.init()
         
         NotificationCenter.default.addObserver(self, selector: #selector(heartRateReceived(notification:)), name: NSNotification.Name.HeartRate, object: nil)
+        qrcode = QRCode(uuid.uuidString)
     }
     
     private var startedAt: Date?
@@ -80,23 +73,10 @@ class Training: NSObject, Encodable, ObservableObject {
     
     
     private func broadcast() throws {
-        Task {
-            let url = URL(string: Endpoints.publish + uuid.uuidString)!
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = self.toJson().data(using: .utf8)
-            let (_, response) = try await URLSession.shared.data(for: request)
-            
-            guard
-                let httpResponse = response as? HTTPURLResponse,
-                httpResponse.statusCode == 200
-            else {
-                
-                print("bad status error")
-                throw DownloadError.statusNotOk
-            }
-        }
+        let data: Data = self.toJson().data(using: .utf8)!
+        let channel: String = uuid.uuidString
+        
+        API().broadcast(channel: channel, data: data)
     }
     
     @objc func heartRateReceived(notification: Notification) {
@@ -169,7 +149,12 @@ class Training: NSObject, Encodable, ObservableObject {
     
     var calories: Int {
         get{
-            return Int(calorieCounter.calories)
+            guard let minute = duration.minute else {
+                return 0
+            }
+            
+            let minutes = duration.hour! * 60 + minute
+            return Int(calorieCounter.caloiesPerMinuteAt(averageHR)) * minutes
         }
     }
     

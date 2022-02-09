@@ -44,7 +44,6 @@ struct UserDefault<Value> {
     }
 }
 
-
 @propertyWrapper
 struct Preference<Value>: DynamicProperty {
     
@@ -77,8 +76,6 @@ struct Preference<Value>: DynamicProperty {
     }
 }
 
-
-
 final class PublisherObservableObject: ObservableObject {
     
     var subscriber: AnyCancellable?
@@ -109,6 +106,9 @@ final class Preferences: ObservableObject {
     
     @UserDefault("user_age")
     var age: Int = 35
+     
+    @UserDefault("user_height")
+    var height: Int = 150
     
     @UserDefault(wrappedValue: nil, "heart_rate_monitor")
     var heartRateMonitor: String?

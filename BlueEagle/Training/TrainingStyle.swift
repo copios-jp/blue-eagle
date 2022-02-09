@@ -6,8 +6,6 @@
 //
 import Foundation
 
-
-
 struct TrainingZone {
     var maxHRPercent: Double
     var description: String
