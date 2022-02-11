@@ -17,8 +17,10 @@
 "average-hr: %lld" = "average heart rate: %lld";
 "calories-burnt: %lld" = "calories: %lld";
 
-"done" = "dismiss";
+"done" = "done";
 "devices" = "Heart Rate Sensors";
+"connected" = "Connected";
+"not connected" = "Not Connected";
 "select activity" = "Configure Exercise";
 "activity" = "Exercise";
 "configure activity" = "Configure Exercise";

@@ -17,6 +17,9 @@
 
 "done" = "閉じる";
 "devices" = "心拍センサー";
+"connected" = "接続済み";
+"not connected" = "未接続";
+
 "select activity" = "種目を設定する";
 "activity" = "種目";
 "configure activity" = "種目設定";
@@ -44,9 +47,10 @@
 "gender" = "性別";
 "weight" = "体重";
 "age" = "年齢";
-
+"height" = "身長";
 "data" = "データ";
-"broadcast" = "トレーニングデータを送信する";
+"broadcast" = "ライブ配信する";
+"live access URL" = "アクセスURL";
 "qr code" = "QR コード";
 
 "male" = "男性";

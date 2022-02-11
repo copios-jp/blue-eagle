@@ -12,7 +12,7 @@ class TrainingTest: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         subject = Training()
-        subject!.age = 47
+        // subject!.age = 47
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
