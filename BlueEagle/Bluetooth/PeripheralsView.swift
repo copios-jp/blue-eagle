@@ -5,20 +5,20 @@
 //  Created by Randy Morgan on 2021/11/22.
 //
 
-import SwiftUI
 import CoreBluetooth
+import SwiftUI
 
 struct PeripheralsView: View {
     @ObservedObject var bluetooth: BluetoothService
     @Binding var show: Bool
-    
+
     var body: some View {
         NavigationView {
             VStack {
-                if(bluetooth.isScanning) {
+                if bluetooth.isScanning {
                     ProgressView()
                 }
-                if(bluetooth.isScanning == false && bluetooth.peripherals.count == 0) {
+                if bluetooth.isScanning == false && bluetooth.peripherals.count == 0 {
                     Text("no sensors available")
                 }
                 Form {
@@ -38,20 +38,19 @@ struct PeripheralsView: View {
             .navigationTitle("devices")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .confirmationAction ) {
+                ToolbarItem(placement: .confirmationAction) {
                     Button("done") {
                         bluetooth.stopScan()
                         self.show.toggle()
                     }
                 }
             }
-            
         }
     }
 }
 
 struct PeripheralsView_Previews: PreviewProvider {
-    @State static var bluetooth: BluetoothService = BluetoothService()
+    @State static var bluetooth: BluetoothService = .init()
     @State static var show: Bool = true
     static var previews: some View {
         PeripheralsView(bluetooth: bluetooth, show: $show)
