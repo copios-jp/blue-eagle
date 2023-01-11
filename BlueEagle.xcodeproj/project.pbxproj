@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		255E0562274BC79A00E1DE8A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E0561274BC79A00E1DE8A /* Preferences.swift */; };
+		2572B29E296E70AF006BEFE4 /* CalorieCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2572B29D296E70AF006BEFE4 /* CalorieCounter.swift */; };
+		2572B2A1296E856F006BEFE4 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2572B2A0296E856F006BEFE4 /* Date.swift */; };
+		2572B2A4296E8AA8006BEFE4 /* CalorieCounterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2572B2A3296E8AA8006BEFE4 /* CalorieCounterTest.swift */; };
 		25A15628274A7BFB0061D9E7 /* Sex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A15627274A7BFB0061D9E7 /* Sex.swift */; };
-		25C9E203275E0FDC0034623C /* BasalCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C9E202275E0FDC0034623C /* BasalCalculator.swift */; };
-		25C9E205275E169D0034623C /* ActiveCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C9E204275E169D0034623C /* ActiveCalculator.swift */; };
 		25C9E207275F4FF50034623C /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C9E206275F4FF50034623C /* QRCode.swift */; };
 		25C9E20927616BA00034623C /* PeripheralRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C9E20827616BA00034623C /* PeripheralRow.swift */; };
 		25C9E20B276171140034623C /* Peripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C9E20A276171140034623C /* Peripheral.swift */; };
@@ -23,7 +24,6 @@
 		25F58FC1274A8E7800FCBDF1 /* ExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F58FC0274A8E7800FCBDF1 /* ExerciseView.swift */; };
 		25F58FC3274A975900FCBDF1 /* PeripheralsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F58FC2274A975900FCBDF1 /* PeripheralsView.swift */; };
 		3D085B732707630F007DEB5B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D085B722707630F007DEB5B /* HealthKit.framework */; };
-		3D2FB8A627258F7A001C473D /* Calorie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8A527258F7A001C473D /* Calorie.swift */; };
 		3D2FB8A8272ABF64001C473D /* TrainingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8A7272ABF64001C473D /* TrainingTest.swift */; };
 		3D2FB8AB272ABFA3001C473D /* Training.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8AA272ABFA3001C473D /* Training.swift */; };
 		3D2FB8AD272ABFEE001C473D /* HRSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8AC272ABFEE001C473D /* HRSample.swift */; };
@@ -74,9 +74,10 @@
 
 /* Begin PBXFileReference section */
 		255E0561274BC79A00E1DE8A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		2572B29D296E70AF006BEFE4 /* CalorieCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalorieCounter.swift; sourceTree = "<group>"; };
+		2572B2A0296E856F006BEFE4 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		2572B2A3296E8AA8006BEFE4 /* CalorieCounterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieCounterTest.swift; sourceTree = "<group>"; };
 		25A15627274A7BFB0061D9E7 /* Sex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sex.swift; sourceTree = "<group>"; };
-		25C9E202275E0FDC0034623C /* BasalCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasalCalculator.swift; sourceTree = "<group>"; };
-		25C9E204275E169D0034623C /* ActiveCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCalculator.swift; sourceTree = "<group>"; };
 		25C9E206275F4FF50034623C /* QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
 		25C9E20827616BA00034623C /* PeripheralRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralRow.swift; sourceTree = "<group>"; };
 		25C9E20A276171140034623C /* Peripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peripheral.swift; sourceTree = "<group>"; };
@@ -90,7 +91,6 @@
 		25F58FC2274A975900FCBDF1 /* PeripheralsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralsView.swift; sourceTree = "<group>"; };
 		3D085B702707630F007DEB5B /* BlueEagle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlueEagle.entitlements; sourceTree = "<group>"; };
 		3D085B722707630F007DEB5B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
-		3D2FB8A527258F7A001C473D /* Calorie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calorie.swift; sourceTree = "<group>"; };
 		3D2FB8A7272ABF64001C473D /* TrainingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingTest.swift; sourceTree = "<group>"; };
 		3D2FB8AA272ABFA3001C473D /* Training.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Training.swift; sourceTree = "<group>"; };
 		3D2FB8AC272ABFEE001C473D /* HRSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRSample.swift; sourceTree = "<group>"; };
@@ -151,6 +151,22 @@
 			path = Preferences;
 			sourceTree = "<group>";
 		};
+		2572B29F296E855D006BEFE4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2572B2A0296E856F006BEFE4 /* Date.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		2572B2A2296E8A6E006BEFE4 /* Calories */ = {
+			isa = PBXGroup;
+			children = (
+				2572B2A3296E8AA8006BEFE4 /* CalorieCounterTest.swift */,
+			);
+			path = Calories;
+			sourceTree = "<group>";
+		};
 		25C9E200275E07660034623C /* StopWatch */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,9 +179,7 @@
 		25C9E201275E0F490034623C /* Calories */ = {
 			isa = PBXGroup;
 			children = (
-				3D2FB8A527258F7A001C473D /* Calorie.swift */,
-				25C9E202275E0FDC0034623C /* BasalCalculator.swift */,
-				25C9E204275E169D0034623C /* ActiveCalculator.swift */,
+				2572B29D296E70AF006BEFE4 /* CalorieCounter.swift */,
 			);
 			path = Calories;
 			sourceTree = "<group>";
@@ -250,6 +264,7 @@
 		3DE371F926F4DC8700CC1F3F /* BlueEagle */ = {
 			isa = PBXGroup;
 			children = (
+				2572B29F296E855D006BEFE4 /* Core */,
 				25C9E20F2763E51B0034623C /* API */,
 				25C9E20C276322F90034623C /* Activities */,
 				25C9E201275E0F490034623C /* Calories */,
@@ -277,6 +292,7 @@
 		3DE3720B26F4DC8800CC1F3F /* BlueEagleTests */ = {
 			isa = PBXGroup;
 			children = (
+				2572B2A2296E8A6E006BEFE4 /* Calories */,
 				3DE3720E26F4DC8800CC1F3F /* Info.plist */,
 				3D2FB8A7272ABF64001C473D /* TrainingTest.swift */,
 			);
@@ -427,9 +443,10 @@
 				25D6E6292750298F0060F047 /* BluetoothView.swift in Sources */,
 				3DF928DD272CCB7A007BF669 /* TrainingZoneView.swift in Sources */,
 				3DF928DF272CCCE4007BF669 /* TrainingStatsView.swift in Sources */,
+				2572B29E296E70AF006BEFE4 /* CalorieCounter.swift in Sources */,
+				2572B2A1296E856F006BEFE4 /* Date.swift in Sources */,
 				3D2FB8AB272ABFA3001C473D /* Training.swift in Sources */,
 				25C9E207275F4FF50034623C /* QRCode.swift in Sources */,
-				3D2FB8A627258F7A001C473D /* Calorie.swift in Sources */,
 				25F58FBF274A8B4000FCBDF1 /* EditSettingsView.swift in Sources */,
 				3DFD9BE926FE054A005903EA /* GATT.swift in Sources */,
 				3D34075327060FE10089E234 /* TrainingView.swift in Sources */,
@@ -442,7 +459,6 @@
 				3DF928D9272C54A3007BF669 /* StopWatch.swift in Sources */,
 				255E0562274BC79A00E1DE8A /* Preferences.swift in Sources */,
 				25A15628274A7BFB0061D9E7 /* Sex.swift in Sources */,
-				25C9E203275E0FDC0034623C /* BasalCalculator.swift in Sources */,
 				3DF928DB272CCA02007BF669 /* StopwatchView.swift in Sources */,
 				25C9E20927616BA00034623C /* PeripheralRow.swift in Sources */,
 				25F58FC1274A8E7800FCBDF1 /* ExerciseView.swift in Sources */,
@@ -450,7 +466,6 @@
 				3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */,
 				25D6E62B27502A900060F047 /* SettingsView.swift in Sources */,
 				25C9E2112763E52C0034623C /* Api.swift in Sources */,
-				25C9E205275E169D0034623C /* ActiveCalculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +473,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2572B2A4296E8AA8006BEFE4 /* CalorieCounterTest.swift in Sources */,
 				3D2FB8A8272ABF64001C473D /* TrainingTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

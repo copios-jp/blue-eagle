@@ -18,7 +18,7 @@ class Peripheral: NSObject, ObservableObject {
   init(name: String, state: CBPeripheralState) {
     self.name = name
     self.state = state
-      identifier = UUID(uuidString: "123")!
+    identifier = UUID()
     super.init()
   }
 

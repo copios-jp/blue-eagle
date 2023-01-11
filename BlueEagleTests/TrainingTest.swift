@@ -12,7 +12,6 @@ class TrainingTest: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         subject = Training()
-        // subject!.age = 47
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
@@ -24,11 +23,13 @@ class TrainingTest: XCTestCase {
     func test_addSample() throws {
         subject?.addSample(sample: HRSample(rate: 50, at: Date()))
         XCTAssertEqual(subject!.samples.count, 1)
+        XCTAssertEqual(subject!.currentHR, 50)
     }
     
     func test_currentTrainingZone() throws {
-        subject?.addSample(sample: HRSample(rate: 138, at: Date()))
-        XCTAssertEqual(subject!.currentTrainingZone.description, GarminTraining().zones[3].description)
+        let max: Int = subject!.maxHR
+        subject?.addSample(sample: HRSample(rate: max , at: Date()))
+        XCTAssertEqual(subject!.currentTrainingZone.description, GarminTraining().zones[5].description)
     }
 /*
     func testPerformanceExample() throws {
