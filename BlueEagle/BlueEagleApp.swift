@@ -7,14 +7,13 @@
 
 import SwiftUI
 
-
-
 @main
 struct BlueEagleApp: App {
-    var body: some Scene {
-        WindowGroup {
-              ContentView()
-                    .padding()
-        }
+  var bluetooth: BluetoothService = .init()
+  var body: some Scene {
+    WindowGroup {
+      ContentView()
+        .padding()
     }
+  }
 }

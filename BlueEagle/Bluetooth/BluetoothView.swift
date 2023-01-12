@@ -8,25 +8,24 @@
 import SwiftUI
 
 struct BluetoothView: View {
-  @ObservedObject var bluetooth: BluetoothService
+  @StateObject var model: BluetoothViewModel = .init()
   @State private var show: Bool = false
   var body: some View {
-    Image(systemName: bluetooth.receiving ? "heart.fill" : "heart")
+    Image(systemName: model.receiving ? "heart.fill" : "heart")
       .padding()
       .onTapGesture {
-        bluetooth.scan(5.0)
+        model.scan()
         self.show = true
       }
-      .foregroundStyle(bluetooth.pulse ? .primary : .secondary)
+      .foregroundStyle(model.pulse ? .primary : .secondary)
       .sheet(isPresented: $show) {
-        PeripheralsView(bluetooth: bluetooth, show: $show)
+        PeripheralsView(show: $show).environmentObject(model)
       }
   }
 }
 
 struct BluetoothView_Previews: PreviewProvider {
-  @State static var bluetooth: BluetoothService = .init()
   static var previews: some View {
-    BluetoothView(bluetooth: bluetooth)
+    BluetoothView()
   }
 }

@@ -5,8 +5,8 @@
 //  Created by Randy Morgan on 2021/10/28.
 //
 
-import XCTest
 @testable import BlueEagle
+import XCTest
 class TrainingTest: XCTestCase {
     var subject: Training?
     override func setUpWithError() throws {
@@ -21,22 +21,22 @@ class TrainingTest: XCTestCase {
     }
 
     func test_addSample() throws {
-        subject?.addSample(sample: HRSample(rate: 50, at: Date()))
+        subject?.addSample(50)
         XCTAssertEqual(subject!.samples.count, 1)
         XCTAssertEqual(subject!.currentHR, 50)
     }
-    
+
     func test_currentTrainingZone() throws {
         let max: Int = subject!.maxHR
-        subject?.addSample(sample: HRSample(rate: max , at: Date()))
+        subject?.addSample(max)
         XCTAssertEqual(subject!.currentTrainingZone.description, GarminTraining().zones[5].description)
     }
-/*
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-*/
+    /*
+     func testPerformanceExample() throws {
+         // This is an example of a performance test case.
+         self.measure {
+             // Put the code you want to measure the time of here.
+         }
+     }
+     */
 }

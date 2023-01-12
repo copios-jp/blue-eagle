@@ -14,16 +14,16 @@ class Training: NSObject, Encodable, ObservableObject {
   var trainingStyle: TrainingStyle = GarminTraining()
   var samples: [HRSample] = []
   var calorieCounter: CalorieCounter = .init()
-  var activities: [Activity] = []
+
+  @Published var currentHR: Int = 0
+
   @Published var qrcode: QRCode?
   @Published var broadcasting: Bool = false
-  @Published var activity: Activity = unselected
-  @Published var currentHR: Int = 0
 
   override init() {
     super.init()
 
-    NotificationCenter.default.addObserver(self, selector: #selector(heartRateReceived(notification:)), name: NSNotification.Name.HeartRate, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(heartRateReceived(notification:)), name: NSNotification.Name.BluetoothPeripheralValueUpdated, object: nil)
     qrcode = QRCode(uuid.uuidString)
   }
 
@@ -39,8 +39,6 @@ class Training: NSObject, Encodable, ObservableObject {
     case averageHR
     case calories
     case at
-    case activity
-    // TODO: - encode activity
   }
 
   public func qr() -> URL {
@@ -60,7 +58,6 @@ class Training: NSObject, Encodable, ObservableObject {
     try container.encode(percentOfMax, forKey: .percentOfMax)
     try container.encode(calories, forKey: .calories)
     try container.encode(Date(), forKey: .at)
-    try container.encode(activity, forKey: .activity)
   }
 
   public func toJson() -> String {
@@ -79,8 +76,8 @@ class Training: NSObject, Encodable, ObservableObject {
   }
 
   @objc func heartRateReceived(notification: Notification) {
-    let heartRate = notification.userInfo!["heart_rate"] as! Int
-    addSample(sample: HRSample(rate: heartRate, at: Date()))
+    let heartRate: Int = notification.userInfo!["heart_rate_measurement"] as! Int
+    addSample(heartRate)
 
     if broadcasting {
       do {
@@ -129,19 +126,19 @@ class Training: NSObject, Encodable, ObservableObject {
   }
 
   var calories: Int {
-    return calorieCounter.calories()
+    return calorieCounter.calories(self)
   }
 
   var maxHR: Int {
     return Int(211.0 - 0.67 * Double(Preferences.standard.age))
   }
 
-  func addSample(sample: HRSample) {
-    if samples.isEmpty {
-      startedAt = Date()
-    }
-    calorieCounter.addSample(sample)
-    samples.append(sample)
-    currentHR = sample.rate
+  func start() {
+    startedAt = Date()
+  }
+
+  func addSample(_ heartRate: Int, _ at: Date = Date()) {
+    samples.append(HRSample(rate: heartRate, at: at))
+    currentHR = heartRate
   }
 }

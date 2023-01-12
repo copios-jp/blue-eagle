@@ -8,12 +8,11 @@
 import SwiftUI
 struct TrainingView: View {
   @StateObject private var training: Training = .init()
-  @StateObject private var bluetooth: BluetoothService = .init()
   var body: some View {
     GeometryReader { geometry in
       VStack {
         HStack {
-          BluetoothView(bluetooth: bluetooth)
+          BluetoothView()
           Spacer()
           StopwatchView()
           Spacer()

@@ -22,16 +22,22 @@ import SwiftUI
 class CalorieCounter {
   init() {}
 
-  var samples: [HRSample] = []
-
   var minimumViableHeartRate: Int = 90
 
-  var minimumSampleRatePerMinute = 30
+  var minimumSampleRatePerMinute: Int = 30
 
-  var maximumMeasurableHeartRate = 150
+  var maximumMeasurableHeartRate: Int = 150
 
   private var sex: Sex {
     return Sex(rawValue: Preferences.standard.sex) ?? .undeclared
+  }
+
+  private var age: Int {
+    return Preferences.standard.age
+  }
+
+  private var weight: Int {
+    return Preferences.standard.weight
   }
 
   private var intercept: Double {
@@ -83,27 +89,20 @@ class CalorieCounter {
       return 0
     }
 
-    @Preference(\.age) var user_age
-    @Preference(\.weight) var user_weight
-
-    let limitedHeartRate = min(heartRate, maximumMeasurableHeartRate)
-
-    let rate = Double(limitedHeartRate)
-    let age = Double(user_age)
-    let weight = Double(user_weight)
+    let limitedHeartRate: Int = min(heartRate, maximumMeasurableHeartRate)
 
     let JOULES_TO_KCAL = 4.1845
+    var consumed: Double = intercept
+    consumed += rateCoef * Double(limitedHeartRate)
+    consumed += weightCoef * Double(weight)
+    consumed += ageCoef * Double(age)
 
-    return Int((intercept + rateCoef * rate + weightCoef * weight + ageCoef * age) / JOULES_TO_KCAL)
+    consumed = consumed / JOULES_TO_KCAL
+    return Int(consumed.rounded())
   }
 
-  func addSample(_ sample: HRSample) {
-    if sample.rate >= minimumViableHeartRate {
-      samples.append(sample)
-    }
-  }
-
-  func calories() -> Int {
+  func calories(_ training: Training) -> Int {
+    let samples: [HRSample] = training.samples
     if samples.isEmpty {
       return 0
     }
@@ -131,7 +130,7 @@ class CalorieCounter {
         count = 1
       }
     }
-    //
+
     if minutes.values.count <= 1, count < minimumSampleRatePerMinute {
       return 0
     }

@@ -9,29 +9,29 @@ import CoreBluetooth
 import SwiftUI
 
 struct PeripheralsView: View {
-  @ObservedObject var bluetooth: BluetoothService
+  @EnvironmentObject var model: BluetoothViewModel
   @Binding var show: Bool
 
   var body: some View {
     NavigationView {
       VStack {
-        if bluetooth.isScanning {
+        if model.isScanning {
           ProgressView()
         }
-        if bluetooth.isScanning == false && bluetooth.peripherals.count == 0 {
+        if model.isScanning == false && model.peripherals.count == 0 {
           Text("no sensors available")
         }
         Form {
-          List(Array(bluetooth.peripherals), id: \.identifier) { peripheral in
+          List(Array(model.peripherals), id: \.identifier) { peripheral in
             Button(action: {
-              bluetooth.connect(peripheral)
+              model.toggle(peripheral)
             }, label: {
               PeripheralRow(peripheral: Peripheral(peripheral))
             })
           }
         }
         Button("scan", action: {
-          bluetooth.scan(5.0)
+          model.scan()
         })
         Spacer()
       }
@@ -40,7 +40,7 @@ struct PeripheralsView: View {
       .toolbar {
         ToolbarItem(placement: .confirmationAction) {
           Button("done") {
-            bluetooth.stopScan()
+            // model.stopScan()
             self.show.toggle()
           }
         }
@@ -50,9 +50,9 @@ struct PeripheralsView: View {
 }
 
 struct PeripheralsView_Previews: PreviewProvider {
-  @State static var bluetooth: BluetoothService = .init()
   @State static var show: Bool = true
+  static let model = BluetoothViewModel()
   static var previews: some View {
-    PeripheralsView(bluetooth: bluetooth, show: $show)
+    PeripheralsView(show: $show).environmentObject(model)
   }
 }
