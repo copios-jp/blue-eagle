@@ -23,7 +23,7 @@ class Training: NSObject, Encodable, ObservableObject {
   override init() {
     super.init()
 
-    NotificationCenter.default.addObserver(self, selector: #selector(heartRateReceived(notification:)), name: NSNotification.Name.BluetoothPeripheralValueUpdated, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(heartRateReceived(notification:)), name: NSNotification.Name.HeartRateMonitorValueUpdated, object: nil)
     qrcode = QRCode(uuid.uuidString)
   }
 

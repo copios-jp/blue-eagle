@@ -12,7 +12,7 @@ struct TrainingView: View {
     GeometryReader { geometry in
       VStack {
         HStack {
-          BluetoothView()
+          HeartRateMonitorList()
           Spacer()
           StopwatchView()
           Spacer()
