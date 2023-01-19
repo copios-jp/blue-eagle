@@ -11,11 +11,11 @@ import Combine
 class HeartRateMonitorViewModel: ObservableObject, Hashable, Equatable {
     struct HeartRateMonitorIcon {
       var systemName: String
-      var foregroundStyle: HierarchicalShapeStyle
+      var foregroundColor: Color
     }
     
-    private let LiveHeartRateMonitorIcon = HeartRateMonitorIcon(systemName: "heart.fill", foregroundStyle: .primary)
-    private let DeadHeartRateMonitorIcon = HeartRateMonitorIcon(systemName: "heart.slash", foregroundStyle: .secondary)
+    static let LiveHeartRateMonitorIcon = HeartRateMonitorIcon(systemName: "heart.fill", foregroundColor: .primary)
+    static let DeadHeartRateMonitorIcon = HeartRateMonitorIcon(systemName: "heart.slash", foregroundColor: .secondary)
     
     private var model: HeartRateMonitor
     private var cancellableModelState: AnyCancellable?
@@ -37,10 +37,10 @@ class HeartRateMonitorViewModel: ObservableObject, Hashable, Equatable {
       name = heartRateMonitor.name
       identifier = heartRateMonitor.identifier
       
-      icon = DeadHeartRateMonitorIcon
+      icon = HeartRateMonitorViewModel.DeadHeartRateMonitorIcon
       
       cancellableModelState = heartRateMonitor.$state.sink { value in
-        self.icon = value == .connected ? self.LiveHeartRateMonitorIcon : self.DeadHeartRateMonitorIcon
+        self.icon = value == .connected ? HeartRateMonitorViewModel.LiveHeartRateMonitorIcon : HeartRateMonitorViewModel.DeadHeartRateMonitorIcon
         print("view model state update", value, self.identifier, self.icon.systemName)
       }
     }

@@ -175,7 +175,7 @@ extension BluetoothService: CBPeripheralDelegate {
   func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error _: Error?) {
     let heartRate = heartRate(from: characteristic)
 
-    let userInfo: [AnyHashable: Any] = [
+    let userInfo: [AnyHashable: AnyHashable] = [
       "identifier": peripheral.identifier,
       "sample": heartRate,
     ]

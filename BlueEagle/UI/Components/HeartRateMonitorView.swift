@@ -18,8 +18,7 @@ struct HeartRateMonitorView: View {
         Spacer()
       }
       Image(systemName: viewModel.icon.systemName)
-        .foregroundStyle(viewModel.icon.foregroundStyle)
-        .padding()
+        .foregroundColor(viewModel.icon.foregroundColor)
     }
   }
 }

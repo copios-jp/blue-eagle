@@ -28,7 +28,7 @@ class HeartRateMonitor: ObservableObject {
     #selector(heartRateMonitorDisconnected(notification:)): .HeartRateMonitorDisconnected,
   ]
   
-  private let MAX_IDENTICAL_HEART_RATE: Int = 30
+  static let MAX_IDENTICAL_HEART_RATE: Int = 30
 
   private var eventBus: EventBus
   private var deadStickCountdown: Int
@@ -43,7 +43,7 @@ class HeartRateMonitor: ObservableObject {
     self.eventBus = eventBus
     self.name = name
     self.identifier = identifier
-    deadStickCountdown = MAX_IDENTICAL_HEART_RATE
+    deadStickCountdown = HeartRateMonitor.MAX_IDENTICAL_HEART_RATE
     eventBus.registerObservers(self, observing)
   }
 
@@ -90,7 +90,7 @@ class HeartRateMonitor: ObservableObject {
 
     let newValue: Int = notification.userInfo!["sample"] as! Int
 
-    deadStickCountdown = newValue != heartRate ? MAX_IDENTICAL_HEART_RATE : max(deadStickCountdown - 1, 0)
+    deadStickCountdown = newValue != heartRate ? HeartRateMonitor.MAX_IDENTICAL_HEART_RATE : max(deadStickCountdown - 1, 0)
     heartRate = newValue
 
     if deadStickCountdown == 0 && state != .dead {

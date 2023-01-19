@@ -11,91 +11,111 @@ import XCTest
 final class HeartRateMonitorTest: XCTestCase {
   var sut: HeartRateMonitor?
   let identifier = UUID()
+  let eventBus: EventBusMock = .init()
+  
+  let HEART_RATE_SAMPLE_1 = 90
+  let HEART_RATE_SAMPLE_2 = 91
+  
   override func setUpWithError() throws {
-    sut = .init(identifier: identifier)
+    sut = .init(identifier: identifier, eventBus: eventBus)
   }
   
   override func tearDownWithError() throws {
+    eventBus.reset()
     sut = nil
   }
  
-  func testConnectedEvent() throws {
+  // MARK: Connecting
+  
+  func test_itTransitionsToConnectingState() throws {
+    sut!.connect()
+    
+    XCTAssertEqual(sut!.state, .connecting)
+    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestConnection, ["identifier": identifier]))
+  }
+  
+  func test_itTogglesToConnecting() throws {
+    sut!.disconnect()
+    sut!.toggle()
+    
+    XCTAssertEqual(sut!.state, .connecting)
+    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestConnection, ["identifier": identifier]))
+  }
+  
+  func test_itTransitionsToConnectedState() throws {
     XCTAssertEqual(sut!.state, .dead)
-    NotificationCenter.default.post(name: .HeartRateMonitorConnected, object:nil, userInfo: ["identifier": identifier])
+    
+    eventBus.trigger(.HeartRateMonitorConnected, ["identifier": identifier])
+    
     XCTAssertEqual(sut!.state, .connected)
   }
+  
+  // MARK: Disonnecting
+  
+  func test_itTransitionsToDisconnectingState() throws {
+    sut!.disconnect()
+    
+    XCTAssertEqual(sut!.state, .disconnecting)
+    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestDisconnection, ["identifier": identifier]))
+  }
    
-  func testDisonnectedEvent() throws {
+  func test_itTogglesToDisconnecting() throws {
+    sut!.connect()
+    sut!.toggle()
+    
+    XCTAssertEqual(sut!.state, .disconnecting)
+    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestDisconnection, ["identifier": identifier]))
+  }
+
+  func test_itTransitionsToDisconnectedState() throws {
     XCTAssertEqual(sut!.state, .dead)
-    NotificationCenter.default.post(name: .HeartRateMonitorDisconnected, object:nil, userInfo: ["identifier": identifier])
+    
+    eventBus.trigger(.HeartRateMonitorDisconnected, ["identifier": identifier])
+    
     XCTAssertEqual(sut!.state, .disconnected)
   }
- 
   
-  func testConflictingIdentifierEvent() throws {
-    XCTAssertEqual(sut!.state, .dead)
-    NotificationCenter.default.post(name: .HeartRateMonitorConnected, object:nil, userInfo: ["identifier": UUID()])
-    XCTAssertEqual(sut!.state, .dead)
-  }
-  func testValueUpdateEvent() throws {
+  // MARK: Sampling
+  
+  func test_itCapturesHeartRateSamples() throws {
     XCTAssertEqual(sut!.heartRate, 0)
-    NotificationCenter.default.post(name: .HeartRateMonitorValueUpdated, object:nil, userInfo: ["identifier": identifier, "sample": 90])
+    XCTAssertEqual(sut!.state, .dead)
+    
+    eventBus.trigger(.HeartRateMonitorValueUpdated, ["identifier": identifier, "sample": 90])
+    
     XCTAssertEqual(sut!.heartRate, 90)
     XCTAssertEqual(sut!.state, .connected)
   }
-
-  func testDeadStick() throws {
-    for _ in 0...30 {
-     NotificationCenter.default.post(name: .HeartRateMonitorValueUpdated, object:nil, userInfo: ["identifier": identifier, "sample": 90])
+  
+  func test_itTransitionsToDeadStateAfterTooManyIdenticalSamples() throws {
+    for _ in 0...HeartRateMonitor.MAX_IDENTICAL_HEART_RATE {
+      eventBus.trigger(.HeartRateMonitorValueUpdated, ["identifier": identifier, "sample": HEART_RATE_SAMPLE_1])
     }
     
     XCTAssertEqual(sut!.state, .dead)
   }
   
-  func testDeadStickRecovery() throws {
-    NotificationCenter.default.post(name: .HeartRateMonitorConnected, object:nil, userInfo: ["identifier": identifier])
+  func test_itRecoversFromDeadStateWithDifferentSample() throws {
+    eventBus.trigger(.HeartRateMonitorConnected, ["identifier": identifier])
     
-    for _ in 0...30 {
-     NotificationCenter.default.post(name: .HeartRateMonitorValueUpdated, object:nil, userInfo: ["identifier": identifier, "sample": 90])
+    for _ in 0...HeartRateMonitor.MAX_IDENTICAL_HEART_RATE {
+      eventBus.trigger(.HeartRateMonitorValueUpdated, ["identifier": identifier, "sample": HEART_RATE_SAMPLE_1])
     }
     
     XCTAssertEqual(sut!.state, .dead)
-    NotificationCenter.default.post(name: .HeartRateMonitorValueUpdated, object:nil, userInfo: ["identifier": identifier, "sample": 91])
+    
+    eventBus.trigger(.HeartRateMonitorValueUpdated, ["identifier": identifier, "sample": HEART_RATE_SAMPLE_2])
+    
     XCTAssertEqual(sut!.state, .connected)
   }
+ 
+  // MARK: Identification
   
-  func testConnect() throws {
-    let eventBusMock: EventBusMock = .init()
-    let sut: HeartRateMonitor = .init(identifier: identifier, eventBus: eventBusMock )
-    sut.connect()
-    XCTAssertEqual(eventBusMock.name, .BluetoothRequestConnection)
-    XCTAssertEqual(eventBusMock.data?["identifier"] as! UUID, identifier)
-  }
-  
-  func testDisconnect() throws {
-    let eventBusMock: EventBusMock = .init()
-    let sut: HeartRateMonitor = .init(identifier: identifier, eventBus: eventBusMock )
-    sut.disconnect()
-    XCTAssertEqual(eventBusMock.name, .BluetoothRequestDisconnection)
-    XCTAssertEqual(eventBusMock.data?["identifier"] as! UUID, identifier)
-  }
-  
-  func testToggleWhenConnected() throws {
-     let eventBusMock: EventBusMock = .init()
-    let sut: HeartRateMonitor = .init(identifier: identifier, eventBus: eventBusMock )
-    sut.connect()
-    sut.toggle()
-    XCTAssertEqual(sut.state, .disconnecting)
-    XCTAssertEqual(eventBusMock.name, .BluetoothRequestDisconnection)
-  }
-  
-  func testToggleWhenDisconnected() throws {
-    let eventBusMock: EventBusMock = .init()
-    let sut: HeartRateMonitor = .init(identifier: identifier, eventBus: eventBusMock )
-    sut.disconnect()
-    sut.toggle()
-    XCTAssertEqual(sut.state, .connecting)
+  func test_itIgnoresMessagesWithConflictingIdentifier() throws {
+    XCTAssertEqual(sut!.state, .dead)
     
-    XCTAssertEqual(eventBusMock.name, .BluetoothRequestConnection)
+    eventBus.trigger(.HeartRateMonitorConnected, ["identifier": UUID()])
+    
+    XCTAssertEqual(sut!.state, .dead)
   }
 }

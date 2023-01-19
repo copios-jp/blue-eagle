@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,9 @@
 		250F27AB2976662E001C3FB2 /* HeartRateMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27AA2976662E001C3FB2 /* HeartRateMonitorView.swift */; };
 		250F27AD297667BC001C3FB2 /* HeartRateMonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27AC297667BC001C3FB2 /* HeartRateMonitorViewModel.swift */; };
 		250F27B02978A901001C3FB2 /* HeartRateMonitorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27AF2978A901001C3FB2 /* HeartRateMonitorTest.swift */; };
+		250F27B329791E4A001C3FB2 /* EventBusMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27B229791E4A001C3FB2 /* EventBusMock.swift */; };
+		250F27B629796971001C3FB2 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 250F27B529796971001C3FB2 /* ViewInspector */; };
+		250F27BA297969D0001C3FB2 /* HeartRateMonitorViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27B9297969D0001C3FB2 /* HeartRateMonitorViewTest.swift */; };
 		255E0562274BC79A00E1DE8A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E0561274BC79A00E1DE8A /* Preferences.swift */; };
 		2572B29E296E70AF006BEFE4 /* CalorieCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2572B29D296E70AF006BEFE4 /* CalorieCounter.swift */; };
 		2572B2A1296E856F006BEFE4 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2572B2A0296E856F006BEFE4 /* Date.swift */; };
@@ -79,6 +82,8 @@
 		250F27AA2976662E001C3FB2 /* HeartRateMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorView.swift; sourceTree = "<group>"; };
 		250F27AC297667BC001C3FB2 /* HeartRateMonitorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorViewModel.swift; sourceTree = "<group>"; };
 		250F27AF2978A901001C3FB2 /* HeartRateMonitorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorTest.swift; sourceTree = "<group>"; };
+		250F27B229791E4A001C3FB2 /* EventBusMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBusMock.swift; sourceTree = "<group>"; };
+		250F27B9297969D0001C3FB2 /* HeartRateMonitorViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorViewTest.swift; sourceTree = "<group>"; };
 		255E0561274BC79A00E1DE8A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		2572B29D296E70AF006BEFE4 /* CalorieCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalorieCounter.swift; sourceTree = "<group>"; };
 		2572B2A0296E856F006BEFE4 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -133,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				250F27B629796971001C3FB2 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +184,30 @@
 				250F27AF2978A901001C3FB2 /* HeartRateMonitorTest.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		250F27B129791E39001C3FB2 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				250F27B229791E4A001C3FB2 /* EventBusMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		250F27B729796987001C3FB2 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				250F27B8297969A6001C3FB2 /* Components */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		250F27B8297969A6001C3FB2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				250F27B9297969D0001C3FB2 /* HeartRateMonitorViewTest.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		255E0560274BC78B00E1DE8A /* Preferences */ = {
@@ -360,6 +390,8 @@
 		3DE3720B26F4DC8800CC1F3F /* BlueEagleTests */ = {
 			isa = PBXGroup;
 			children = (
+				250F27B729796987001C3FB2 /* UI */,
+				250F27B129791E39001C3FB2 /* Mocks */,
 				250F27AE2978A8E0001C3FB2 /* Models */,
 				25EC056D2971239E008D99E7 /* Bluetooth */,
 				2572B2A2296E8A6E006BEFE4 /* Calories */,
@@ -413,6 +445,9 @@
 				3DE3720A26F4DC8800CC1F3F /* PBXTargetDependency */,
 			);
 			name = BlueEagleTests;
+			packageProductDependencies = (
+				250F27B529796971001C3FB2 /* ViewInspector */,
+			);
 			productName = BlueEagleTests;
 			productReference = 3DE3720826F4DC8800CC1F3F /* BlueEagleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -467,6 +502,9 @@
 				ja,
 			);
 			mainGroup = 3DE371EE26F4DC8700CC1F3F;
+			packageReferences = (
+				250F27B429796971001C3FB2 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+			);
 			productRefGroup = 3DE371F826F4DC8700CC1F3F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -543,10 +581,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				250F27BA297969D0001C3FB2 /* HeartRateMonitorViewTest.swift in Sources */,
 				2572B2A4296E8AA8006BEFE4 /* CalorieCounterTest.swift in Sources */,
 				250F27B02978A901001C3FB2 /* HeartRateMonitorTest.swift in Sources */,
 				25EC056F297359B6008D99E7 /* BluetoothViewModelTest.swift in Sources */,
 				3D2FB8A8272ABF64001C473D /* TrainingTest.swift in Sources */,
+				250F27B329791E4A001C3FB2 /* EventBusMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,6 +918,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		250F27B429796971001C3FB2 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				branch = 0.9.6;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		250F27B529796971001C3FB2 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 250F27B429796971001C3FB2 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3DE371EF26F4DC8700CC1F3F /* Project object */;
 }
