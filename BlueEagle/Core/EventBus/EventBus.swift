@@ -28,3 +28,22 @@ extension NotificationCenter: EventBus {
     }
   }
 }
+
+class EventBusMock: EventBus {
+  var name: NSNotification.Name?
+  var data: [AnyHashable: Any]?
+  
+  func trigger(_ name: NSNotification.Name) {
+    self.name = name
+    self.data = nil
+  }
+  
+  func trigger(_ name: NSNotification.Name, _ data: [AnyHashable: Any]) {
+    self.name = name
+    self.data = data
+  }
+  
+  func registerObservers(_ observer: AnyObject, _ observing: [Selector: NSNotification.Name]) {
+    /* noop */
+  }
+}

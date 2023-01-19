@@ -27,13 +27,14 @@ class HeartRateMonitor: ObservableObject {
     #selector(heartRateMonitorConnected(notification:)): .HeartRateMonitorConnected,
     #selector(heartRateMonitorDisconnected(notification:)): .HeartRateMonitorDisconnected,
   ]
-  private let DEAD_STICK_COUNT: Int = 30
+  
+  private let MAX_IDENTICAL_HEART_RATE: Int = 30
 
   private var eventBus: EventBus
   private var deadStickCountdown: Int
 
   @Published private(set) var state: HeartRateMonitorState = .dead
-  @Published private(set) var value: Int = 0
+  @Published private(set) var heartRate: Int = 0
 
   private(set) var name: String
   private(set) var identifier: UUID
@@ -42,7 +43,7 @@ class HeartRateMonitor: ObservableObject {
     self.eventBus = eventBus
     self.name = name
     self.identifier = identifier
-    deadStickCountdown = DEAD_STICK_COUNT
+    deadStickCountdown = MAX_IDENTICAL_HEART_RATE
     eventBus.registerObservers(self, observing)
   }
 
@@ -57,9 +58,9 @@ class HeartRateMonitor: ObservableObject {
   }
 
   func toggle() {
-    if state == .connected || state == .dead {
+    if state != .disconnected && state != .disconnecting {
       disconnect()
-    } else if state == .disconnected {
+    } else if state != .connected && state != .connecting {
       connect()
     }
   }
@@ -70,11 +71,16 @@ class HeartRateMonitor: ObservableObject {
   }
 
   @objc private func heartRateMonitorConnected(notification: Notification) {
-    if isMine(notification) { state = .connected }
+    if isMine(notification) {
+      state = .connected
+      
+    }
   }
 
   @objc private func heartRateMonitorDisconnected(notification: Notification) {
-    if isMine(notification) { state = .disconnected }
+    if isMine(notification) {
+      state = .disconnected
+    }
   }
 
   @objc private func heartRateMonitorValueUpdated(notification: Notification) {
@@ -82,13 +88,15 @@ class HeartRateMonitor: ObservableObject {
       return
     }
 
-    let heartRate: Int = notification.userInfo!["heart_rate_measurement"] as! Int
+    let newValue: Int = notification.userInfo!["sample"] as! Int
 
-    deadStickCountdown = heartRate != value ? DEAD_STICK_COUNT : deadStickCountdown - 1
-    value = heartRate
+    deadStickCountdown = newValue != heartRate ? MAX_IDENTICAL_HEART_RATE : max(deadStickCountdown - 1, 0)
+    heartRate = newValue
 
-    if deadStickCountdown <= 0 {
+    if deadStickCountdown == 0 && state != .dead {
       state = .dead
+    } else if state != .connected {
+      state = .connected
     }
   }
 }

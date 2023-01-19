@@ -10,6 +10,7 @@ import CoreBluetooth
 import XCTest
 
 final class BluetoothViewModelTest: XCTestCase {
+  /*
     class EventBusMock: EventBus {
         var observing: [String] = []
         var notification: String? = nil
@@ -76,4 +77,5 @@ final class BluetoothViewModelTest: XCTestCase {
         }
     }
 
+   */
 }

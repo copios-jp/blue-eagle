@@ -143,8 +143,8 @@ extension BluetoothService: CBCentralManagerDelegate {
   func centralManager(_: CBCentralManager, didDiscover peripheral: CBPeripheral,
                       advertisementData _: [String: Any], rssi _: NSNumber)
   {
-    let heartRateMonitor = HeartRateMonitor(name: peripheral.name!, identifier: peripheral.identifier)
-    eventBus.trigger(.HeartRateMonitorDiscoverd, ["heartRateMonitor": heartRateMonitor])
+    
+    eventBus.trigger(.HeartRateMonitorDiscoverd, ["name": peripheral.name!, "identifier": peripheral.identifier])
   }
 
   func centralManager(_: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -177,7 +177,7 @@ extension BluetoothService: CBPeripheralDelegate {
 
     let userInfo: [AnyHashable: Any] = [
       "identifier": peripheral.identifier,
-      "heart_rate_measurement": heartRate,
+      "sample": heartRate,
     ]
 
     eventBus.trigger(.HeartRateMonitorValueUpdated, userInfo)
@@ -197,5 +197,11 @@ extension BluetoothService: CBPeripheralDelegate {
     }
 
     return rate
+  }
+}
+extension BluetoothService {
+  struct Peripheral {
+    var name: String
+    var identifier: UUID
   }
 }

@@ -76,7 +76,7 @@ class Training: NSObject, Encodable, ObservableObject {
   }
 
   @objc func heartRateReceived(notification: Notification) {
-    let heartRate: Int = notification.userInfo!["heart_rate_measurement"] as! Int
+    let heartRate: Int = notification.userInfo!["sample"] as! Int
     addSample(heartRate)
 
     if broadcasting {
