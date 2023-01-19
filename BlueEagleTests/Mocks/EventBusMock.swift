@@ -7,7 +7,9 @@
 
 @testable import BlueEagle
 import Foundation
+
 class EventBusMock: EventBus {
+  
   var observing: [Selector: NSNotification.Name]?
   var observer: Any?
   var passThru: Bool = true

@@ -12,6 +12,9 @@ class HeartRateMonitorMock: HeartRateMonitorDelegate  {
   @Published var state: HeartRateMonitorState = .disconnected
   var statePublisher: Published<BlueEagle.HeartRateMonitorState>.Publisher { $state }
   
+  @Published var heartRate: Int = 0
+  var heartRatePublisher: Published<Int>.Publisher { $heartRate }
+  
   var identifier: UUID = .init()
   var name: String = "Test"
   

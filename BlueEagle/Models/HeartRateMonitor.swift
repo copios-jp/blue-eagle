@@ -21,9 +21,14 @@ enum HeartRateMonitorState: Int {
   case dead
 }
 
+// This delegate allows us to use a mock object when testing view models, etc
+// that encapslate a heart rate monitor allowing us to 'hide' the implementation
+// details on updating state or requesting services via NotificationCenter
 protocol HeartRateMonitorDelegate {
   
   var statePublisher: Published<HeartRateMonitorState>.Publisher { get }
+  var heartRatePublisher: Published<Int>.Publisher { get }
+  
   var identifier: UUID { get }
   var name: String { get }
   
@@ -33,6 +38,7 @@ protocol HeartRateMonitorDelegate {
 }
 
 class HeartRateMonitor: ObservableObject, HeartRateMonitorDelegate {
+  
   private let observing: [Selector: NSNotification.Name] = [
     #selector(heartRateMonitorValueUpdated(notification:)): .HeartRateMonitorValueUpdated,
     #selector(heartRateMonitorConnected(notification:)): .HeartRateMonitorConnected,
@@ -45,8 +51,10 @@ class HeartRateMonitor: ObservableObject, HeartRateMonitorDelegate {
   private var deadStickCountdown: Int
 
   @Published private(set) var state: HeartRateMonitorState = .dead
-  @Published private(set) var heartRate: Int = 0
   var statePublisher: Published<HeartRateMonitorState>.Publisher { $state }
+  
+  @Published private(set) var heartRate: Int = 0
+  var heartRatePublisher: Published<Int>.Publisher { $heartRate }
   
   private(set) var name: String
   private(set) var identifier: UUID
