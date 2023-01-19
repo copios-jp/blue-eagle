@@ -15,15 +15,14 @@ struct HeartRateMonitorList: View {
   var body: some View {
     HStack {
       if viewModel.current == nil {
-      HeartRateMonitorView()
-    } else {
-      HeartRateMonitorView(viewModel: viewModel.current!)
+        HeartRateMonitorView()
+      } else {
+        HeartRateMonitorView(viewModel: viewModel.current!)
+      }
     }
-
-    }
-      .onTapGesture { self.show = true }
-      .sheet(isPresented: $show) { sheetView(viewModel) }
-      .padding()
+    .onTapGesture { self.show = true }
+    .sheet(isPresented: $show) { sheetView(viewModel) }
+    .padding()
   }
 }
 
@@ -44,7 +43,7 @@ private extension HeartRateMonitorList {
     }
     .onAppear(perform: self.viewModel.scan)
   }
- 
+  
   var loadingView: some View {
     ProgressView()
   }

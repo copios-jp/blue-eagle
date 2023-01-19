@@ -118,4 +118,4 @@ final class HeartRateMonitorTest: XCTestCase {
     
     XCTAssertEqual(sut!.state, .dead)
   }
-}
+ }

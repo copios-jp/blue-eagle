@@ -21,7 +21,18 @@ enum HeartRateMonitorState: Int {
   case dead
 }
 
-class HeartRateMonitor: ObservableObject {
+protocol HeartRateMonitorDelegate {
+  
+  var statePublisher: Published<HeartRateMonitorState>.Publisher { get }
+  var identifier: UUID { get }
+  var name: String { get }
+  
+  func connect()
+  func disconnect()
+  func toggle()
+}
+
+class HeartRateMonitor: ObservableObject, HeartRateMonitorDelegate {
   private let observing: [Selector: NSNotification.Name] = [
     #selector(heartRateMonitorValueUpdated(notification:)): .HeartRateMonitorValueUpdated,
     #selector(heartRateMonitorConnected(notification:)): .HeartRateMonitorConnected,
@@ -35,7 +46,8 @@ class HeartRateMonitor: ObservableObject {
 
   @Published private(set) var state: HeartRateMonitorState = .dead
   @Published private(set) var heartRate: Int = 0
-
+  var statePublisher: Published<HeartRateMonitorState>.Publisher { $state }
+  
   private(set) var name: String
   private(set) var identifier: UUID
 

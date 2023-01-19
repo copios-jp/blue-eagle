@@ -32,6 +32,9 @@ extension HeartRateMonitorList {
     }
     
     func scan() {
+      // TODO: consider flushing list of items on scan as we may have some
+      // items listed that are not longer 'connectable' when the user leaves
+      // the app open
       eventBus.trigger(.BluetoothRequestScan)
     }
     
