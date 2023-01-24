@@ -17,15 +17,16 @@ extension HeartRateMonitorList {
     private var observing: [Selector: NSNotification.Name] = [
       #selector(bluetoothScanStarted(notification:)): .BluetoothScanStarted,
       #selector(bluetoothScanStopped(notification:)): .BluetoothScanStopped,
-      #selector(heartRateMonitorDiscovered(notification:)): .HeartRateMonitorDiscoverd,
+      
+      #selector(heartRateMonitorDiscovered(notification:)): .HeartRateMonitorDiscovered,
       #selector(heartRateMonitorConnected(notification:)): .HeartRateMonitorConnected,
     ]
     
     @Published private (set) var isScanning: Bool = false
     @Published private(set) var items: [HeartRateMonitorViewModel]
-    @Published private (set) var current: HeartRateMonitorViewModel?
-        
-    init(items: [HeartRateMonitorViewModel] = [], _ eventBus: EventBus = NotificationCenter.default) {
+    @Published var current: HeartRateMonitorViewModel?
+              
+    init(items: [HeartRateMonitorViewModel] = [], eventBus: EventBus = NotificationCenter.default) {
       self.eventBus = eventBus
       self.items = items
       self.eventBus.registerObservers(self, observing)
@@ -36,6 +37,17 @@ extension HeartRateMonitorList {
       // items listed that are not longer 'connectable' when the user leaves
       // the app open
       eventBus.trigger(.BluetoothRequestScan)
+    }
+    
+    func add(_ name: String, _ identifier: UUID) {
+      if items.contains(where: { $0.identifier == identifier }) {
+        return
+      }
+      
+      let model = HeartRateMonitor(name: name, identifier: identifier, eventBus: eventBus)
+      let viewModel = HeartRateMonitorViewModel(model, eventBus: eventBus)
+      items.append(viewModel)
+      
     }
     
     @objc func bluetoothScanStarted(notification _: Notification) {
@@ -50,30 +62,24 @@ extension HeartRateMonitorList {
       let identifier: UUID = notification.userInfo!["identifier"] as! UUID
       let name: String = notification.userInfo!["name"] as! String
       
-      if items.first(where: { $0.identifier == identifier }) != nil {
-        return  // we already know about this device
-      }
-      
-      let model = HeartRateMonitor(name: name, identifier: identifier)
-      let viewModel = HeartRateMonitorViewModel(model, eventBus: eventBus)
-      items.append(viewModel)
+      add(name, identifier)
       
       @Preference(\.heartRateMonitor) var preferredDevice
       
       if preferredDevice == nil || preferredDevice == identifier.uuidString {
-        model.connect()
+        eventBus.trigger(.BluetoothRequestConnection, ["identifier": identifier])
       }
     }
     
     @objc func heartRateMonitorConnected(notification: Notification) {
       let identifier: UUID = notification.userInfo!["identifier"] as! UUID
-      
-      guard let monitor = items.first(where: { $0.identifier == identifier }) else {
-        return // unknwon device connection detected
+      guard let item = items.first(where: { $0.identifier == identifier }) else {
+        return
+        
       }
       
+      current = item
       Preferences.standard.heartRateMonitor = identifier.uuidString
-      current = monitor
     }
   }
 }

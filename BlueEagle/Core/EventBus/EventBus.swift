@@ -11,6 +11,7 @@ protocol EventBus {
   func trigger(_ name: NSNotification.Name, _ data: [AnyHashable: AnyHashable])
   func trigger(_ name: NSNotification.Name)
   func registerObservers(_ observer: Any, _ observing: [Selector: NSNotification.Name])
+  func removeObserver(_ observer: Any)
 }
 
 extension NotificationCenter: EventBus {

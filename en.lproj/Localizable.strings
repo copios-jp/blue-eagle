@@ -14,35 +14,13 @@
 "zone-three" = "OPTIMAL";
 "zone-four" = "THRESHOLD";
 "zone-five" = "MAXIMUM";
-"average-hr: %lld" = "average heart rate: %lld";
-"calories-burnt: %lld" = "calories: %lld";
+"average-hr: %.0f" = "average heart rate: %.0f";
+"calories-burnt: %.0f" = "calories: %.0f";
 
 "done" = "done";
 "devices" = "Heart Rate Sensors";
 "connected" = "Connected";
 "not connected" = "Not Connected";
-"select activity" = "Configure Exercise";
-"activity" = "Exercise";
-"configure activity" = "Configure Exercise";
-"unselected" = "none";
-"squat" = "squat";
-"chest press" = "chest press";
-"deadlift" = "deadlift";
-"overhead press" = "overhead press";
-"arm curl" = "arm curl";
-"triceps pushdown" = "triceps pushdown";
-"cable row" = "cable row";
-"lat pulldown" = "lat pulldown";
-"crunch" = "crunch";
-
-"half deadlift" = "half deadlift";
-"seated cable row" = "seated cable row";
-"single leg squat one hand row" = "single leg squat one hand row";
-"muscle rowing one hand" = "muscle rowing one hand";
-
-
-"activity weight" = "weight - kg";
-"repetitions" = "repetitions";
 
 "you" = "Profile";
 "gender" = "gender";

@@ -22,11 +22,9 @@ import SwiftUI
 class CalorieCounter {
   init() {}
 
-  var minimumViableHeartRate: Int = 90
-
   var minimumSampleRatePerMinute: Int = 30
-
-  var maximumMeasurableHeartRate: Int = 150
+  var minimumViableHeartRate: Double = 90.0
+  var maximumMeasurableHeartRate: Double = 150.0
 
   private var sex: Sex {
     return Sex(rawValue: Preferences.standard.sex) ?? .undeclared
@@ -84,12 +82,12 @@ class CalorieCounter {
     }
   }
 
-  func caloriesPerMinute(_ heartRate: Int) -> Int {
+  func caloriesPerMinute(_ heartRate: Double) -> Double {
     if heartRate < minimumViableHeartRate {
       return 0
     }
 
-    let limitedHeartRate: Int = min(heartRate, maximumMeasurableHeartRate)
+    let limitedHeartRate: Double = min(heartRate, maximumMeasurableHeartRate)
 
     let JOULES_TO_KCAL = 4.1845
     var consumed: Double = intercept
@@ -98,23 +96,22 @@ class CalorieCounter {
     consumed += ageCoef * Double(age)
 
     consumed = consumed / JOULES_TO_KCAL
-    return Int(consumed.rounded())
+    return consumed
   }
 
-  func calories(_ training: Training) -> Int {
-    let samples: [HRSample] = training.samples
+  func calories(_ samples: [HRSample]) -> Double {
     if samples.isEmpty {
       return 0
     }
     var bucketUpperLimit = samples.first!.at.secondsSince1970 + 60
     var count = 1
-    var minutes = [Int: Int]()
+    var minutes = [Int: Double]()
 
     for sample in samples {
       let minute = sample.at.secondsSince1970
       if minute < bucketUpperLimit {
         if let current = minutes[bucketUpperLimit] {
-          minutes[bucketUpperLimit] = current + (sample.rate - current) / count
+          minutes[bucketUpperLimit] = current + (sample.rate - current) / Double(count)
           count += 1
         } else {
           minutes[bucketUpperLimit] = sample.rate
@@ -135,6 +132,6 @@ class CalorieCounter {
       return 0
     }
 
-    return minutes.values.reduce(0) { $0 + caloriesPerMinute($1) }
+    return minutes.values.reduce(0.0) { $0 + caloriesPerMinute($1) }
   }
 }

@@ -12,35 +12,13 @@
 "zone-three" = "有酸素能力";
 "zone-four" = "無酸素持久力";
 "zone-five" = "最大";
-"average-hr: %lld" = "平均心拍数: %lld";
-"calories-burnt: %lld" = "消費カロリー: %lld";
+"average-hr: %.0f" = "平均心拍数: %.0f";
+"calories-burnt: %.0f" = "消費カロリー: %.0f";
 
 "done" = "閉じる";
 "devices" = "心拍センサー";
 "connected" = "接続済み";
 "not connected" = "未接続";
-
-"select activity" = "種目を設定する";
-"activity" = "種目";
-"configure activity" = "種目設定";
-"unselected" = "設定しない";
-"squat" = "スクワット";
-"chest press" = "チェストプレス";
-"deadlift" = "デッドリフト";
-"overhead press" = "オーバーヘッドプレス";
-"arm curl" = "アームカール";
-"triceps pushdown" = "プッシュダウン";
-"cable row" = "ケーブルロー";
-"lat pulldown" = "プルダウン";
-"crunch" = "クランチ";
-
-"half deadlift" = "ハーフデッドリフト";
-"seated cable row" = "シーテッドローイング（ケーブル）";
-"single leg squat one hand row" = "シングルスクワット＆ワンハンドロー";
-"muscle rowing one hand" = "マッスルローイング（ワンハンド）";
-
-"activity weight" = "重量 - kg";
-"repetitions" = "回数";
 
 "settings" = "設定";
 "you" = "プロフィール";

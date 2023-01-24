@@ -20,9 +20,9 @@ class StopWatch: ObservableObject {
 
     private var timer: Timer?
     
-    init() {
-    }
-    
+    init() {}
+   
+    // TODO - handle hours
     var formattedValue: String {
         get {
             let minutes :Int = value / 60

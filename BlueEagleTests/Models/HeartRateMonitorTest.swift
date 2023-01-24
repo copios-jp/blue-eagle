@@ -12,11 +12,13 @@ final class HeartRateMonitorTest: XCTestCase {
   var sut: HeartRateMonitor?
   let identifier = UUID()
   let eventBus: EventBusMock = .init()
-  
+ 
+  var userInfo: [AnyHashable:AnyHashable] = [:]
   let HEART_RATE_SAMPLE_1 = 90
   let HEART_RATE_SAMPLE_2 = 91
   
   override func setUpWithError() throws {
+    userInfo = ["identifier": identifier]
     sut = .init(identifier: identifier, eventBus: eventBus)
   }
   
@@ -27,95 +29,83 @@ final class HeartRateMonitorTest: XCTestCase {
  
   // MARK: Connecting
   
-  func test_itTransitionsToConnectingState() throws {
+  func test_itRequestsConnection() throws {
     sut!.connect()
     
-    XCTAssertEqual(sut!.state, .connecting)
-    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestConnection, ["identifier": identifier]))
+    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestConnection, userInfo))
   }
   
   func test_itTogglesToConnecting() throws {
-    sut!.disconnect()
+    eventBus.trigger(.HeartRateMonitorDisconnected, userInfo)
     sut!.toggle()
     
-    XCTAssertEqual(sut!.state, .connecting)
-    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestConnection, ["identifier": identifier]))
+    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestConnection, userInfo))
   }
   
   func test_itTransitionsToConnectedState() throws {
-    XCTAssertEqual(sut!.state, .dead)
-    
-    eventBus.trigger(.HeartRateMonitorConnected, ["identifier": identifier])
-    
+    eventBus.trigger(.HeartRateMonitorConnected, userInfo)
     XCTAssertEqual(sut!.state, .connected)
   }
   
   // MARK: Disonnecting
   
-  func test_itTransitionsToDisconnectingState() throws {
+  func test_itRequestsDisconnecting() throws {
     sut!.disconnect()
     
-    XCTAssertEqual(sut!.state, .disconnecting)
-    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestDisconnection, ["identifier": identifier]))
+    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestDisconnection, userInfo))
   }
    
   func test_itTogglesToDisconnecting() throws {
-    sut!.connect()
+    eventBus.trigger(.HeartRateMonitorConnected, userInfo)
     sut!.toggle()
     
-    XCTAssertEqual(sut!.state, .disconnecting)
-    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestDisconnection, ["identifier": identifier]))
+    XCTAssertTrue(eventBus.hasCall(.BluetoothRequestDisconnection,userInfo))
   }
 
   func test_itTransitionsToDisconnectedState() throws {
-    XCTAssertEqual(sut!.state, .dead)
-    
-    eventBus.trigger(.HeartRateMonitorDisconnected, ["identifier": identifier])
-    
-    XCTAssertEqual(sut!.state, .disconnected)
+    eventBus.trigger(.HeartRateMonitorDisconnected, userInfo)
+    XCTAssertTrue(eventBus.hasCall(.HeartRateMonitorDead,userInfo))
   }
   
   // MARK: Sampling
   
   func test_itCapturesHeartRateSamples() throws {
     XCTAssertEqual(sut!.heartRate, 0)
-    XCTAssertEqual(sut!.state, .dead)
-    
-    eventBus.trigger(.HeartRateMonitorValueUpdated, ["identifier": identifier, "sample": 90])
-    
+    let payload = userInfo.merging(["sample": 90]){ (_, new) in new }
+    eventBus.trigger(.HeartRateMonitorValueUpdated, payload)
     XCTAssertEqual(sut!.heartRate, 90)
-    XCTAssertEqual(sut!.state, .connected)
   }
   
   func test_itTransitionsToDeadStateAfterTooManyIdenticalSamples() throws {
+        eventBus.trigger(.BluetoothPeripheralConnected, userInfo)
+
     for _ in 0...HeartRateMonitor.MAX_IDENTICAL_HEART_RATE {
-      eventBus.trigger(.HeartRateMonitorValueUpdated, ["identifier": identifier, "sample": HEART_RATE_SAMPLE_1])
+      
+    let payload = userInfo.merging(["sample": HEART_RATE_SAMPLE_1]){ (_, new) in new }
+      eventBus.trigger(.HeartRateMonitorValueUpdated, payload)
     }
     
-    XCTAssertEqual(sut!.state, .dead)
+    XCTAssertTrue(eventBus.hasCall(.HeartRateMonitorDead, ["identifier": identifier]))
   }
   
   func test_itRecoversFromDeadStateWithDifferentSample() throws {
-    eventBus.trigger(.HeartRateMonitorConnected, ["identifier": identifier])
+    eventBus.trigger(.BluetoothPeripheralConnected, userInfo)
+    
+    let identicalPayload = userInfo.merging(["sample": HEART_RATE_SAMPLE_1]){ (_, new) in new }
+    let uniquePayload = userInfo.merging(["sample": HEART_RATE_SAMPLE_2]){ (_, new) in new }
     
     for _ in 0...HeartRateMonitor.MAX_IDENTICAL_HEART_RATE {
-      eventBus.trigger(.HeartRateMonitorValueUpdated, ["identifier": identifier, "sample": HEART_RATE_SAMPLE_1])
+      eventBus.trigger(.HeartRateMonitorValueUpdated, identicalPayload)
     }
+    eventBus.trigger(.HeartRateMonitorValueUpdated, uniquePayload)
     
-    XCTAssertEqual(sut!.state, .dead)
-    
-    eventBus.trigger(.HeartRateMonitorValueUpdated, ["identifier": identifier, "sample": HEART_RATE_SAMPLE_2])
-    
-    XCTAssertEqual(sut!.state, .connected)
+    XCTAssertTrue(eventBus.hasCall(.HeartRateMonitorConnected, userInfo))
   }
  
   // MARK: Identification
   
   func test_itIgnoresMessagesWithConflictingIdentifier() throws {
-    XCTAssertEqual(sut!.state, .dead)
-    
-    eventBus.trigger(.HeartRateMonitorConnected, ["identifier": UUID()])
-    
-    XCTAssertEqual(sut!.state, .dead)
+    eventBus.trigger(.BluetoothPeripheralConnected, ["identifier": UUID()])
+    XCTAssertFalse(eventBus.hasCall(.HeartRateMonitorConnected, userInfo))
   }
  }

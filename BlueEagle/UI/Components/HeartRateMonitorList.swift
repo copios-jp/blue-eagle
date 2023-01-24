@@ -10,62 +10,58 @@ import Combine
 
 struct HeartRateMonitorList: View {
   @StateObject var viewModel: ViewModel = .init()
-  @State private var show: Bool = false
+  @State var show: Bool = false
+  
+  let inspection = Inspection<Self>()
   
   var body: some View {
     HStack {
       if viewModel.current == nil {
         HeartRateMonitorView()
+          .onTapGesture { self.show = true }
       } else {
         HeartRateMonitorView(viewModel: viewModel.current!)
+          .onTapGesture { self.show = true }
       }
     }
-    .onTapGesture { self.show = true }
-    .sheet(isPresented: $show) { sheetView(viewModel) }
+    .fullScreenCover2(isPresented: $show) {
+      NavigationView {
+        VStack {
+          List {
+            ForEach(viewModel.items, id: \.self) { monitorViewModel in
+              HeartRateMonitorView(viewModel: monitorViewModel, extended: true)
+                .onTapGesture { monitorViewModel.toggle() }
+            }
+          }
+          if(viewModel.isScanning) {
+            loadingView
+          } else {
+            scanButton
+          }
+        }
+        .navigationTitle("devices")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+          ToolbarItem(placement: .destructiveAction) {
+            Button("done") { self.show = false }
+          }
+        }
+        
+      }
+    }
     .padding()
+    .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
+    .onAppear(perform: viewModel.scan)
   }
 }
 
 private extension HeartRateMonitorList {
-  func sheetView(_ viewModel: HeartRateMonitorList.ViewModel) -> some View {
-    NavigationView {
-      VStack {
-        loadedView
-      }
-      .navigationTitle("devices")
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-        ToolbarItem(placement: .destructiveAction) {
-          
-          Button("done") { self.show = false }
-        }
-      }
-    }
-    .onAppear(perform: self.viewModel.scan)
-  }
-  
   var loadingView: some View {
     ProgressView()
   }
   
   var scanButton: some View {
     Button("scan") { viewModel.scan() }
-  }
-  
-  var loadedView: some View {
-    VStack {
-      List {
-        ForEach(viewModel.items, id: \.self) { monitor in
-          HeartRateMonitorView(viewModel: monitor, extended: true)
-            .onTapGesture { monitor.toggle() }
-        }
-      }
-      if(viewModel.isScanning) {
-        loadingView
-      } else {
-        scanButton
-      }
-    }
   }
 }
 

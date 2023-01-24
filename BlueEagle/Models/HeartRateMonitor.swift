@@ -11,33 +11,15 @@ import Foundation
 import SwiftUI
 
 enum HeartRateMonitorState: Int {
-  case disconnected
-  case disconnecting
-  case connecting
   case connected
   // monitors will continue sending the last known value, or garbage when
   // connected but not actually measuring due to poor connectivity or
   // inaccurate placement/usage
+  // we treat disconnected and 'dead' as same state
   case dead
 }
 
-// This delegate allows us to use a mock object when testing view models, etc
-// that encapslate a heart rate monitor allowing us to 'hide' the implementation
-// details on updating state or requesting services via NotificationCenter
-protocol HeartRateMonitorDelegate {
-  
-  var statePublisher: Published<HeartRateMonitorState>.Publisher { get }
-  var heartRatePublisher: Published<Int>.Publisher { get }
-  
-  var identifier: UUID { get }
-  var name: String { get }
-  
-  func connect()
-  func disconnect()
-  func toggle()
-}
-
-class HeartRateMonitor: ObservableObject, HeartRateMonitorDelegate {
+class HeartRateMonitor {
   
   private let observing: [Selector: NSNotification.Name] = [
     #selector(heartRateMonitorValueUpdated(notification:)): .HeartRateMonitorValueUpdated,
@@ -48,13 +30,11 @@ class HeartRateMonitor: ObservableObject, HeartRateMonitorDelegate {
   static let MAX_IDENTICAL_HEART_RATE: Int = 30
 
   private var eventBus: EventBus
-  private var deadStickCountdown: Int
-
-  @Published private(set) var state: HeartRateMonitorState = .dead
-  var statePublisher: Published<HeartRateMonitorState>.Publisher { $state }
+  private var remainingAllowedIdenticalSamples: Int
+  private var hasTooManyIdenticalSamples: Bool { remainingAllowedIdenticalSamples == 0 }
   
-  @Published private(set) var heartRate: Int = 0
-  var heartRatePublisher: Published<Int>.Publisher { $heartRate }
+  private(set) var state: HeartRateMonitorState = .dead
+  private(set) var heartRate: Double = 0
   
   private(set) var name: String
   private(set) var identifier: UUID
@@ -63,60 +43,88 @@ class HeartRateMonitor: ObservableObject, HeartRateMonitorDelegate {
     self.eventBus = eventBus
     self.name = name
     self.identifier = identifier
-    deadStickCountdown = HeartRateMonitor.MAX_IDENTICAL_HEART_RATE
+    remainingAllowedIdenticalSamples = Self.MAX_IDENTICAL_HEART_RATE
+
     eventBus.registerObservers(self, observing)
   }
 
-  func connect() {
-    state = .connecting
-    eventBus.trigger(.BluetoothRequestConnection, ["identifier": identifier])
+  deinit {
+    eventBus.removeObserver(self)
   }
-
-  func disconnect() {
-    state = .disconnecting
-    eventBus.trigger(.BluetoothRequestDisconnection, ["identifier": identifier])
-  }
-
-  func toggle() {
-    if state != .disconnected && state != .disconnecting {
-      disconnect()
-    } else if state != .connected && state != .connecting {
-      connect()
+  
+  private func updateRemainingAllowedIdenticalSamples(_ newValue: Double) {
+    if(newValue != heartRate) {
+      remainingAllowedIdenticalSamples = Self.MAX_IDENTICAL_HEART_RATE
+      return
+    }
+    
+    remainingAllowedIdenticalSamples = max(remainingAllowedIdenticalSamples - 1, 0)
+   
+    let hasDied = hasTooManyIdenticalSamples && state == .connected
+    let hasRevived = !hasTooManyIdenticalSamples && state == .dead
+   
+    if(hasDied) {
+      state = .dead
+      trigger(.HeartRateMonitorDead)
+    }
+    
+    if(hasRevived) {
+      state = .connected
+      trigger(.HeartRateMonitorConnected)
     }
   }
 
+  private func trigger(_ name: Notification.Name) {
+    eventBus.trigger(name, ["identifier": identifier])
+  }
+  
   private func isMine(_ notification: Notification) -> Bool {
-    let identifier: UUID = notification.userInfo!["identifier"] as! UUID
-    return self.identifier == identifier
+    return notification.userInfo!["identifier"] as! UUID == identifier
+  }
+
+  private func validated(_ notification: Notification, _ proc:(_ sample: Double) -> Void ) {
+    if isMine(notification) {
+      let sample: Double = notification.userInfo!["sample"] as! Double
+      proc(sample)
+    }
+  }
+    
+  private func validated(_ notification: Notification, _ proc:() -> Void ) {
+    if isMine(notification) {
+      proc()
+    }
   }
 
   @objc private func heartRateMonitorConnected(notification: Notification) {
-    if isMine(notification) {
+    validated(notification) {
       state = .connected
-      
     }
   }
 
   @objc private func heartRateMonitorDisconnected(notification: Notification) {
-    if isMine(notification) {
-      state = .disconnected
+    validated(notification) {
+      state = .dead
+      trigger(.HeartRateMonitorDead)
     }
   }
 
   @objc private func heartRateMonitorValueUpdated(notification: Notification) {
-    if isMine(notification) == false {
-      return
+    validated(notification) { sample in
+      updateRemainingAllowedIdenticalSamples(sample)
+      heartRate = sample
     }
+  }
+  
+  func connect() {
+    remainingAllowedIdenticalSamples = Self.MAX_IDENTICAL_HEART_RATE
+    trigger(.BluetoothRequestConnection)
+  }
 
-    let newValue: Int = notification.userInfo!["sample"] as! Int
+  func disconnect() {
+    trigger(.BluetoothRequestDisconnection)
+  }
 
-    deadStickCountdown = newValue != heartRate ? HeartRateMonitor.MAX_IDENTICAL_HEART_RATE : max(deadStickCountdown - 1, 0)
-    heartRate = newValue
-
-    if deadStickCountdown == 0 && state != .dead {
-      state = .dead
-    } else if state != .connected {
-      state = .connected
-    }
+  func toggle() {
+    state == .connected ? disconnect() : connect()
   }
 }

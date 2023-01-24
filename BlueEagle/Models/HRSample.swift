@@ -8,7 +8,7 @@
 import Foundation
 
 struct HRSample: Codable {
-    var rate: Int
+    var rate: Double
     var at: Date = Date()
     
     func toJson() -> String {

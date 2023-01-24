@@ -15,13 +15,13 @@ final class HeartRateMonitorViewTest: XCTestCase {
   let identifier = UUID()
   let eventBus: EventBusMock = .init()
   
-  var model: HeartRateMonitorMock?
+  var model: HeartRateMonitor?
   var viewModel: HeartRateMonitorViewModel?
   var sut: HeartRateMonitorView?
   
   override func setUpWithError() throws {
-    self.model = .init()
-    self.viewModel = .init(self.model!)
+    self.model = .init(identifier: identifier, eventBus: eventBus)
+    self.viewModel = .init(self.model!, eventBus: eventBus)
     sut = .init(viewModel: self.viewModel!)
   }
   
@@ -31,7 +31,6 @@ final class HeartRateMonitorViewTest: XCTestCase {
   }
   
   func test_itShowsDisconnectedIconWhenNotConnected() throws {
-    model!.state = .disconnected
     let systemName: String = try sut.inspect().hStack().find(ViewType.Image.self).actualImage().name()
     let color: Color = try sut.inspect().hStack().find(ViewType.Image.self).foregroundColor()!
     
@@ -41,7 +40,7 @@ final class HeartRateMonitorViewTest: XCTestCase {
   }
    
   func test_itShowsConnectedIconWhenConnected() throws {
-    model!.state = .connected
+    eventBus.trigger(.HeartRateMonitorConnected, ["identifier": identifier])
     let systemName =  try sut.inspect().hStack().find(ViewType.Image.self).actualImage().name()
     let color =  try sut.inspect().hStack().find(ViewType.Image.self).foregroundColor()
     
@@ -57,10 +56,4 @@ final class HeartRateMonitorViewTest: XCTestCase {
     sut = .init(viewModel: self.viewModel!, extended: true)
     XCTAssertNoThrow(try sut.inspect().hStack().find(text: viewModel!.name))
   }
-  
-  func test_viewModelTogglesConnectivity() throws {
-    XCTAssertFalse(model!.wasToggled)
-    viewModel!.toggle()
-    XCTAssertTrue(model!.wasToggled)
-  }
- }
+}

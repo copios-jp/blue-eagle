@@ -14,7 +14,12 @@
 		250F27B329791E4A001C3FB2 /* EventBusMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27B229791E4A001C3FB2 /* EventBusMock.swift */; };
 		250F27B629796971001C3FB2 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 250F27B529796971001C3FB2 /* ViewInspector */; };
 		250F27BA297969D0001C3FB2 /* HeartRateMonitorViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27B9297969D0001C3FB2 /* HeartRateMonitorViewTest.swift */; };
-		250F27BC2979813A001C3FB2 /* HeartRateMonitorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27BB2979813A001C3FB2 /* HeartRateMonitorMock.swift */; };
+		250F27BF297A3D03001C3FB2 /* HeartRateMonitorListViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27BE297A3D03001C3FB2 /* HeartRateMonitorListViewTest.swift */; };
+		250F27C1297A5BBC001C3FB2 /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27C0297A5BBC001C3FB2 /* Inspection.swift */; };
+		250F27C3297A628E001C3FB2 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27C2297A628E001C3FB2 /* View.swift */; };
+		250F27C5297A64B0001C3FB2 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27C4297A64B0001C3FB2 /* Setup.swift */; };
+		25376654297F6E30008E3D8A /* BroadcastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25376653297F6E30008E3D8A /* BroadcastService.swift */; };
+		25376658297FB163008E3D8A /* TrainingZoneGradientStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25376657297FB163008E3D8A /* TrainingZoneGradientStyle.swift */; };
 		255E0562274BC79A00E1DE8A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E0561274BC79A00E1DE8A /* Preferences.swift */; };
 		2572B29E296E70AF006BEFE4 /* CalorieCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2572B29D296E70AF006BEFE4 /* CalorieCounter.swift */; };
 		2572B2A1296E856F006BEFE4 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2572B2A0296E856F006BEFE4 /* Date.swift */; };
@@ -45,7 +50,6 @@
 		3DF928DB272CCA02007BF669 /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DA272CCA02007BF669 /* StopwatchView.swift */; };
 		3DF928DD272CCB7A007BF669 /* TrainingZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */; };
 		3DF928DF272CCCE4007BF669 /* TrainingStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */; };
-		3DFD9BE926FE054A005903EA /* GATT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD9BE826FE054A005903EA /* GATT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +89,12 @@
 		250F27AF2978A901001C3FB2 /* HeartRateMonitorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorTest.swift; sourceTree = "<group>"; };
 		250F27B229791E4A001C3FB2 /* EventBusMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBusMock.swift; sourceTree = "<group>"; };
 		250F27B9297969D0001C3FB2 /* HeartRateMonitorViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorViewTest.swift; sourceTree = "<group>"; };
-		250F27BB2979813A001C3FB2 /* HeartRateMonitorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorMock.swift; sourceTree = "<group>"; };
+		250F27BE297A3D03001C3FB2 /* HeartRateMonitorListViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorListViewTest.swift; sourceTree = "<group>"; };
+		250F27C0297A5BBC001C3FB2 /* Inspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspection.swift; sourceTree = "<group>"; };
+		250F27C2297A628E001C3FB2 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		250F27C4297A64B0001C3FB2 /* Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
+		25376653297F6E30008E3D8A /* BroadcastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastService.swift; sourceTree = "<group>"; };
+		25376657297FB163008E3D8A /* TrainingZoneGradientStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZoneGradientStyle.swift; sourceTree = "<group>"; };
 		255E0561274BC79A00E1DE8A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		2572B29D296E70AF006BEFE4 /* CalorieCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalorieCounter.swift; sourceTree = "<group>"; };
 		2572B2A0296E856F006BEFE4 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -124,7 +133,6 @@
 		3DF928DA272CCA02007BF669 /* StopwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
 		3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZoneView.swift; sourceTree = "<group>"; };
 		3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingStatsView.swift; sourceTree = "<group>"; };
-		3DFD9BE826FE054A005903EA /* GATT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GATT.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,25 +165,23 @@
 		250F27A529766591001C3FB2 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				250F27A62976659F001C3FB2 /* HeartRateMonitorList */,
+				3D34075227060FE10089E234 /* TrainingView.swift */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		250F27A62976659F001C3FB2 /* HeartRateMonitorList */ = {
-			isa = PBXGroup;
-			children = (
-				25D6E6282750298F0060F047 /* HeartRateMonitorList.swift */,
-				250F27A7297665C3001C3FB2 /* HeartRateMonitorListViewModel.swift */,
-			);
-			path = HeartRateMonitorList;
 			sourceTree = "<group>";
 		};
 		250F27A929766610001C3FB2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				25C9E206275F4FF50034623C /* QRCode.swift */,
+				3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */,
+				3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */,
+				25D6E6282750298F0060F047 /* HeartRateMonitorList.swift */,
+				250F27A7297665C3001C3FB2 /* HeartRateMonitorListViewModel.swift */,
 				250F27AA2976662E001C3FB2 /* HeartRateMonitorView.swift */,
 				250F27AC297667BC001C3FB2 /* HeartRateMonitorViewModel.swift */,
+				25D6E62A27502A900060F047 /* SettingsView.swift */,
+				25F58FBE274A8B4000FCBDF1 /* EditSettingsView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -192,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				250F27B229791E4A001C3FB2 /* EventBusMock.swift */,
-				250F27BB2979813A001C3FB2 /* HeartRateMonitorMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 		250F27B729796987001C3FB2 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				250F27BD297A1B0A001C3FB2 /* Screens */,
 				250F27B8297969A6001C3FB2 /* Components */,
 			);
 			path = UI;
@@ -209,8 +215,16 @@
 			isa = PBXGroup;
 			children = (
 				250F27B9297969D0001C3FB2 /* HeartRateMonitorViewTest.swift */,
+				250F27BE297A3D03001C3FB2 /* HeartRateMonitorListViewTest.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		250F27BD297A1B0A001C3FB2 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		255E0560274BC78B00E1DE8A /* Preferences */ = {
@@ -227,6 +241,7 @@
 			children = (
 				25EC056A2970C4C9008D99E7 /* EventBus */,
 				2572B2A0296E856F006BEFE4 /* Date.swift */,
+				250F27C2297A628E001C3FB2 /* View.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -293,7 +308,11 @@
 		25EC057729753C3A008D99E7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3D2FB8AE272AC0C7001C473D /* TrainingStyle.swift */,
+				3D2FB8AC272ABFEE001C473D /* HRSample.swift */,
+				3D2FB8AA272ABFA3001C473D /* Training.swift */,
 				25EC05742973DDD7008D99E7 /* HeartRateMonitor.swift */,
+				25376657297FB163008E3D8A /* TrainingZoneGradientStyle.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -302,6 +321,8 @@
 			isa = PBXGroup;
 			children = (
 				3DE3722526FA076500CC1F3F /* BluetoothService.swift */,
+				250F27C0297A5BBC001C3FB2 /* Inspection.swift */,
+				25376653297F6E30008E3D8A /* BroadcastService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -312,30 +333,6 @@
 				3D085B722707630F007DEB5B /* HealthKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3D2FB8A427258EF6001C473D /* Bluetooth */ = {
-			isa = PBXGroup;
-			children = (
-				3DFD9BE826FE054A005903EA /* GATT.swift */,
-			);
-			path = Bluetooth;
-			sourceTree = "<group>";
-		};
-		3D2FB8A9272ABF75001C473D /* Training */ = {
-			isa = PBXGroup;
-			children = (
-				3D34075227060FE10089E234 /* TrainingView.swift */,
-				3D2FB8AA272ABFA3001C473D /* Training.swift */,
-				3D2FB8AC272ABFEE001C473D /* HRSample.swift */,
-				3D2FB8AE272AC0C7001C473D /* TrainingStyle.swift */,
-				3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */,
-				3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */,
-				25F58FBE274A8B4000FCBDF1 /* EditSettingsView.swift */,
-				25D6E62A27502A900060F047 /* SettingsView.swift */,
-				25C9E206275F4FF50034623C /* QRCode.swift */,
-			);
-			path = Training;
 			sourceTree = "<group>";
 		};
 		3DE371EE26F4DC8700CC1F3F = {
@@ -370,9 +367,7 @@
 				25C9E20F2763E51B0034623C /* API */,
 				25C9E201275E0F490034623C /* Calories */,
 				25C9E200275E07660034623C /* StopWatch */,
-				3D2FB8A9272ABF75001C473D /* Training */,
 				255E0560274BC78B00E1DE8A /* Preferences */,
-				3D2FB8A427258EF6001C473D /* Bluetooth */,
 				3D085B702707630F007DEB5B /* BlueEagle.entitlements */,
 				3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */,
 				3DE371FC26F4DC8700CC1F3F /* ContentView.swift */,
@@ -400,6 +395,7 @@
 				2572B2A2296E8A6E006BEFE4 /* Calories */,
 				3DE3720E26F4DC8800CC1F3F /* Info.plist */,
 				3D2FB8A7272ABF64001C473D /* TrainingTest.swift */,
+				250F27C4297A64B0001C3FB2 /* Setup.swift */,
 			);
 			path = BlueEagleTests;
 			sourceTree = "<group>";
@@ -561,12 +557,14 @@
 				3D2FB8AB272ABFA3001C473D /* Training.swift in Sources */,
 				25EC05752973DDD7008D99E7 /* HeartRateMonitor.swift in Sources */,
 				25C9E207275F4FF50034623C /* QRCode.swift in Sources */,
+				25376658297FB163008E3D8A /* TrainingZoneGradientStyle.swift in Sources */,
 				25F58FBF274A8B4000FCBDF1 /* EditSettingsView.swift in Sources */,
-				3DFD9BE926FE054A005903EA /* GATT.swift in Sources */,
+				250F27C3297A628E001C3FB2 /* View.swift in Sources */,
 				3D34075327060FE10089E234 /* TrainingView.swift in Sources */,
 				3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */,
 				3D2FB8AF272AC0C7001C473D /* TrainingStyle.swift in Sources */,
 				3D2FB8AD272ABFEE001C473D /* HRSample.swift in Sources */,
+				250F27C1297A5BBC001C3FB2 /* Inspection.swift in Sources */,
 				250F27AD297667BC001C3FB2 /* HeartRateMonitorViewModel.swift in Sources */,
 				250F27AB2976662E001C3FB2 /* HeartRateMonitorView.swift in Sources */,
 				3DF928D9272C54A3007BF669 /* StopWatch.swift in Sources */,
@@ -574,6 +572,7 @@
 				250F27A8297665C3001C3FB2 /* HeartRateMonitorListViewModel.swift in Sources */,
 				25A15628274A7BFB0061D9E7 /* Sex.swift in Sources */,
 				3DF928DB272CCA02007BF669 /* StopwatchView.swift in Sources */,
+				25376654297F6E30008E3D8A /* BroadcastService.swift in Sources */,
 				3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */,
 				25D6E62B27502A900060F047 /* SettingsView.swift in Sources */,
 				25C9E2112763E52C0034623C /* Api.swift in Sources */,
@@ -586,11 +585,12 @@
 			files = (
 				250F27BA297969D0001C3FB2 /* HeartRateMonitorViewTest.swift in Sources */,
 				2572B2A4296E8AA8006BEFE4 /* CalorieCounterTest.swift in Sources */,
-				250F27BC2979813A001C3FB2 /* HeartRateMonitorMock.swift in Sources */,
 				250F27B02978A901001C3FB2 /* HeartRateMonitorTest.swift in Sources */,
 				25EC056F297359B6008D99E7 /* BluetoothViewModelTest.swift in Sources */,
 				3D2FB8A8272ABF64001C473D /* TrainingTest.swift in Sources */,
 				250F27B329791E4A001C3FB2 /* EventBusMock.swift in Sources */,
+				250F27BF297A3D03001C3FB2 /* HeartRateMonitorListViewTest.swift in Sources */,
+				250F27C5297A64B0001C3FB2 /* Setup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -82,4 +82,11 @@ class EventBusMock: EventBus {
       }
     }
   }
+  
+  func removeObserver(_ observer: Any) {
+    NotificationCenter.default.removeObserver(observer)
+    
+    self.observing = nil
+    self.observer = nil
+  }
  }

@@ -20,19 +20,20 @@ struct HeartRateMonitorView: View {
       Image(systemName: viewModel.icon.systemName)
         .foregroundColor(viewModel.icon.foregroundColor)
     }
+    .contentShape(Rectangle())
   }
 }
 
 struct HeartRateMonitorView_Preview: PreviewProvider {
-  static var monitor: HeartRateMonitorViewModel = .init(HeartRateMonitor(name: "preview"))
+  static var viewModel: HeartRateMonitorViewModel = .init(HeartRateMonitor(name: "preview"))
   static var previews: some View {
     VStack {
       HStack {
-        HeartRateMonitorView(viewModel: monitor)
+        HeartRateMonitorView(viewModel: viewModel)
         Spacer()
       }
       List {
-        HeartRateMonitorView(viewModel: monitor, extended: true)
+        HeartRateMonitorView(viewModel: viewModel, extended: true)
       }
     }
   }
