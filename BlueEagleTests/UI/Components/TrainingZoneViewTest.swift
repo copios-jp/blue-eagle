@@ -25,7 +25,6 @@ final class TrainingZoneViewTest: XCTestCase {
     ]
 
     eventBus.trigger(.HeartRateMonitorValueUpdated, userInfo)
-    print(viewModel!.description)
   }
 
   override func tearDownWithError() throws {

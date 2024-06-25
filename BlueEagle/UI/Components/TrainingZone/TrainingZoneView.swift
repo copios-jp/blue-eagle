@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct TrainingZoneView: View {
-  @StateObject private var viewModel: ViewModel = .init()
-
-  init(viewModel: ViewModel = .init()) {
-    _viewModel = .init(wrappedValue: viewModel)
-  }
+  @State var viewModel: ViewModel = .init()
 
   var body: some View {
     ZStack(alignment: .center) {
