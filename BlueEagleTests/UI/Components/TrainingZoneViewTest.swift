@@ -12,38 +12,42 @@ import XCTest
 @testable import BlueEagle
 
 final class TrainingZoneViewTest: XCTestCase {
-
   var sut: TrainingZoneView?
-
+  var eventBus: EventBus = NotificationCenter.default
+  var viewModel: TrainingZoneView.ViewModel?
   override func setUpWithError() throws {
-    sut = .init()
+    WithUser()
+    viewModel = .init(eventBus)
+    sut = .init(viewModel: viewModel!)
+    let userInfo: [AnyHashable: AnyHashable] = [
+      "identifier": UUID(),
+      "sample": User.maxHeartRate * 0.9,
+    ]
+
+    eventBus.trigger(.HeartRateMonitorValueUpdated, userInfo)
+    print(viewModel!.description)
   }
 
   override func tearDownWithError() throws {
     sut = nil
   }
 
-  func test_itRendersTrainingZoneView() throws {
-
-    let description = try sut.inspect().zStack().text(1)
-
-    XCTAssertEqual(try description.string(), "foo")
-  }
-  /*
-  func test_itShowsZoneName() throws {
-    let zone = TrainingZone(id: 1, name: "Zone 1", color: .red, min: 0, max: 100)
-    let viewModel = TrainingZoneViewModel(zone: zone)
-    let sut = TrainingZoneView(viewModel: viewModel)
-    let name = try sut.inspect().text().string()
-    XCTAssertEqual(name, "Zone 1")
+  func hasTextWithColor(text: String, color: Color) throws {
+    let view = try sut.inspect().find(text: text)
+    XCTAssertEqual(try view.attributes().foregroundColor(), color)
   }
 
-  func test_itShowsZoneColor() throws {
-    let zone = TrainingZone(id: 1, name: "Zone 1", color: .red, min: 0, max: 100)
-    let viewModel = TrainingZoneViewModel(zone: zone)
-    let sut = TrainingZoneView(viewModel: viewModel)
-    let color = try sut.inspect().color()
-    XCTAssertEqual(color, .red)
+  func test_itRendersTrainingZoneViewDescription() throws {
+    let text = viewModel!.description
+    let color = viewModel!.color
+
+    try hasTextWithColor(text: text, color: color)
   }
-*/
+
+  func test_itRendersTrainingZoneViewPercentOfMax() throws {
+    let text = viewModel!.percentOfMaxLabel
+    let color = viewModel!.color
+
+    try hasTextWithColor(text: text, color: color)
+  }
 }

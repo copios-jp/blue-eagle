@@ -30,8 +30,8 @@ class CalorieCounter {
     return Sex(rawValue: Preferences.standard.sex) ?? .undeclared
   }
 
-  private var age: Int {
-    return Preferences.standard.age
+  private var age: Double {
+    return User.age
   }
 
   private var weight: Int {
