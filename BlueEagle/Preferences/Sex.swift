@@ -8,7 +8,7 @@
 import Foundation
 
 enum Sex: String, Equatable, CaseIterable, Codable {
-    case undeclared = "undeclared"
-    case female = "female"
-    case male = "male"
+  case undeclared = "undeclared"
+  case female = "female"
+  case male = "male"
 }

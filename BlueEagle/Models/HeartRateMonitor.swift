@@ -20,26 +20,29 @@ enum HeartRateMonitorState: Int {
 }
 
 class HeartRateMonitor {
-  
+
   private let observing: [Selector: NSNotification.Name] = [
     #selector(heartRateMonitorValueUpdated(notification:)): .HeartRateMonitorValueUpdated,
     #selector(heartRateMonitorConnected(notification:)): .HeartRateMonitorConnected,
     #selector(heartRateMonitorDisconnected(notification:)): .HeartRateMonitorDisconnected,
   ]
-  
+
   static let MAX_IDENTICAL_HEART_RATE: Int = 30
 
   private var eventBus: EventBus
   private var remainingAllowedIdenticalSamples: Int
   private var hasTooManyIdenticalSamples: Bool { remainingAllowedIdenticalSamples == 0 }
-  
+
   private(set) var state: HeartRateMonitorState = .dead
   private(set) var heartRate: Double = 0
-  
+
   private(set) var name: String
   private(set) var identifier: UUID
 
-  init(name: String = "Unknown", identifier: UUID = UUID(), eventBus: EventBus = NotificationCenter.default) {
+  init(
+    name: String = "Unknown", identifier: UUID = UUID(),
+    eventBus: EventBus = NotificationCenter.default
+  ) {
     self.eventBus = eventBus
     self.name = name
     self.identifier = identifier
@@ -51,24 +54,24 @@ class HeartRateMonitor {
   deinit {
     eventBus.removeObserver(self)
   }
-  
+
   private func updateRemainingAllowedIdenticalSamples(_ newValue: Double) {
-    if(newValue != heartRate) {
+    if newValue != heartRate {
       remainingAllowedIdenticalSamples = Self.MAX_IDENTICAL_HEART_RATE
       return
     }
-    
+
     remainingAllowedIdenticalSamples = max(remainingAllowedIdenticalSamples - 1, 0)
-   
+
     let hasDied = hasTooManyIdenticalSamples && state == .connected
     let hasRevived = !hasTooManyIdenticalSamples && state == .dead
-   
-    if(hasDied) {
+
+    if hasDied {
       state = .dead
       trigger(.HeartRateMonitorDead)
     }
-    
-    if(hasRevived) {
+
+    if hasRevived {
       state = .connected
       trigger(.HeartRateMonitorConnected)
     }
@@ -77,19 +80,19 @@ class HeartRateMonitor {
   private func trigger(_ name: Notification.Name) {
     eventBus.trigger(name, ["identifier": identifier])
   }
-  
+
   private func isMine(_ notification: Notification) -> Bool {
     return notification.userInfo!["identifier"] as! UUID == identifier
   }
 
-  private func validated(_ notification: Notification, _ proc:(_ sample: Double) -> Void ) {
+  private func validated(_ notification: Notification, _ proc: (_ sample: Double) -> Void) {
     if isMine(notification) {
       let sample: Double = notification.userInfo!["sample"] as! Double
       proc(sample)
     }
   }
-    
-  private func validated(_ notification: Notification, _ proc:() -> Void ) {
+
+  private func validated(_ notification: Notification, _ proc: () -> Void) {
     if isMine(notification) {
       proc()
     }
@@ -114,7 +117,7 @@ class HeartRateMonitor {
       heartRate = sample
     }
   }
-  
+
   func connect() {
     remainingAllowedIdenticalSamples = Self.MAX_IDENTICAL_HEART_RATE
     trigger(.BluetoothRequestConnection)

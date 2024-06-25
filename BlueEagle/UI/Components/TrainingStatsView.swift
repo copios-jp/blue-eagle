@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct TrainingStatsView: View {
-  
+
   let currentHR: Double
   let minHR: Double
   let maxHR: Double
   let averageHR: Double
   let color: Color
-  
+
   var body: some View {
     VStack {
       Text("\(currentHR, specifier: "%.0f")")
@@ -28,7 +28,7 @@ struct TrainingStatsView: View {
 }
 
 struct TrainingStatsView_Previews: PreviewProvider {
-  
+
   static var previews: some View {
     TrainingStatsView(currentHR: 0, minHR: 0, maxHR: 1, averageHR: 0, color: .orange)
       .preferredColorScheme(.dark)

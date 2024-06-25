@@ -8,19 +8,19 @@
 import SwiftUI
 
 class QRCode: ObservableObject {
-    var uuid: String
-    
-    @Published var image: UIImage?
-    
-    init(_ uuid: String) {
-        self.uuid = uuid
-        load()
-                
+  var uuid: String
+
+  @Published var image: UIImage?
+
+  init(_ uuid: String) {
+    self.uuid = uuid
+    load()
+
+  }
+
+  func load() {
+    API().qrcode(uuid) { data in
+      self.image = UIImage(data: data)
     }
-    
-    func load() {
-        API().qrcode(uuid) { data in
-            self.image = UIImage(data: data)
-        }
-    }
+  }
 }

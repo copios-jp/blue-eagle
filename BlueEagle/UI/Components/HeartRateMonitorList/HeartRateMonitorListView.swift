@@ -5,15 +5,15 @@
 //  Created by Randy Morgan on 2021/11/26.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
-struct HeartRateMonitorList: View {
+struct HeartRateMonitorListView: View {
   @StateObject var viewModel: ViewModel = .init()
   @State var show: Bool = false
-  
+
   let inspection = Inspection<Self>()
-  
+
   var body: some View {
     HStack {
       if viewModel.current == nil {
@@ -33,7 +33,7 @@ struct HeartRateMonitorList: View {
                 .onTapGesture { monitorViewModel.toggle() }
             }
           }
-          if(viewModel.isScanning) {
+          if viewModel.isScanning {
             loadingView
           } else {
             scanButton
@@ -46,7 +46,7 @@ struct HeartRateMonitorList: View {
             Button("done") { self.show = false }
           }
         }
-        
+
       }
     }
     .padding()
@@ -55,12 +55,12 @@ struct HeartRateMonitorList: View {
   }
 }
 
-private extension HeartRateMonitorList {
-  var loadingView: some View {
+extension HeartRateMonitorListView {
+  fileprivate var loadingView: some View {
     ProgressView()
   }
-  
-  var scanButton: some View {
+
+  fileprivate var scanButton: some View {
     Button("scan") { viewModel.scan() }
   }
 }
@@ -68,13 +68,14 @@ private extension HeartRateMonitorList {
 // MARK: Preview
 
 struct HeartRateMonitorList_Previews: PreviewProvider {
-  static let monitorViewModel: HeartRateMonitorViewModel = .init(HeartRateMonitor(name: "Preview Monitor"))
-  static let viewModel: HeartRateMonitorList.ViewModel = .init(items: [monitorViewModel])
+  static let monitorViewModel: HeartRateMonitorViewModel = .init(
+    HeartRateMonitor(name: "Preview Monitor"))
+  static let viewModel: HeartRateMonitorListView.ViewModel = .init(items: [monitorViewModel])
   static var previews: some View {
     GeometryReader { geometry in
       VStack {
         HStack {
-          HeartRateMonitorList(viewModel: viewModel)
+          HeartRateMonitorListView(viewModel: viewModel)
         }
       }
       .frame(height: geometry.size.height * 0.05)

@@ -6,20 +6,19 @@
 //
 import SwiftUI
 
-
 struct ContentView: View {
-    var body: some View {
-        VStack() {
-            TrainingView()
-        }
-        .preferredColorScheme(.dark)
+  var body: some View {
+    VStack {
+      TrainingView()
     }
+    .preferredColorScheme(.dark)
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            ContentView()
-        }
+  static var previews: some View {
+    NavigationView {
+      ContentView()
     }
+  }
 }

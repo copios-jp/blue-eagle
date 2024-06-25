@@ -12,19 +12,18 @@ protocol BroadcastableSubject: Encodable {
 }
 
 class BroadcastService {
-  
+
   var subject: BroadcastableSubject
-  
-  
+
   init(_ subject: BroadcastableSubject) {
     self.subject = subject
   }
- 
+
   static func broadcast(_ subject: BroadcastableSubject) {
     let service: BroadcastService = .init(subject)
     service.broadcast()
   }
-   
+
   @objc func broadcast() {
     let data: Data = toJson().data(using: .utf8)!
     let channel: String = subject.uuid.uuidString

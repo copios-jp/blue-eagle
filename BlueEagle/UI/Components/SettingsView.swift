@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
   @State private var show: Bool = false
   var body: some View {
-    Image(systemName:  "person.fill")
+    Image(systemName: "person.fill")
       .padding()
       .onTapGesture {
         show.toggle()

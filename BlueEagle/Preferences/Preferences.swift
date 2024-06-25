@@ -50,7 +50,9 @@ struct Preference<Value>: DynamicProperty {
   private let keyPath: ReferenceWritableKeyPath<Preferences, Value>
   private let preferences: Preferences
 
-  init(_ keyPath: ReferenceWritableKeyPath<Preferences, Value>, preferences: Preferences = .standard) {
+  init(
+    _ keyPath: ReferenceWritableKeyPath<Preferences, Value>, preferences: Preferences = .standard
+  ) {
     self.keyPath = keyPath
     self.preferences = preferences
     let publisher = preferences
@@ -96,17 +98,20 @@ final class Preferences: ObservableObject {
     self.userDefaults = userDefaults
   }
 
+  @UserDefault("user_resting_heart_rate")
+  var restingHeartRate: Int = 50
+
   @UserDefault("user_sex")
   var sex: String = Sex.undeclared.rawValue
 
   @UserDefault("user_weight")
   var weight: Int = 50
 
-  @UserDefault("user_age")
-  var age: Int = 35
-
   @UserDefault("user_height")
   var height: Int = 150
+
+  @UserDefault("user_birthdate")
+  var birthdate: Date = Date()
 
   @UserDefault(wrappedValue: nil, "heart_rate_monitor")
   var heartRateMonitor: String?

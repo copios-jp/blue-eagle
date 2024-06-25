@@ -9,24 +9,24 @@ import SwiftUI
 
 struct StopwatchView: View {
   private func getColor(_ state: StopWatchStatus) -> Color {
-    switch(state) {
-      case .paused:
-        return .secondary
-      case .running:
-        return .blue
-      default:
-        return .primary
+    switch state {
+    case .paused:
+      return .secondary
+    case .running:
+      return .blue
+    default:
+      return .primary
     }
   }
-  
+
   @StateObject private var stopwatch: StopWatch = StopWatch()
   var body: some View {
     HStack {
       Text(String(stopwatch.formattedValue))
-        .onTapGesture() {
+        .onTapGesture {
           stopwatch.status == .running ? stopwatch.pause() : stopwatch.start()
         }
-        .onLongPressGesture() {
+        .onLongPressGesture {
           stopwatch.stop()
         }
         .foregroundStyle(getColor(stopwatch.status))
