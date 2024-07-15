@@ -8,33 +8,52 @@
 import Foundation
 import SwiftUI
 
+let GradientStops: [(Color, Double)] =
+  [
+    (.gray, 0.0),
+    (.blue, 0.25),
+    (.green, 0.40),
+    (.yellow, 0.55),
+    (.orange, 0.70),
+    (.red, 0.85),
+  ]
+
 extension TrainingZoneView {
   class ViewModel: ObservableObject {
-    private var eventBus: EventBus
+    private var user: User = User.current
 
-    private let observing: [Selector: NSNotification.Name] = [
-      #selector(heartRateMonitorValueUpdated(notification:)): .HeartRateMonitorValueUpdated
-    ]
+    var color: Color {
+      let zoneIndex = TrainingZones.firstIndex(of: user.zone)
 
-    @Published var percentOfMax: Double = 0.0
-    var percentOfMaxLabel = "0%"
-    var color: Color = .gray
-    var description: String = "unknown"
-    var gradient = TrainingZoneGradientStyle.gradient
-
-    init(_ eventBus: EventBus = NotificationCenter.default) {
-      self.eventBus = eventBus
-
-      eventBus.registerObservers(self, observing)
-
+      return GradientStops[zoneIndex!].0
     }
 
-    @objc private func heartRateMonitorValueUpdated(notification: Notification) {
-      let sample = HRSample(rate: notification.userInfo!["sample"] as! Double)
-      self.percentOfMax = sample.percentOfMax
-      self.percentOfMaxLabel = String(format: "%.0f%", sample.percentOfMax * 100.0)
-      self.color = TrainingZoneGradientStyle.color(position: sample.zone.position)
-      self.description = sample.description
+    var description: String {
+      return user.heartRate > 0 ? user.zone.description : "NO SIGNAL"
+    }
+
+    var exertion: String {
+      return user.heartRate > 0
+        ? user.exertion.formatted(.percent.precision(.fractionLength(0))) : ""
+    }
+    // Because a linear gradient looks shit when zone-zero eats up
+    // half of the guage.
+    var exertionGradient: Double {
+      let exertion = user.exertion
+      let firstZoneEndsAt = TrainingZones[0].upperBound
+      let contractionLimit = GradientStops[1].1
+
+      func contract() -> Double { return exertion * firstZoneEndsAt }
+      func expand() -> Double {
+        return contractionLimit + (exertion - firstZoneEndsAt)
+          / (firstZoneEndsAt / (1 - contractionLimit))
+      }
+
+      return user.exertion <= TrainingZones[0].upperBound ? contract() : expand()
+    }
+
+    var heartRateLabel: String {
+      return user.heartRate > 0 ? String(format: "%d bpm", user.heartRate) : ""
     }
   }
 }

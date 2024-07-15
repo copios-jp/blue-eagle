@@ -20,22 +20,26 @@ import Foundation
 import SwiftUI
 
 class CalorieCounter {
-  init() {}
+    
+    var user: User
+    init(user: User) {
+        self.user = user
+    }
 
   var minimumSampleRatePerMinute: Int = 30
   var minimumViableHeartRate: Double = 90.0
   var maximumMeasurableHeartRate: Double = 150.0
 
   private var sex: Sex {
-    return Sex(rawValue: Preferences.standard.sex) ?? .undeclared
+      return user.sex
   }
 
   private var age: Double {
-    return User.age
+    return Double(user.age)
   }
 
   private var weight: Int {
-    return Preferences.standard.weight
+    return user.weight
   }
 
   private var intercept: Double {

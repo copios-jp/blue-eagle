@@ -6,70 +6,75 @@
 //
 
 import Foundation
+import SwiftUI
 
-final public class User {
-  static var birthdate: Date {
-      get {
-          return Preferences.standard.birthdate
-      }
-      set {
-          Preferences.standard.birthdate = newValue
-          
-      }
+enum Sex: String, Equatable, CaseIterable, Codable {
+  case undeclared = "undeclared"
+  case female = "female"
+  case male = "male"
+}
+
+@Observable
+class User: ObservableObject {
+
+  static let current = User()
+
+  private var eventBus: EventBus = NotificationCenter.default
+
+  private let observing: [Selector: NSNotification.Name] = [
+    #selector(heartRateMonitorValueUpdated(notification:)): .HeartRateMonitorValueUpdated
+  ]
+
+  @objc private func heartRateMonitorValueUpdated(notification: Notification) {
+    self.heartRate = notification.userInfo!["sample"] as! Int
   }
 
-  static var age: Double {
-    let intAge = Calendar.current.dateComponents([.year], from: birthdate, to: Date()).year!
+  @ObservationIgnored @AppStorage("sex") var sex: Sex = .undeclared
+  @ObservationIgnored @AppStorage("weight") var weight: Int = 70
+  @ObservationIgnored @AppStorage("height") var height: Int = 170
+  @ObservationIgnored @AppStorage("restingHeartRate") var restingHeartRate: Int = 50
+  @ObservationIgnored @AppStorage("heartRateMonitor") var heartRateMonitor: String = ""
+  @ObservationIgnored @AppStorage("storedBirthdate") private var storedBirthdate = Date.now
+    .timeIntervalSinceReferenceDate
 
-    return Double(intAge)
+  var heartRate: Int = 0
+
+  init(_ eventBus: EventBus = NotificationCenter.default) {
+    self.eventBus = eventBus
+    eventBus.registerObservers(self, observing)
   }
 
-  static var maxHeartRate: Double {
-    211.0 - 0.67 * age
+  var birthdate: Date {
+    get { return Date(timeIntervalSinceReferenceDate: storedBirthdate) }
+    set {
+      storedBirthdate = newValue.timeIntervalSinceReferenceDate
+    }
   }
 
-  static var reserveHR: Double {
+  var age: Int {
+    return Calendar.current.dateComponents([.year], from: birthdate, to: Date()).year!
+  }
+
+  // Tanaka, Monahan, & Seals Formula
+  var maxHeartRate: Int {
+    return Int(round(208 - Double(age) * 0.7))
+  }
+
+  var heartRateReserve: Int {
     return maxHeartRate - restingHeartRate
   }
 
-  static var sex: String {
-    get {
-      return Preferences.standard.sex
+  var zone: Zone {
+    func kernel(_ bound: Double) -> Double {
+      return round(Double(heartRateReserve) * bound + Double(restingHeartRate))
     }
-    set {
-      Preferences.standard.sex = newValue
-    }
-  }
 
-  static var weight: Double {
-    get {
-      return Double(Preferences.standard.weight)
-    }
-    set {
-      Preferences.standard.weight = Int(newValue)
-    }
+    return TrainingZones.first { zone in
+      return zone.range(kernel).contains(Double(heartRate))
+    }!
   }
-
-  static var height: Double {
-    get {
-      return Double(Preferences.standard.height)
+   
+    var exertion: Double {
+      return Double(heartRate - restingHeartRate) / Double(heartRateReserve)
     }
-    set {
-      Preferences.standard.weight = Int(newValue)
-    }
-  }
-
-  static var restingHeartRate: Double {
-    get {
-      return Double(Preferences.standard.restingHeartRate)
-    }
-    set {
-      Preferences.standard.restingHeartRate = Int(newValue)
-    }
-  }
-
-  var heartRateMonitor: String? {
-    return Preferences.standard.heartRateMonitor
-  }
-
 }

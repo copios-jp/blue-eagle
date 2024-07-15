@@ -8,7 +8,7 @@
 import SwiftUI
 import ViewInspector
 import XCTest
-
+import Foundation
 @testable import BlueEagle
 
 final class TrainingZoneViewTest: XCTestCase {
@@ -17,11 +17,11 @@ final class TrainingZoneViewTest: XCTestCase {
   var viewModel: TrainingZoneView.ViewModel?
   override func setUpWithError() throws {
     WithUser()
-    viewModel = .init(eventBus)
-    sut = .init(viewModel: viewModel!)
-    let userInfo: [AnyHashable: AnyHashable] = [
+    viewModel = .init()
+      sut = .init(viewModel: self.viewModel!)
+    let userInfo: [String: AnyHashable] = [
       "identifier": UUID(),
-      "sample": User.maxHeartRate * 0.9,
+      "sample": Int(Double(User.current.maxHeartRate) * 0.9)
     ]
 
     eventBus.trigger(.HeartRateMonitorValueUpdated, userInfo)
@@ -37,14 +37,15 @@ final class TrainingZoneViewTest: XCTestCase {
   }
 
   func test_itRendersTrainingZoneViewDescription() throws {
-    let text = viewModel!.description
+    let text = NSLocalizedString(viewModel!.description, comment:"")
+    print("TEXT \(text)")
     let color = viewModel!.color
-
+      
     try hasTextWithColor(text: text, color: color)
   }
 
   func test_itRendersTrainingZoneViewPercentOfMax() throws {
-    let text = viewModel!.percentOfMaxLabel
+    let text = viewModel!.heartRateLabel
     let color = viewModel!.color
 
     try hasTextWithColor(text: text, color: color)

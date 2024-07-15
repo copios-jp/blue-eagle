@@ -8,12 +8,12 @@
 
 "bluetooth-status" = "status";
 "training-zone" = "TRAINING ZONE";
-"zone-zero" = "REST";
-"zone-one" = "RECOVERY";
-"zone-two" = "AEROBIC";
-"zone-three" = "TEMPO";
-"zone-four" = "THRESHOLD";
-"zone-five" = "ANAEROBIC";
+"zone-zero" = "RECOVERY";
+"zone-one" = "AEROBIC";
+"zone-two" = "TEMPO";
+"zone-three" = "THRESHOLD";
+"zone-four" = "ANAEROBIC";
+"zone-five" = "MAXIMAL";
 "average-hr: %.0f" = "average heart rate: %.0f";
 "calories-burnt: %.0f" = "calories: %.0f";
 
@@ -32,3 +32,8 @@
 "data" = "data";
 "broadcast" = "broadcast training data";
 "qr code" = "QR code";
+"minutes" = "minutes";
+"seconds" = "seconds";
+"start" = "start";
+"stop" = "stop";
+"store" = "store";

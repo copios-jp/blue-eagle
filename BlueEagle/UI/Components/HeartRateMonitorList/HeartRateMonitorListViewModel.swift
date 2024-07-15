@@ -64,9 +64,8 @@ extension HeartRateMonitorListView {
 
       add(name, identifier)
 
-      @Preference(\.heartRateMonitor) var preferredDevice
 
-      if preferredDevice == nil || preferredDevice == identifier.uuidString {
+      if User.current.heartRateMonitor == identifier.uuidString {
         eventBus.trigger(.BluetoothRequestConnection, ["identifier": identifier])
       }
     }
@@ -79,7 +78,7 @@ extension HeartRateMonitorListView {
       }
 
       current = item
-      Preferences.standard.heartRateMonitor = identifier.uuidString
+      User.current.heartRateMonitor = identifier.uuidString
     }
   }
 }

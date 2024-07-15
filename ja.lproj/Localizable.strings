@@ -35,4 +35,10 @@
 "female" = "女性";
 "undeclared" = "指定しない";
 
+"minutes" = "分";
+"seconds" = "秒";
+"start" = "スタート・ストップ";
+"stop" = "停止";
+"store" = "プログラム";
+
 

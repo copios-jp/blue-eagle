@@ -10,10 +10,10 @@ import SwiftUI
 @main
 struct BlueEagleApp: App {
   var bluetooth: BluetoothService = .init()
+
   var body: some Scene {
     WindowGroup {
       ContentView()
-        .padding()
     }
   }
 }

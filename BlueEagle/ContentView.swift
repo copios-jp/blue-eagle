@@ -1,3 +1,4 @@
+import SwiftData
 //
 //  ContentView.swift
 //  BlueEagle
@@ -7,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+
   var body: some View {
     VStack {
       TrainingView()

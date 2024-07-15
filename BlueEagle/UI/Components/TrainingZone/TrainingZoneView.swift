@@ -5,48 +5,59 @@
 //  Created by Randy Morgan on 2021/10/30.
 //
 
+import SwiftData
 import SwiftUI
 
-struct TrainingZoneView: View {
-  @State var viewModel: ViewModel = .init()
+private let gradient = AngularGradient(
+  gradient: Gradient(
+    stops: GradientStops.map { stops in
+      Gradient.Stop(color: stops.0, location: stops.1)
+    }),
+  center: .center,
+  startAngle: .degrees(-90),
+  endAngle: .degrees(270))
 
+struct TrainingZoneView: View {
+  @StateObject var viewModel: ViewModel = .init()
   var body: some View {
     ZStack(alignment: .center) {
       Circle()
-        .stroke(viewModel.gradient, style: StrokeStyle(lineWidth: 0))
         .background(
           Circle().fill(viewModel.color)
         )
         .opacity(0.2)
         .padding()
+
       Circle()
-        .stroke(viewModel.gradient, style: StrokeStyle(lineWidth: 35.0))
+        .stroke(gradient, style: StrokeStyle(lineWidth: 40.0))
         .opacity(0.5)
+
       Circle()
-        .trim(from: 0.0, to: CGFloat(viewModel.percentOfMax))
+        .trim(from: 0.0, to: CGFloat(viewModel.exertionGradient))
         .rotation(Angle(degrees: -90))
-        .stroke(viewModel.gradient, style: StrokeStyle(lineWidth: 35.0))
-        .animation(.easeIn, value: viewModel.percentOfMax)
-        .accessibilityIdentifier("TrainingZoneCircle")
-      Text("training-zone")
-        .padding(.top, -60)
-      Text(LocalizedStringKey(viewModel.description))
-        .font(.system(size: 45))
-        .foregroundColor(viewModel.color)
-        .accessibilityIdentifier("TrainingZoneDesription")
-      Text(viewModel.percentOfMaxLabel)
-        .font(.system(size: 35))
-        .padding(.top, 110)
-        .foregroundColor(viewModel.color)
-        .accessibilityLabel("PercentOfMaxHeartRate")
+        .stroke(gradient, style: StrokeStyle(lineWidth: 40.0))
+        .opacity(0.8)
+        .animation(.easeIn, value: viewModel.exertionGradient)
+      VStack {
+        Text(viewModel.exertion)
+          .font(.system(size: 50))
+        Text(LocalizedStringKey(viewModel.description))
+          .font(.system(size: 40))
+        Text(viewModel.heartRateLabel)
+          .font(.system(size: 35))
+      }
+      .padding(.bottom)
+      .foregroundColor(viewModel.color)
     }
+    .padding()
   }
 }
 
 struct TrainingZoneView_Previews: PreviewProvider {
+  static var viewModel = TrainingZoneView.ViewModel()
   static var previews: some View {
     VStack {
-      TrainingZoneView()
+      TrainingZoneView(viewModel: viewModel)
         .preferredColorScheme(.dark)
         .padding(.leading)
         .padding(.trailing)

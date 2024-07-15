@@ -4,7 +4,7 @@
 //
 //  Created by Randy Morgan on 2021/11/22.
 //
-
+/*
 import Combine
 import Foundation
 import SwiftUI
@@ -113,6 +113,10 @@ final class Preferences: ObservableObject {
   @UserDefault("user_birthdate")
   var birthdate: Date = Date()
 
+  @UserDefault("kernel")
+  var kernel: String = KernelLabel.karvonen.rawValue
+
   @UserDefault(wrappedValue: nil, "heart_rate_monitor")
   var heartRateMonitor: String?
 }
+*/

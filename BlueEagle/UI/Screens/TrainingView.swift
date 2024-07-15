@@ -8,27 +8,21 @@
 import SwiftUI
 
 struct TrainingView: View {
-  //@StateObject private var training: Training
-
   var body: some View {
     GeometryReader { geometry in
       VStack {
         HStack {
           HeartRateMonitorListView()
           Spacer()
-          StopwatchView()
+          // StopwatchView()
           Spacer()
           SettingsView()
         }
         .frame(height: geometry.size.height * 0.05)
-        Spacer()
         TrainingZoneView()
-          .frame(height: geometry.size.height * 0.5)
-          .padding(.leading)
-          .padding(.trailing)
-        Spacer()
-
-          .frame(height: geometry.size.height * 0.30)
+          .frame(height: geometry.size.height * 0.50)
+        ProgrammableTimerView(fontSize: 120)
+          //.frame(height: geometry.size.height * 0.50)
       }
     }
   }
@@ -38,6 +32,5 @@ struct TrainingView_Previews: PreviewProvider {
   static var previews: some View {
     TrainingView()
       .preferredColorScheme(.dark)
-      .padding()
   }
 }
