@@ -21,8 +21,9 @@ struct TrainingView: View {
         .frame(height: geometry.size.height * 0.05)
         TrainingZoneView()
           .frame(height: geometry.size.height * 0.50)
+          .padding()
         ProgrammableTimerView(fontSize: 120)
-          //.frame(height: geometry.size.height * 0.50)
+          // .frame(height: geometry.size.height * 0.50)
       }
     }
   }

@@ -14,14 +14,13 @@ extension ProgrammableTimerView {
     case running
     case stopped
   }
+    
   @Observable class ViewModel: TimerEventDelegate, ObservableObject {
 
     private var timers: [TrainingTimer] = []
     private var repeatCount: Double = Double.infinity
-    private var formatter: TimerFormatter = .init()
     private var index: Int = -1
-    private var player: AVAudioPlayer?
-
+      
     var status: ProgrammableTimerStatus = .stopped
     var seconds: Int = 0
     var minutes: Int = 0
@@ -30,6 +29,7 @@ extension ProgrammableTimerView {
     var isProgrammed: Bool {
       return self.timers.first(where: { $0.direction == .decrementing }) !== nil
     }
+      
     var statusImage: String {
       status == .running ? "stop.circle" : "play.circle"
     }
@@ -41,33 +41,21 @@ extension ProgrammableTimerView {
 
       return nil
     }
-      
-  var formattedRounds: String {
-    rounds == Double.infinity ? "rounds: -" : String(format: "rounds: %d", Int(rounds))
-  }
-    func playSound() {
-      guard let path = Bundle.main.path(forResource: "alarm", ofType: "wav") else {
-        return
-      }
-      let url = URL(fileURLWithPath: path)
 
-      do {
-        player = try AVAudioPlayer(contentsOf: url)
-        player?.play()
-
-      } catch let error {
-        print(error.localizedDescription)
-      }
+    private var value: TimeInterval {
+      Double(seconds + minutes * 60)
     }
-
-    func onRepeatTap() {
+      
+    func incrementRounds() {
       self.rounds = rounds == Double.infinity ? 1 : rounds + 1
     }
-    func onProgramTap() {
-      guard minutes > 0 || seconds > 0 else { return }
-      let value = Double(seconds + minutes * 60)
+      
+    func addTimer() {
+      guard value > 0 else { return }
+        
       let timer = TrainingTimer(duration: value)
       timer.delegate = self
+        
       self.timers.append(timer)
 
       self.minutes = 0
@@ -75,21 +63,19 @@ extension ProgrammableTimerView {
     }
 
     func onChange(_ event: TimerEvent) {
-      print(event)
       self.minutes = Int(event.value / 60)
       self.seconds = Int(event.value) % 60
 
       if event.status == .expired {
 
         self.index = self.index >= self.timers.count - 1 ? 0 : self.index + 1
-          if(index == 0) {
-              self.rounds = rounds == Double.infinity ? rounds : rounds - 1
-          }
+        if index == 0 {
+          self.rounds = rounds == Double.infinity ? rounds : rounds - 1
+        }
 
         let timer = self.timers[self.index]
         timer.status = .stopped
-
-        self.playSound()
+        AudioService.play("alarm")
 
         if self.rounds > 0 {
           timer.start()
@@ -99,40 +85,29 @@ extension ProgrammableTimerView {
       }
     }
 
-    func onResetTap() {
+    func reset() {
       self.stop()
       self.rounds = Double.infinity
       self.timers = []
 
     }
 
-    func onStartTap() {
-      guard self.status == .stopped else { return }
-      self.start()
-    }
-
-    func onStopTap() {
-      guard self.status == .running else { return }
-      self.stop()
-    }
-
-    func onToggleTap() {
-      if self.status == .stopped {
-        self.onStartTap()
-      } else {
-        self.onStopTap()
-      }
+    func toggle() {
+      self.status == .running ? stop() : start()
     }
 
     private func start() {
+      guard self.currentTimer?.status != .running else { return }
+        
+      self.index = 0
+        
       if self.timers.isEmpty {
         let timer = TrainingTimer()
         timer.delegate = self
         self.timers.append(timer)
       }
 
-      self.index = 0
-      timers[index].start()
+      currentTimer!.start()
       self.status = .running
     }
 

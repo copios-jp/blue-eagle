@@ -24,13 +24,12 @@ struct RoundsCountOverlayView: View {
       var body: some View {
         ZStack {
           Capsule()
-            .fill(background)
-            .frame(width: size * widthMultplier(), height: size, alignment: .topTrailing)
+                .fill(.secondary)
+                .frame(width: size * 2, height: size * 1.2, alignment: .topTrailing)
             .position(x: x, y: y)
-         
           if hasTwoOrLessDigits() {
            text()
-              .foregroundColor(foreground)
+                  .foregroundColor(.primary)
               .font(Font.caption)
               .position(x: x, y: y)
             } else  {
@@ -54,7 +53,7 @@ struct RoundsCountOverlayView: View {
       func widthMultplier() -> Double {
         if value < 10 {
           // one digit
-          return 1.0
+          return 1.5
         } else if value < 100 {
           // two digits
           return 1.5

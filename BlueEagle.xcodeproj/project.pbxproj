@@ -44,6 +44,7 @@
 		3D34075327060FE10089E234 /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34075227060FE10089E234 /* TrainingView.swift */; };
 		3D3F18AD2C3FDA8B0033319A /* StopWatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3F18AC2C3FDA8B0033319A /* StopWatchViewModel.swift */; };
 		3D6B615E2C2C5A1C0087CAB3 /* ZoneTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B615D2C2C5A1C0087CAB3 /* ZoneTable.swift */; };
+		3D757B232C46AC2A00B65E57 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D757B222C46AC2A00B65E57 /* AudioService.swift */; };
 		3D98CB002C45865600159BAB /* RatioColon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D98CAFF2C45865600159BAB /* RatioColon.swift */; };
 		3D98CB022C458ADC00159BAB /* RoundsCountOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D98CB012C458ADC00159BAB /* RoundsCountOverlayView.swift */; };
 		3DCA80C82C2A74A7005D47B6 /* TrainingZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCA80C72C2A74A7005D47B6 /* TrainingZone.swift */; };
@@ -132,6 +133,7 @@
 		3D34075227060FE10089E234 /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
 		3D3F18AC2C3FDA8B0033319A /* StopWatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchViewModel.swift; sourceTree = "<group>"; };
 		3D6B615D2C2C5A1C0087CAB3 /* ZoneTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneTable.swift; sourceTree = "<group>"; };
+		3D757B222C46AC2A00B65E57 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		3D98CAFF2C45865600159BAB /* RatioColon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatioColon.swift; sourceTree = "<group>"; };
 		3D98CB012C458ADC00159BAB /* RoundsCountOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundsCountOverlayView.swift; sourceTree = "<group>"; };
 		3DCA80C72C2A74A7005D47B6 /* TrainingZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZone.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				3DE3722526FA076500CC1F3F /* BluetoothService.swift */,
 				250F27C0297A5BBC001C3FB2 /* Inspection.swift */,
 				25376653297F6E30008E3D8A /* BroadcastService.swift */,
+				3D757B222C46AC2A00B65E57 /* AudioService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				3DEB1EEA2C271348008281CD /* User.swift in Sources */,
 				3DF928DD272CCB7A007BF669 /* TrainingZoneView.swift in Sources */,
 				3DF928DF272CCCE4007BF669 /* TrainingStatsView.swift in Sources */,
+				3D757B232C46AC2A00B65E57 /* AudioService.swift in Sources */,
 				2572B29E296E70AF006BEFE4 /* CalorieCounter.swift in Sources */,
 				3DDD2DA22C2DA09D00375F21 /* SettingsViewModel.swift in Sources */,
 				3D98CB022C458ADC00159BAB /* RoundsCountOverlayView.swift in Sources */,
