@@ -7,7 +7,6 @@
 import Foundation
 import SwiftUI
 
-
 // TODO - this is where we configure timers, intervals, alerts
 // and collect heart rate samples during the training for generating reports.
 class Training: ObservableObject {
@@ -16,8 +15,8 @@ class Training: ObservableObject {
     #selector(heartRateMonitorValueUpdated(notification:)): .HeartRateMonitorValueUpdated
   ]
 
-  init(_ eventBus: EventBus = NotificationCenter.default) {
-    eventBus.registerObservers(self, observing)
+  init() {
+    EventBus.registerObservers(self, observing)
   }
 
   var samples: [HRSample] = []

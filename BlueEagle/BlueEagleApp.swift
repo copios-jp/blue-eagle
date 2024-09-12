@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct BlueEagleApp: App {
-  var bluetooth: BluetoothService = .init()
+  let bluetooth: BluetoothService = .init()
 
   var body: some Scene {
     WindowGroup {

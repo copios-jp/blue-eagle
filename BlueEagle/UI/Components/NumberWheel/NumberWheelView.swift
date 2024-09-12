@@ -15,14 +15,14 @@ struct NumberWheelView: View {
   var fontSize: CGFloat = 80
 
   private var itemSize: CGSize {
-      return String(format: format, 99).size(withAttributes: [
-      .font: UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .regular)
+      return String(format: format, range.upperBound).size(withAttributes: [
+        .font: UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .regular),
     ])
   }
 
   var body: some View {
     ScrollView(.vertical) {
-      LazyVStack(alignment: .trailing, spacing: 0) {
+      LazyVStack(alignment: .center, spacing: 0) {
         ForEach(range, id: \.self) { value in
           Text(String(format: format, value))
             .id(value)
@@ -40,5 +40,5 @@ struct NumberWheelView: View {
 }
 
 #Preview {
-  NumberWheelView(selection: .constant(0), range: 0...5, format: "%02d")
+  NumberWheelView(selection: .constant(0), range: 0...59, format: "%02d")
 }

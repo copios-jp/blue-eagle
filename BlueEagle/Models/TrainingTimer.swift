@@ -6,147 +6,116 @@
 //
 
 import Foundation
-import Observation
+import SwiftUI
 
-struct TimerEvent {
-  var value: TimeInterval = 0
-  var status: TrainingTimer.TimerStatus = .stopped
-}
-
-protocol TimerEventDelegate: AnyObject {
-  func onChange(_: TimerEvent)
-}
-
-final class TimerFormatter {
-     private lazy var formatter: DateComponentsFormatter = {
-      let formatter = DateComponentsFormatter()
-      formatter.allowedUnits = [.hour, .minute, .second]
-      formatter.zeroFormattingBehavior = .pad
-      formatter.unitsStyle = .positional
-      return formatter
-    }()
-
-    func format(_ value: TimeInterval = 0) -> String {
-       if value >= 3600 {
-        self.formatter.allowedUnits.insert(.hour)
-      } else {
-        self.formatter.allowedUnits.remove(.hour)
-      }
-      return self.formatter.string(from: value)  ?? "00:00"
-    }
-}
-
-@Observable class TrainingTimer {
-  enum TimerStatus {
-    case stopped
-    case running
-    case paused
-    case expired  // Expose expired status for declarative alarm handling on countdown expiration.
+class TrainingTimer: Equatable {
+  static func == (lhs: TrainingTimer, rhs: TrainingTimer) -> Bool {
+    return lhs === rhs
   }
 
-  var status: TimerStatus = .stopped {
-    didSet { self.broadcast() }
-  }
-
-  var value: TimeInterval = 0 {
-    didSet { self.broadcast() }
-  }
-
-  weak var delegate: TimerEventDelegate?
-
-  enum TimerDirection {
+  enum Direction {
     case incrementing
     case decrementing
   }
 
-  var direction: TimerDirection = .incrementing
-  private var initialDuration: TimeInterval = 0
+  enum Status {
+    case running
+    case stopped
+  }
 
+  enum EventName {
+    case start
+    case tick
+    case stop
+  }
+
+  struct Event {
+    var name: EventName = .tick
+    var value: TimeInterval = 0
+    var direction: Direction = .incrementing
+    var status: Status
+  }
+
+  protocol Delegate: AnyObject {
+    func onTimerTick(_ event: Event)
+    func onTimerStart(_ event: Event)
+    func onTimerStop(_ event: Event)
+  }
+
+  var value: TimeInterval = 0
+  var direction: Direction = .incrementing
+  var status: Status {
+    timer == nil ? .stopped : .running
+  }
+  weak var delegate: Delegate?
+
+  private var initialDuration: TimeInterval = 0
   private var timer: Timer?
   private let interval: TimeInterval = 1.0
 
   init(duration: TimeInterval = 0) {
     self.initialDuration = max(0, duration)
-    self.value = self.initialDuration
-    self.direction = self.initialDuration > 0 ? .decrementing : .incrementing
+    self.value = initialDuration
+    self.direction = initialDuration > 0 ? .decrementing : .incrementing
   }
-
-  // MARK: - Timer Controls
 
   func start() {
-    guard self.status == .stopped || self.status == .expired else { return }
-
-    self.value = self.initialDuration
-    self.startTimer()
-    self.status = .running
-  }
-
-  func pause() {
-    guard self.status == .running else { return }
-
-    self.killTimer()
-    self.status = .paused
-  }
-
-  func stop() {
-    guard self.status == .running || self.status == .paused else { return }
-
-    self.killTimer()
-    self.status = .stopped
-  }
-
-  func resume() {
-    guard self.status == .paused else { return }
-
-    startTimer()
-    self.status = .running
-  }
-
-  // MARK: - Timer Logic
-
-  private func startTimer() {
-    if self.timer != nil {
-      self.killTimer()
+    if timer != nil {
+      killTimer()
     }
 
-    self.timer = Timer.scheduledTimer(withTimeInterval: self.interval, repeats: true) {
+    value = initialDuration
+    timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) {
       [weak self] _ in
       self?.tick()
     }
+
+    broadcast(.start)
   }
 
-  private func increment() {
-    self.value += self.interval
-  }
+  func stop() {
+    guard timer != nil else { return }
 
-  private func decrement() {
-    self.value -= self.interval
-
-    if self.value < 0 {
-      self.killTimer()
-      self.status = .expired
-    }
+    killTimer()
+    broadcast(.stop)
   }
 
   @objc private func tick() {
-    switch status {
-    case .running:
-      self.direction == .incrementing ? self.increment() : self.decrement()
-    case .paused, .stopped, .expired:
-      break
+    guard timer != nil else { return }
+
+    value += direction == .incrementing ? interval : interval * -1
+
+    guard value > -1 else {
+      killTimer()
+      broadcast(.stop)
+      return
     }
+
+    broadcast()
   }
 
   private func killTimer() {
-    self.timer?.invalidate()
-    self.timer = nil
+    guard timer != nil else { return }
+    timer?.invalidate()
+    timer = nil
+    value = 0
   }
 
-  private func broadcast() {
-    self.delegate?.onChange(TimerEvent(value: self.value, status: self.status))
+  private func broadcast(_ name: EventName = .tick) {
+    guard let target = delegate else { return }
 
+    let event = Event(name: name, value: value, direction: direction, status: status)
+    switch name {
+    case .start:
+      target.onTimerStart(event)
+    case .tick:
+      target.onTimerTick(event)
+    case .stop:
+      target.onTimerStop(event)
+    }
   }
+
   deinit {
-    self.killTimer()
+    killTimer()
   }
 }

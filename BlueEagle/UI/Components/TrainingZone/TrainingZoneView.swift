@@ -19,25 +19,27 @@ private let gradient = AngularGradient(
 
 struct TrainingZoneView: View {
   @StateObject var viewModel: ViewModel = .init()
+    
+  var strokeWidth: CGFloat = 30
+    
   var body: some View {
     ZStack(alignment: .center) {
       Circle()
-        .background(
-          Circle().fill(viewModel.color)
-        )
-        .opacity(0.2)
-        .padding()
-
-      Circle()
-        .stroke(gradient, style: StrokeStyle(lineWidth: 40.0))
+        .stroke(gradient, style: StrokeStyle(lineWidth: strokeWidth))
         .opacity(0.5)
 
       Circle()
         .trim(from: 0.0, to: CGFloat(viewModel.exertionGradient))
         .rotation(Angle(degrees: -90))
-        .stroke(gradient, style: StrokeStyle(lineWidth: 40.0))
+        .stroke(gradient, style: StrokeStyle(lineWidth: strokeWidth))
         .opacity(0.8)
         .animation(.easeIn, value: viewModel.exertionGradient)
+        
+      Circle()
+        .fill(viewModel.color)
+        .opacity(0.4)
+        .padding(strokeWidth / 2 - 1)
+      
       VStack {
         Text(viewModel.exertion)
           .font(.system(size: 50))
@@ -46,22 +48,18 @@ struct TrainingZoneView: View {
         Text(viewModel.heartRateLabel)
           .font(.system(size: 35))
       }
-      .padding(.bottom)
       .foregroundColor(viewModel.color)
     }
-    .padding()
+    .padding(strokeWidth / 2)
   }
 }
 
 struct TrainingZoneView_Previews: PreviewProvider {
   static var viewModel = TrainingZoneView.ViewModel()
   static var previews: some View {
-    VStack {
+    HStack {
       TrainingZoneView(viewModel: viewModel)
         .preferredColorScheme(.dark)
-        .padding(.leading)
-        .padding(.trailing)
     }
-    .padding()
   }
 }

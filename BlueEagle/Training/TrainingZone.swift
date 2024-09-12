@@ -31,7 +31,7 @@ struct Zone: Equatable {
   }
 }
 
-var TrainingZones: [Zone] = [
+let TrainingZones: [Zone] = [
   Zone(
     upperBound: ZoneOne,
     description: "zone-zero"

@@ -7,20 +7,23 @@
 
 import Foundation
 
-protocol EventBus {
+protocol EventBusNotificationCenter {
   func trigger(_ name: NSNotification.Name, _ data: [AnyHashable: AnyHashable])
   func trigger(_ name: NSNotification.Name)
   func registerObservers(_ observer: Any, _ observing: [Selector: NSNotification.Name])
   func removeObserver(_ observer: Any)
 }
 
-extension NotificationCenter: EventBus {
+extension NotificationCenter: EventBusNotificationCenter {
+    
   func trigger(_ name: NSNotification.Name) {
     post(name: name, object: self)
   }
 
   func trigger(_ name: NSNotification.Name, _ data: [AnyHashable: AnyHashable]) {
-    post(name: name, object: self, userInfo: data)
+      DispatchQueue.main.async {
+          self.post(name: name, object: self, userInfo: data)
+      }
   }
 
   func registerObservers(_ observer: Any, _ observing: [Selector: NSNotification.Name]) {
@@ -29,3 +32,5 @@ extension NotificationCenter: EventBus {
     }
   }
 }
+
+let EventBus: EventBusNotificationCenter = NotificationCenter.default

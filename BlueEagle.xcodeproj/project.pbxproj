@@ -34,7 +34,7 @@
 		25F58FBF274A8B4000FCBDF1 /* EditSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F58FBE274A8B4000FCBDF1 /* EditSettingsView.swift */; };
 		3D085B732707630F007DEB5B /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D085B722707630F007DEB5B /* HealthKit.framework */; };
 		3D2072902C417E0000AF162B /* ProgrammableTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D20728F2C417E0000AF162B /* ProgrammableTimerView.swift */; };
-		3D2072932C417E2C00AF162B /* ProgrammableTimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2072922C417E2C00AF162B /* ProgrammableTimerViewModel.swift */; };
+		3D2072932C417E2C00AF162B /* ProgrammableTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2072922C417E2C00AF162B /* ProgrammableTimer.swift */; };
 		3D2072952C418E1200AF162B /* alarm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3D2072942C418E1200AF162B /* alarm.wav */; };
 		3D2072982C42370600AF162B /* NumberWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2072972C42370600AF162B /* NumberWheelView.swift */; };
 		3D2FB8A8272ABF64001C473D /* TrainingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8A7272ABF64001C473D /* TrainingTest.swift */; };
@@ -42,7 +42,6 @@
 		3D2FB8AD272ABFEE001C473D /* HRSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8AC272ABFEE001C473D /* HRSample.swift */; };
 		3D2FB8B2272C21B5001C473D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D2FB8B4272C21B5001C473D /* Localizable.strings */; };
 		3D34075327060FE10089E234 /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34075227060FE10089E234 /* TrainingView.swift */; };
-		3D3F18AD2C3FDA8B0033319A /* StopWatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3F18AC2C3FDA8B0033319A /* StopWatchViewModel.swift */; };
 		3D6B615E2C2C5A1C0087CAB3 /* ZoneTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B615D2C2C5A1C0087CAB3 /* ZoneTable.swift */; };
 		3D757B232C46AC2A00B65E57 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D757B222C46AC2A00B65E57 /* AudioService.swift */; };
 		3D98CB002C45865600159BAB /* RatioColon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D98CAFF2C45865600159BAB /* RatioColon.swift */; };
@@ -59,7 +58,6 @@
 		3DEB1EEC2C287BCA008281CD /* TrainingZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEB1EEB2C287BCA008281CD /* TrainingZoneViewModel.swift */; };
 		3DEB1EF22C289210008281CD /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 3DEB1EF12C289210008281CD /* ViewInspector */; };
 		3DEB1EF32C289245008281CD /* TrainingZoneViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEB1EEF2C2888B0008281CD /* TrainingZoneViewTest.swift */; };
-		3DF928DB272CCA02007BF669 /* StopwatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DA272CCA02007BF669 /* StopwatchView.swift */; };
 		3DF928DD272CCB7A007BF669 /* TrainingZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */; };
 		3DF928DF272CCCE4007BF669 /* TrainingStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */; };
 /* End PBXBuildFile section */
@@ -122,7 +120,7 @@
 		3D085B702707630F007DEB5B /* BlueEagle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BlueEagle.entitlements; sourceTree = "<group>"; };
 		3D085B722707630F007DEB5B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		3D20728F2C417E0000AF162B /* ProgrammableTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammableTimerView.swift; sourceTree = "<group>"; };
-		3D2072922C417E2C00AF162B /* ProgrammableTimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammableTimerViewModel.swift; sourceTree = "<group>"; };
+		3D2072922C417E2C00AF162B /* ProgrammableTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammableTimer.swift; sourceTree = "<group>"; };
 		3D2072942C418E1200AF162B /* alarm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = alarm.wav; sourceTree = "<group>"; };
 		3D2072972C42370600AF162B /* NumberWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberWheelView.swift; sourceTree = "<group>"; };
 		3D2FB8A7272ABF64001C473D /* TrainingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingTest.swift; sourceTree = "<group>"; };
@@ -131,7 +129,6 @@
 		3D2FB8B3272C21B5001C473D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D2FB8B5272C21BA001C473D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D34075227060FE10089E234 /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
-		3D3F18AC2C3FDA8B0033319A /* StopWatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchViewModel.swift; sourceTree = "<group>"; };
 		3D6B615D2C2C5A1C0087CAB3 /* ZoneTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneTable.swift; sourceTree = "<group>"; };
 		3D757B222C46AC2A00B65E57 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		3D98CAFF2C45865600159BAB /* RatioColon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatioColon.swift; sourceTree = "<group>"; };
@@ -153,7 +150,6 @@
 		3DEB1EE92C271348008281CD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3DEB1EEB2C287BCA008281CD /* TrainingZoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZoneViewModel.swift; sourceTree = "<group>"; };
 		3DEB1EEF2C2888B0008281CD /* TrainingZoneViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZoneViewTest.swift; sourceTree = "<group>"; };
-		3DF928DA272CCA02007BF669 /* StopwatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchView.swift; sourceTree = "<group>"; };
 		3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZoneView.swift; sourceTree = "<group>"; };
 		3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingStatsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,7 +195,6 @@
 			children = (
 				3D2072962C4236F000AF162B /* NumberWheel */,
 				3D2072912C417E0F00AF162B /* ProgramableTimer */,
-				25C9E200275E07660034623C /* StopWatch */,
 				3DCA80C62C2A737C005D47B6 /* HeartRateMonitor */,
 				3DCA80C52C2A7357005D47B6 /* HeartRateMonitorList */,
 				3DCA80C42C2A7313005D47B6 /* TrainingZone */,
@@ -270,15 +265,6 @@
 			path = Calories;
 			sourceTree = "<group>";
 		};
-		25C9E200275E07660034623C /* StopWatch */ = {
-			isa = PBXGroup;
-			children = (
-				3DF928DA272CCA02007BF669 /* StopwatchView.swift */,
-				3D3F18AC2C3FDA8B0033319A /* StopWatchViewModel.swift */,
-			);
-			path = StopWatch;
-			sourceTree = "<group>";
-		};
 		25C9E201275E0F490034623C /* Calories */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,6 +313,7 @@
 			children = (
 				3D2FB8AC272ABFEE001C473D /* HRSample.swift */,
 				3D2FB8AA272ABFA3001C473D /* Training.swift */,
+				3D2072922C417E2C00AF162B /* ProgrammableTimer.swift */,
 				25EC05742973DDD7008D99E7 /* HeartRateMonitor.swift */,
 				3DEB1EE92C271348008281CD /* User.swift */,
 				3DE316292C3EC48F00325781 /* TrainingTimer.swift */,
@@ -357,7 +344,6 @@
 			isa = PBXGroup;
 			children = (
 				3D20728F2C417E0000AF162B /* ProgrammableTimerView.swift */,
-				3D2072922C417E2C00AF162B /* ProgrammableTimerViewModel.swift */,
 				3D98CAFF2C45865600159BAB /* RatioColon.swift */,
 				3D98CB012C458ADC00159BAB /* RoundsCountOverlayView.swift */,
 			);
@@ -651,7 +637,7 @@
 				3D98CB022C458ADC00159BAB /* RoundsCountOverlayView.swift in Sources */,
 				3DE3162A2C3EC48F00325781 /* TrainingTimer.swift in Sources */,
 				2572B2A1296E856F006BEFE4 /* Date.swift in Sources */,
-				3D2072932C417E2C00AF162B /* ProgrammableTimerViewModel.swift in Sources */,
+				3D2072932C417E2C00AF162B /* ProgrammableTimer.swift in Sources */,
 				3D2FB8AB272ABFA3001C473D /* Training.swift in Sources */,
 				25EC05752973DDD7008D99E7 /* HeartRateMonitor.swift in Sources */,
 				25C9E207275F4FF50034623C /* QRCode.swift in Sources */,
@@ -663,7 +649,6 @@
 				3D2FB8AD272ABFEE001C473D /* HRSample.swift in Sources */,
 				250F27C1297A5BBC001C3FB2 /* Inspection.swift in Sources */,
 				250F27AD297667BC001C3FB2 /* HeartRateMonitorViewModel.swift in Sources */,
-				3D3F18AD2C3FDA8B0033319A /* StopWatchViewModel.swift in Sources */,
 				250F27AB2976662E001C3FB2 /* HeartRateMonitorView.swift in Sources */,
 				3DCA80C82C2A74A7005D47B6 /* TrainingZone.swift in Sources */,
 				3D98CB002C45865600159BAB /* RatioColon.swift in Sources */,
@@ -671,7 +656,6 @@
 				250F27A8297665C3001C3FB2 /* HeartRateMonitorListViewModel.swift in Sources */,
 				3DEB1EEC2C287BCA008281CD /* TrainingZoneViewModel.swift in Sources */,
 				3D2072902C417E0000AF162B /* ProgrammableTimerView.swift in Sources */,
-				3DF928DB272CCA02007BF669 /* StopwatchView.swift in Sources */,
 				25376654297F6E30008E3D8A /* BroadcastService.swift in Sources */,
 				3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */,
 				25D6E62B27502A900060F047 /* SettingsView.swift in Sources */,
@@ -791,6 +775,8 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -847,6 +833,8 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -863,6 +851,8 @@
 				DEVELOPMENT_TEAM = LK4ALGF966;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BlueEagle/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Silverback;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -888,6 +878,8 @@
 				DEVELOPMENT_TEAM = LK4ALGF966;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BlueEagle/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Silverback;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

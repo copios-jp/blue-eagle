@@ -8,30 +8,38 @@
 import SwiftUI
 
 struct TrainingView: View {
-  var body: some View {
-    GeometryReader { geometry in
-      VStack {
-        HStack {
-          HeartRateMonitorListView()
-          Spacer()
-          // StopwatchView()
-          Spacer()
-          SettingsView()
+    var body: some View {
+        
+            VStack(spacing: 0) {
+                HStack {
+                    HeartRateMonitorListView()
+                    Spacer()
+                    SettingsView()
+                }
+                .imageScale(.medium)
+                
+                ViewThatFits {
+                    HStack(alignment: .center) {
+                        TrainingZoneView(strokeWidth: 15)
+                        ProgrammableTimerView(fontSize: 160)
+                    }
+                    
+                    VStack(alignment: .center, spacing: 0) {
+                        TrainingZoneView(strokeWidth: 40)
+                        ProgrammableTimerView(fontSize: 120)
+                        Spacer()
+                    }
+                }
+            .environment(ProgrammableTimer())
         }
-        .frame(height: geometry.size.height * 0.05)
-        TrainingZoneView()
-          .frame(height: geometry.size.height * 0.50)
-          .padding()
-        ProgrammableTimerView(fontSize: 120)
-          // .frame(height: geometry.size.height * 0.50)
-      }
+            .padding()
     }
-  }
 }
 
 struct TrainingView_Previews: PreviewProvider {
   static var previews: some View {
     TrainingView()
       .preferredColorScheme(.dark)
+      .environment(ProgrammableTimer())
   }
 }

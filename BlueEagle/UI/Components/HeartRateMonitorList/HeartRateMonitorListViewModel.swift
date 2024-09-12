@@ -12,7 +12,6 @@ import Foundation
 
 extension HeartRateMonitorListView {
   class ViewModel: ObservableObject {
-    private var eventBus: EventBus
 
     private var observing: [Selector: NSNotification.Name] = [
       #selector(bluetoothScanStarted(notification:)): .BluetoothScanStarted,
@@ -26,17 +25,16 @@ extension HeartRateMonitorListView {
     @Published private(set) var items: [HeartRateMonitorViewModel]
     @Published var current: HeartRateMonitorViewModel?
 
-    init(items: [HeartRateMonitorViewModel] = [], eventBus: EventBus = NotificationCenter.default) {
-      self.eventBus = eventBus
+    init(items: [HeartRateMonitorViewModel] = []) {
       self.items = items
-      self.eventBus.registerObservers(self, observing)
+      EventBus.registerObservers(self, observing)
     }
 
     func scan() {
       // TODO: consider flushing list of items on scan as we may have some
       // items listed that are not longer 'connectable' when the user leaves
       // the app open
-      eventBus.trigger(.BluetoothRequestScan)
+      EventBus.trigger(.BluetoothRequestScan)
     }
 
     func add(_ name: String, _ identifier: UUID) {
@@ -44,8 +42,8 @@ extension HeartRateMonitorListView {
         return
       }
 
-      let model = HeartRateMonitor(name: name, identifier: identifier, eventBus: eventBus)
-      let viewModel = HeartRateMonitorViewModel(model, eventBus: eventBus)
+      let model = HeartRateMonitor(name: name, identifier: identifier)
+      let viewModel = HeartRateMonitorViewModel(model)
       items.append(viewModel)
 
     }
@@ -64,9 +62,8 @@ extension HeartRateMonitorListView {
 
       add(name, identifier)
 
-
       if User.current.heartRateMonitor == identifier.uuidString {
-        eventBus.trigger(.BluetoothRequestConnection, ["identifier": identifier])
+        EventBus.trigger(.BluetoothRequestConnection, ["identifier": identifier])
       }
     }
 

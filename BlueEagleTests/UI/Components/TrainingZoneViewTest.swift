@@ -13,7 +13,6 @@ import Foundation
 
 final class TrainingZoneViewTest: XCTestCase {
   var sut: TrainingZoneView?
-  var eventBus: EventBus = NotificationCenter.default
   var viewModel: TrainingZoneView.ViewModel?
   override func setUpWithError() throws {
     WithUser()
@@ -24,7 +23,7 @@ final class TrainingZoneViewTest: XCTestCase {
       "sample": Int(Double(User.current.maxHeartRate) * 0.9)
     ]
 
-    eventBus.trigger(.HeartRateMonitorValueUpdated, userInfo)
+    EventBus.trigger(.HeartRateMonitorValueUpdated, userInfo)
   }
 
   override func tearDownWithError() throws {

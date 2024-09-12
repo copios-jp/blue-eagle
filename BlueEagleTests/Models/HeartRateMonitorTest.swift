@@ -20,11 +20,11 @@ final class HeartRateMonitorTest: XCTestCase {
 
   override func setUpWithError() throws {
     userInfo = ["identifier": identifier]
-    sut = .init(identifier: identifier, eventBus: eventBus)
+    sut = .init(identifier: identifier)
   }
 
   override func tearDownWithError() throws {
-    eventBus.reset()
+    // EventBus.reset()
     sut = nil
   }
 

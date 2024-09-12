@@ -21,8 +21,8 @@ final class HeartRateMonitorViewTest: XCTestCase {
   var sut: HeartRateMonitorView?
 
   override func setUpWithError() throws {
-    self.model = .init(identifier: identifier, eventBus: eventBus)
-    self.viewModel = .init(self.model!, eventBus: eventBus)
+    self.model = .init(identifier: identifier)
+    self.viewModel = .init(self.model!)
     sut = .init(viewModel: self.viewModel!)
   }
 

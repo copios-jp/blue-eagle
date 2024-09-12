@@ -19,8 +19,6 @@ class User: ObservableObject {
 
   static let current = User()
 
-  private var eventBus: EventBus = NotificationCenter.default
-
   private let observing: [Selector: NSNotification.Name] = [
     #selector(heartRateMonitorValueUpdated(notification:)): .HeartRateMonitorValueUpdated
   ]
@@ -39,9 +37,8 @@ class User: ObservableObject {
 
   var heartRate: Int = 0
 
-  init(_ eventBus: EventBus = NotificationCenter.default) {
-    self.eventBus = eventBus
-    eventBus.registerObservers(self, observing)
+  init() {
+    EventBus.registerObservers(self, observing)
   }
 
   var birthdate: Date {
@@ -73,8 +70,8 @@ class User: ObservableObject {
       return zone.range(kernel).contains(Double(heartRate))
     }!
   }
-   
-    var exertion: Double {
-      return Double(heartRate - restingHeartRate) / Double(heartRateReserve)
-    }
+
+  var exertion: Double {
+    return Double(heartRate - restingHeartRate) / Double(heartRateReserve)
+  }
 }

@@ -9,32 +9,17 @@ import Foundation
 
 // MARK: - Bluetooth Service
 
-protocol BluetoothHeartRateMonitorService: CBManager {
-  var delegate: CBCentralManagerDelegate? { get set }
-  var isScanning: Bool { get }
-
-  func scanForPeripherals(withServices serviceUUIDs: [CBUUID]?, options: [String: Any]?)
-  func connect(_ peripheral: CBPeripheral, options: [String: Any]?)
-  func cancelPeripheralConnection(_ peripheral: CBPeripheral)
-  func retrievePeripherals(withIdentifiers: [UUID]) -> [CBPeripheral]
-  func retrieveConnectedPeripherals(withServices: [CBUUID]) -> [CBPeripheral]
-  func stopScan()
+// http://bluetooth.com
+struct Gatt {
+  static let HeartRateMonitor  = CBUUID(string: "0x180D")
+  static let HeartRateMeasurment = CBUUID(string: "2A37")
 }
 
-extension CBCentralManager: BluetoothHeartRateMonitorService {}
-
 class BluetoothService: NSObject {
-  private struct GATT {
-    // peripheral
-    static let heartRateMonitor: CBUUID = CBUUID(string: "0x180D")
 
-    // characteristic
-    static let heartRateMeasurement: CBUUID = CBUUID(string: "2A37")
-    static let bodySensorLocation: CBUUID = CBUUID(string: "2A38")
-  }
+  private let manager: CBCentralManager = CBCentralManager()
 
-  private var eventBus: EventBus
-  private var manager: BluetoothHeartRateMonitorService
+  private var ref: CBPeripheral?
 
   private var observing: [Selector: NSNotification.Name] = [
     #selector(bluetoothRequestScan(notification:)): .BluetoothRequestScan,
@@ -43,20 +28,11 @@ class BluetoothService: NSObject {
     #selector(bluetoothRequestToggle(notification:)): .BluetoothRequestToggle,
   ]
 
-  override convenience init() {
-    self.init(NotificationCenter.default)
-  }
-
-  init(
-    _ eventBus: EventBus = NotificationCenter.default,
-    manager: BluetoothHeartRateMonitorService = CBCentralManager()
-  ) {
-    self.eventBus = eventBus
-    self.manager = manager
+  override init() {
     super.init()
 
-    self.eventBus.registerObservers(self, observing)
-    self.manager.delegate = self
+    EventBus.registerObservers(self, observing)
+    manager.delegate = self
   }
 
   @objc func bluetoothRequestScan(notification _: Notification) {
@@ -68,14 +44,12 @@ class BluetoothService: NSObject {
       return
     }
 
-    eventBus.trigger(.BluetoothScanStarted)
-
-    manager.scanForPeripherals(withServices: [GATT.heartRateMonitor], options: nil)
-
-    Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { _ in
-      DispatchQueue.main.async {
-        self.stopScan()
-      }
+      manager.scanForPeripherals(withServices: [Gatt.HeartRateMonitor], options: nil)
+    EventBus.trigger(.BluetoothScanStarted)
+      
+    Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) {
+      [weak self] _ in
+      self?.stopScan()
     }
   }
 
@@ -93,34 +67,42 @@ class BluetoothService: NSObject {
     let identifier: UUID = notification.userInfo!["identifier"] as! UUID
     toggle(identifier)
   }
-
+   
   func connect(_ uuid: UUID, _ timeout: Double = 5.0) {
-    print("connect", uuid)
-    let peripherals: [CBPeripheral] = manager.retrievePeripherals(withIdentifiers: [uuid])
-    guard let peripheral = peripherals.first else {
+    guard let peripheral = getPeripheral(uuid) else {
       return
     }
-
-    if peripheral.state == .connected {
-      return
-    }
+    ref = peripheral
+    peripheral.delegate = self
 
     disconnectAll()
-    peripheral.delegate = self
     manager.connect(peripheral, options: nil)
 
-    Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { _ in
-      DispatchQueue.main.async {
-        if peripheral.state != CBPeripheralState.connected {
-          self.manager.cancelPeripheralConnection(peripheral)
-        }
+    Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) {
+      [weak self] _ in
+      
+      guard let peripheral = self?.ref else {
+        return
       }
+      if peripheral.state != .connected {
+        self?.cancelPeripheralConnection(peripheralID: peripheral.identifier)
+      }
+    }
+  }
+
+  func cancelPeripheralConnection(peripheralID: UUID) {
+    guard let target = self.manager.retrievePeripherals(withIdentifiers: [peripheralID]).first
+    else {
+      return
+    }
+    if target.state != CBPeripheralState.connected {
+      self.manager.cancelPeripheralConnection(target)
     }
   }
 
   func disconnectAll() {
     let connected: [CBPeripheral] = manager.retrieveConnectedPeripherals(withServices: [
-      GATT.heartRateMonitor
+        Gatt.HeartRateMonitor
     ])
     for peripheral in connected {
       manager.cancelPeripheralConnection(peripheral)
@@ -156,14 +138,23 @@ class BluetoothService: NSObject {
 
     manager.stopScan()
 
-    eventBus.trigger(.BluetoothScanStopped)
+    EventBus.trigger(.BluetoothScanStopped)
+  }
+    
+    
+  private func getPeripheral(_ uuid: UUID) -> CBPeripheral? {
+    let peripherals: [CBPeripheral] = manager.retrievePeripherals(withIdentifiers: [uuid])
+
+    guard let peripheral = peripherals.first else {
+      return nil
+    }
+    return peripheral
   }
 }
-
 extension BluetoothService: CBCentralManagerDelegate {
   func centralManagerDidUpdateState(_ central: CBCentralManager) {
     if central.state == CBManagerState.poweredOn {
-      scan()
+      self.scan()
     }
   }
 
@@ -173,38 +164,39 @@ extension BluetoothService: CBCentralManagerDelegate {
   ) {
 
     print("disovered", peripheral.name!)
-    eventBus.trigger(
-      .HeartRateMonitorDiscovered, ["name": peripheral.name!, "identifier": peripheral.identifier])
+    let name = peripheral.name
+    let identifier = peripheral.identifier
+    EventBus.trigger(.HeartRateMonitorDiscovered, ["name": name, "identifier": identifier])
   }
 
   func centralManager(_: CBCentralManager, didConnect peripheral: CBPeripheral) {
-    peripheral.discoverServices([GATT.heartRateMonitor])
-    print("CentralManager connected")
-    eventBus.trigger(.HeartRateMonitorConnected, ["identifier": peripheral.identifier])
+    EventBus.trigger(.HeartRateMonitorConnected, ["identifier": peripheral.identifier])
+    peripheral.discoverServices([Gatt.HeartRateMonitor])
   }
 
   func centralManager(
     _: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error _: Error?
   ) {
-    eventBus.trigger(.HeartRateMonitorDisconnected, ["identifier": peripheral.identifier])
+      EventBus.trigger(.HeartRateMonitorDisconnected, ["identifier": peripheral.identifier])
   }
 }
 
 extension BluetoothService: CBPeripheralDelegate {
-  func peripheral(_ peripheral: CBPeripheral, didDiscoverServices _: Error?) {
+  nonisolated func peripheral(_ peripheral: CBPeripheral, didDiscoverServices _: Error?) {
     guard let services = peripheral.services else { return }
     for service in services {
       peripheral.discoverCharacteristics(nil, for: service)
     }
   }
 
-  func peripheral(
+  nonisolated func peripheral(
     _ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error _: Error?
   ) {
+
     guard let characteristics = service.characteristics else { return }
     guard
       let heartRateMeasurement = characteristics.first(where: {
-        $0.uuid == GATT.heartRateMeasurement
+          $0.uuid == Gatt.HeartRateMeasurment
       })
     else { return }
 
@@ -214,18 +206,7 @@ extension BluetoothService: CBPeripheralDelegate {
   func peripheral(
     _ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error _: Error?
   ) {
-    let heartRate = heartRate(from: characteristic)
-
-    let userInfo: [AnyHashable: AnyHashable] = [
-      "identifier": peripheral.identifier,
-      "sample": heartRate,
-    ]
-
-    eventBus.trigger(.HeartRateMonitorValueUpdated, userInfo)
-  }
-
-  private func heartRate(from characteristic: CBCharacteristic) -> Double {
-    guard let characteristicData = characteristic.value else { return -1 }
+    guard let characteristicData = characteristic.value else { return }
     let byteArray = [UInt8](characteristicData)
 
     // org.bluetooth.characteristic.heart_rate_measurement.xml
@@ -237,13 +218,9 @@ extension BluetoothService: CBPeripheralDelegate {
       rate = (rate << 8) + Int(byteArray[2])
     }
 
-    return Double(rate)
-  }
-}
-
-extension BluetoothService {
-  struct Peripheral {
-    var name: String
-    var identifier: UUID
+    EventBus.trigger(
+      .HeartRateMonitorValueUpdated,
+      ["sample": rate, "identifier": peripheral.identifier]
+    )
   }
 }

@@ -6,8 +6,13 @@
 //
 
 // import Combine
-// import CoreBluetooth
 import Foundation
+
+protocol HeartRateMonitorDelegate: NSObjectProtocol {
+  func sampleRecorded(_ value: Double)
+  func connected()
+  func disconnected()
+}
 
 enum HeartRateMonitorState: Int {
   case connected
@@ -26,58 +31,36 @@ class HeartRateMonitor {
     #selector(heartRateMonitorDisconnected(notification:)): .HeartRateMonitorDisconnected,
   ]
 
-  static let MAX_IDENTICAL_HEART_RATE: Int = 30
+  private let MAX_IDENTICAL_HEART_RATE: Int = 30
+  private var identicalSampleCount: Int = 0
+    
+  private var state: HeartRateMonitorState = .dead {
+    didSet {
+      guard oldValue != state else { return }
+        
+      state == .dead ? delegate?.disconnected() : delegate?.connected()
+    }
+  }
 
-  private var eventBus: EventBus
-  private var remainingAllowedIdenticalSamples: Int
-  private var hasTooManyIdenticalSamples: Bool { remainingAllowedIdenticalSamples == 0 }
+  private var lastSample: Double = 0
+  private let name: String
+  private let identifier: UUID
 
-  private(set) var state: HeartRateMonitorState = .dead
-  private(set) var heartRate: Double = 0
+  weak var delegate: (any HeartRateMonitorDelegate)?
 
-  private(set) var name: String
-  private(set) var identifier: UUID
-
-  init(
-    name: String = "Unknown", identifier: UUID = UUID(),
-    eventBus: EventBus = NotificationCenter.default
-  ) {
-    self.eventBus = eventBus
+  init(name: String = "Unknown", identifier: UUID = UUID()) {
     self.name = name
     self.identifier = identifier
-    remainingAllowedIdenticalSamples = Self.MAX_IDENTICAL_HEART_RATE
 
-    eventBus.registerObservers(self, observing)
+    EventBus.registerObservers(self, observing)
   }
 
   deinit {
-    eventBus.removeObserver(self)
-  }
-
-  private func updateRemainingAllowedIdenticalSamples(_ newValue: Double) {
-    if newValue != heartRate {
-      remainingAllowedIdenticalSamples = Self.MAX_IDENTICAL_HEART_RATE
-      return
-    }
-
-    remainingAllowedIdenticalSamples = max(remainingAllowedIdenticalSamples - 1, 0)
-
-    let hasDied = hasTooManyIdenticalSamples && state == .connected
-    let hasRevived = !hasTooManyIdenticalSamples && state == .dead
-
-    if hasDied {
-      state = .dead
-      trigger(.HeartRateMonitorDead)
-    }
-
-    if hasRevived {
-      state = .connected
-      trigger(.HeartRateMonitorConnected)
-    }
+    EventBus.removeObserver(self)
   }
 
   private func trigger(_ name: Notification.Name) {
-    eventBus.trigger(name, ["identifier": identifier])
+    EventBus.trigger(name, ["identifier": identifier])
   }
 
   private func isMine(_ notification: Notification) -> Bool {
@@ -106,19 +89,20 @@ class HeartRateMonitor {
   @objc private func heartRateMonitorDisconnected(notification: Notification) {
     validated(notification) {
       state = .dead
-      trigger(.HeartRateMonitorDead)
     }
   }
 
   @objc private func heartRateMonitorValueUpdated(notification: Notification) {
     validated(notification) { sample in
-      updateRemainingAllowedIdenticalSamples(sample)
-      heartRate = sample
+      identicalSampleCount = sample == lastSample ? identicalSampleCount + 1 : 0
+      lastSample = sample
+        
+      state = identicalSampleCount >= MAX_IDENTICAL_HEART_RATE ? .dead : .connected
+      delegate?.sampleRecorded(sample)
     }
   }
 
   func connect() {
-    remainingAllowedIdenticalSamples = Self.MAX_IDENTICAL_HEART_RATE
     trigger(.BluetoothRequestConnection)
   }
 

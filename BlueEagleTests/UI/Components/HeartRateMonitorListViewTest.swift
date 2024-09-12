@@ -22,14 +22,14 @@ final class HeartRateMonitorListViewTest: XCTestCase {
   var monitor2: HeartRateMonitor?
 
   override func setUpWithError() throws {
-    monitor1 = HeartRateMonitor.init(name: "discovered", eventBus: eventBus)
-    monitor2 = HeartRateMonitor.init(name: "another", eventBus: eventBus)
+    monitor1 = HeartRateMonitor.init(name: "discovered")
+    monitor2 = HeartRateMonitor.init(name: "another")
 
     viewModel = .init(
       items: [
-        HeartRateMonitorViewModel.init(monitor1!, eventBus: eventBus),
-        HeartRateMonitorViewModel.init(monitor2!, eventBus: eventBus),
-      ], eventBus: eventBus)
+        HeartRateMonitorViewModel.init(monitor1!),
+        HeartRateMonitorViewModel.init(monitor2!),
+      ])
 
     sut = .init(viewModel: self.viewModel!)
   }

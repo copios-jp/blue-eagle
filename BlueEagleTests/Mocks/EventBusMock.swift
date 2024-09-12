@@ -9,7 +9,7 @@ import Foundation
 
 @testable import BlueEagle
 
-class EventBusMock: EventBus {
+class EventBusMock: EventBusNotificationCenter {
 
   var observing: [Selector: NSNotification.Name]?
   var observer: Any?
