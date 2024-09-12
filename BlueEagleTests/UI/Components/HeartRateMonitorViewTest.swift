@@ -36,8 +36,8 @@ final class HeartRateMonitorViewTest: XCTestCase {
       .name()
     let color: Color = try sut.inspect().hStack().find(ViewType.Image.self).foregroundColor()!
 
-    XCTAssertEqual(systemName, HeartRateMonitorViewModel.DeadHeartRateMonitorIcon.systemName)
-    XCTAssertEqual(color, HeartRateMonitorViewModel.DeadHeartRateMonitorIcon.foregroundColor)
+    XCTAssertEqual(systemName, "heart.slash")
+    XCTAssertEqual(color, .secondary)
 
   }
 
@@ -46,8 +46,8 @@ final class HeartRateMonitorViewTest: XCTestCase {
     let systemName = try sut.inspect().hStack().find(ViewType.Image.self).actualImage().name()
     let color = try sut.inspect().hStack().find(ViewType.Image.self).foregroundColor()
 
-    XCTAssertEqual(systemName, HeartRateMonitorViewModel.LiveHeartRateMonitorIcon.systemName)
-    XCTAssertEqual(color, HeartRateMonitorViewModel.LiveHeartRateMonitorIcon.foregroundColor)
+    XCTAssertEqual(systemName, "heart.fill")
+      XCTAssertEqual(color, .primary)
   }
 
   func test_itDoesNotShowNameWhenNotExtended() throws {

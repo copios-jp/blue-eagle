@@ -5,25 +5,17 @@
 //  Created by Randy Morgan on 2023/01/15.
 //
 
-// import Combine
 import Foundation
 
-protocol HeartRateMonitorDelegate: NSObjectProtocol {
-  func sampleRecorded(_ value: Double)
-  func connected()
-  func disconnected()
-}
-
-enum HeartRateMonitorState: Int {
-  case connected
-  // monitors will continue sending the last known value, or garbage when
-  // connected but not actually measuring due to poor connectivity or
-  // inaccurate placement/usage
-  // we treat disconnected and 'dead' as same state
-  case dead
-}
-
 class HeartRateMonitor {
+  private enum HeartRateMonitorState: Int {
+    case connected
+    // monitors will continue sending the last known value, or garbage when
+    // connected but not actually measuring due to poor connectivity or
+    // inaccurate placement/usage
+    // we treat disconnected and 'dead' as same state
+    case dead
+  }
 
   private let observing: [Selector: NSNotification.Name] = [
     #selector(heartRateMonitorValueUpdated(notification:)): .HeartRateMonitorValueUpdated,
@@ -33,18 +25,18 @@ class HeartRateMonitor {
 
   private let MAX_IDENTICAL_HEART_RATE: Int = 30
   private var identicalSampleCount: Int = 0
-    
+
   private var state: HeartRateMonitorState = .dead {
     didSet {
       guard oldValue != state else { return }
-        
+
       state == .dead ? delegate?.disconnected() : delegate?.connected()
     }
   }
 
-  private var lastSample: Double = 0
-  private let name: String
-  private let identifier: UUID
+  var lastSample: Double = 0
+  let name: String
+  let identifier: UUID
 
   weak var delegate: (any HeartRateMonitorDelegate)?
 
@@ -96,7 +88,7 @@ class HeartRateMonitor {
     validated(notification) { sample in
       identicalSampleCount = sample == lastSample ? identicalSampleCount + 1 : 0
       lastSample = sample
-        
+
       state = identicalSampleCount >= MAX_IDENTICAL_HEART_RATE ? .dead : .connected
       delegate?.sampleRecorded(sample)
     }
@@ -113,4 +105,10 @@ class HeartRateMonitor {
   func toggle() {
     state == .connected ? disconnect() : connect()
   }
+}
+
+protocol HeartRateMonitorDelegate: NSObjectProtocol {
+  func sampleRecorded(_ value: Double)
+  func connected()
+  func disconnected()
 }

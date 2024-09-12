@@ -16,14 +16,13 @@ struct HeartRateMonitorListView: View {
 
   var body: some View {
     HStack {
-      if viewModel.current == nil {
+     if viewModel.current == nil {
         HeartRateMonitorView()
-          .onTapGesture { self.show = true }
       } else {
         HeartRateMonitorView(viewModel: viewModel.current!)
-          .onTapGesture { self.show = true }
-      }
+     }
     }
+    .onTapGesture { self.show = true }
     .fullScreenCover2(isPresented: $show) {
       NavigationView {
         VStack {

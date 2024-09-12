@@ -8,36 +8,8 @@
 import Combine
 import SwiftUI
 
-class HeartRateMonitorViewModel: NSObject, ObservableObject, HeartRateMonitorDelegate {
-    func sampleRecorded(_ value: Double) {
-        print("sample")
-    // TODO - change icon color then let it fade back
-    }
-    
-    func connected() {
-      print("HeartRateMonitorViewModel CONNECTED")
-      icon = Self.LiveHeartRateMonitorIcon
-    }
-    
-    func disconnected() {
-      icon = Self.DeadHeartRateMonitorIcon
-    }
-  
-    
-  struct HeartRateMonitorIcon {
-    var systemName: String
-    var foregroundColor: Color
-  }
+class HeartRateMonitorViewModel: NSObject, ObservableObject {
 
-  private static let LiveHeartRateMonitorIcon = HeartRateMonitorIcon(
-    systemName: "heart.fill", foregroundColor: .primary)
-  private static let DeadHeartRateMonitorIcon = HeartRateMonitorIcon(
-    systemName: "heart.slash", foregroundColor: .secondary)
-
-  static func == (lhs: HeartRateMonitorViewModel, rhs: HeartRateMonitorViewModel) -> Bool {
-      return lhs.identifier == rhs.identifier
-  }
-  
   private var heartRateMonitor: HeartRateMonitor
     
   var identifier: UUID {
@@ -45,12 +17,12 @@ class HeartRateMonitorViewModel: NSObject, ObservableObject, HeartRateMonitorDel
   }
     
   @Published var name: String = "Unknown"
-  @Published var icon: HeartRateMonitorIcon
+  @Published var systemName: String =  "heart.slash"
+  @Published var foregroundColor: Color =  .secondary
     
   init(_ heartRateMonitor: HeartRateMonitor) {
     self.heartRateMonitor = heartRateMonitor
     name = heartRateMonitor.name
-    icon = Self.DeadHeartRateMonitorIcon
     super.init()
     heartRateMonitor.delegate = self
   }
@@ -58,4 +30,23 @@ class HeartRateMonitorViewModel: NSObject, ObservableObject, HeartRateMonitorDel
   func toggle() {
     heartRateMonitor.toggle()
   }
+}
+extension HeartRateMonitorViewModel: HeartRateMonitorDelegate {
+     func sampleRecorded(_ value: Double) {
+        print("sample")
+    // TODO - change icon color then let it fade back
+    }
+    
+    func connected() {
+      print("HeartRateMonitorViewModel CONNECTED")
+        systemName = "heart.fill"
+        foregroundColor = .primary
+    }
+    
+    func disconnected() {
+        systemName = "heart.slash"
+        foregroundColor = .secondary
+    }
+  
+
 }

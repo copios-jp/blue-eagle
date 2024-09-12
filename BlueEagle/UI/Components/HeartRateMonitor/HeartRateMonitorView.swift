@@ -17,8 +17,8 @@ struct HeartRateMonitorView: View {
         Text(viewModel.name).font(.body)
         Spacer()
       }
-      Image(systemName: viewModel.icon.systemName)
-        .foregroundColor(viewModel.icon.foregroundColor)
+      Image(systemName: viewModel.systemName)
+            .foregroundColor(viewModel.foregroundColor)
     }
     .contentShape(Rectangle())
   }
