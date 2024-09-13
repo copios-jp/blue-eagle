@@ -11,7 +11,7 @@ import Foundation
 
 // http://bluetooth.com
 struct Gatt {
-  static let HeartRateMonitor  = CBUUID(string: "0x180D")
+  static let HeartRateMonitor = CBUUID(string: "0x180D")
   static let HeartRateMeasurment = CBUUID(string: "2A37")
 }
 
@@ -44,9 +44,9 @@ class BluetoothService: NSObject {
       return
     }
 
-      manager.scanForPeripherals(withServices: [Gatt.HeartRateMonitor], options: nil)
+    manager.scanForPeripherals(withServices: [Gatt.HeartRateMonitor], options: nil)
     EventBus.trigger(.BluetoothScanStarted)
-      
+
     Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) {
       [weak self] _ in
       self?.stopScan()
@@ -67,7 +67,7 @@ class BluetoothService: NSObject {
     let identifier: UUID = notification.userInfo!["identifier"] as! UUID
     toggle(identifier)
   }
-   
+
   func connect(_ uuid: UUID, _ timeout: Double = 5.0) {
     guard let peripheral = getPeripheral(uuid) else {
       return
@@ -80,7 +80,7 @@ class BluetoothService: NSObject {
 
     Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) {
       [weak self] _ in
-      
+
       guard let peripheral = self?.ref else {
         return
       }
@@ -102,7 +102,7 @@ class BluetoothService: NSObject {
 
   func disconnectAll() {
     let connected: [CBPeripheral] = manager.retrieveConnectedPeripherals(withServices: [
-        Gatt.HeartRateMonitor
+      Gatt.HeartRateMonitor
     ])
     for peripheral in connected {
       manager.cancelPeripheralConnection(peripheral)
@@ -140,8 +140,7 @@ class BluetoothService: NSObject {
 
     EventBus.trigger(.BluetoothScanStopped)
   }
-    
-    
+
   private func getPeripheral(_ uuid: UUID) -> CBPeripheral? {
     let peripherals: [CBPeripheral] = manager.retrievePeripherals(withIdentifiers: [uuid])
 
@@ -177,7 +176,7 @@ extension BluetoothService: CBCentralManagerDelegate {
   func centralManager(
     _: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error _: Error?
   ) {
-      EventBus.trigger(.HeartRateMonitorDisconnected, ["identifier": peripheral.identifier])
+    EventBus.trigger(.HeartRateMonitorDisconnected, ["identifier": peripheral.identifier])
   }
 }
 
@@ -196,7 +195,7 @@ extension BluetoothService: CBPeripheralDelegate {
     guard let characteristics = service.characteristics else { return }
     guard
       let heartRateMeasurement = characteristics.first(where: {
-          $0.uuid == Gatt.HeartRateMeasurment
+        $0.uuid == Gatt.HeartRateMeasurment
       })
     else { return }
 
@@ -207,20 +206,84 @@ extension BluetoothService: CBPeripheralDelegate {
     _ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error _: Error?
   ) {
     guard let characteristicData = characteristic.value else { return }
-    let byteArray = [UInt8](characteristicData)
-
-    // org.bluetooth.characteristic.heart_rate_measurement.xml
-    let firstBitValue = byteArray[0] & 1
-
-    var rate = Int(byteArray[1])
-
-    if firstBitValue == 1 {
-      rate = (rate << 8) + Int(byteArray[2])
-    }
+      print(characteristic.properties)
+    let sample = HeartRateMeasurementCharacteristic(peripheral.identifier, characteristicData)
 
     EventBus.trigger(
-      .HeartRateMonitorValueUpdated,
-      ["sample": rate, "identifier": peripheral.identifier]
+      .HeartRateMonitorValueUpdated, ["sample": sample.value, "identifier": sample.peripheralId]
     )
+  }
+}
+
+struct HeartRateMeasurementCharacteristic {
+  enum DataFormat {
+    case uInt8
+    case uInt16
+  }
+
+  enum SensorStatus {
+    case unsupported
+    case good
+    case poor
+  }
+
+  private let data: [UInt8]
+  let uuid: UUID = .init()
+  let peripheralId: UUID
+  let format: DataFormat
+  let sensorStatus: SensorStatus
+  let rrIntervals: [Int]?
+  let energyExpended: Int?
+  let value: Double
+
+  init(_ identifier: UUID, _ payload: Data) {
+
+    peripheralId = identifier
+    data = [UInt8](payload)
+
+    let flags = data[0]
+    format = (flags & (1 << 0)) == 0 ? .uInt8 : .uInt16
+
+    let hasSensorStatus = (flags & (1 << 2)) != 0
+    let hasEnergyExpended = (flags & (1 << 3)) != 0
+    let hasRRIntervals = (flags & (1 << 4)) != 0
+
+    if hasSensorStatus {
+      sensorStatus = (flags & (1 << 1)) == 0 ? .poor : .good
+    } else {
+      sensorStatus = .unsupported
+    }
+
+    var pointer = 1
+
+    if format == .uInt8 {
+      value = Double(data[pointer])
+    } else {
+      var partial = Double(data[pointer])
+      pointer += 1
+      value = partial + Double(Int(data[pointer]) << 8)
+    }
+
+    pointer += 1
+
+    if hasEnergyExpended {
+      var partial = Int(data[pointer])
+      pointer += 1
+      energyExpended  = partial + (Int(data[pointer]) << 8)
+      pointer += 1
+    } else {
+        energyExpended = nil
+    }
+
+    if pointer < data.count - 1 {
+        var intervals: [Int] = []
+      for pointer in stride(from: pointer, to: data.count - 1, by: 2) {
+        let interval = Int(data[pointer]) + (Int(data[pointer + 1]) << 8)
+        intervals.append(interval)
+      }
+      rrIntervals = intervals
+    } else {
+        rrIntervals = nil
+    }
   }
 }
