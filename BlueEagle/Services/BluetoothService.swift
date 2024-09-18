@@ -206,7 +206,7 @@ extension BluetoothService: CBPeripheralDelegate {
     _ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error _: Error?
   ) {
     guard let characteristicData = characteristic.value else { return }
-      print(characteristic.properties)
+    print(characteristic.properties)
     let sample = HeartRateMeasurementCharacteristic(peripheral.identifier, characteristicData)
 
     EventBus.trigger(
@@ -216,6 +216,15 @@ extension BluetoothService: CBPeripheralDelegate {
 }
 
 struct HeartRateMeasurementCharacteristic {
+  struct Options: OptionSet {
+    let rawValue: UInt8
+    static let uInt16Format = Options(rawValue: 1 << 0)
+    static let sensorStatus = Options(rawValue: 1 << 1)
+    static let sensorContact = Options(rawValue: 1 << 2)
+    static let energyExpended = Options(rawValue: 1 << 3)
+    static let rrIntervals = Options(rawValue: 1 << 4)
+  }
+    
   enum DataFormat {
     case uInt8
     case uInt16
@@ -227,63 +236,59 @@ struct HeartRateMeasurementCharacteristic {
     case poor
   }
 
-  private let data: [UInt8]
   let uuid: UUID = .init()
   let peripheralId: UUID
-  let format: DataFormat
   let sensorStatus: SensorStatus
   let rrIntervals: [Int]?
   let energyExpended: Int?
   let value: Double
-
+  let options: Options
+    
+  static private func combine(_ a: UInt8, _ b: UInt8) -> UInt16 {
+    UInt16(b) << 8 + UInt16(a)
+  }
+    
   init(_ identifier: UUID, _ payload: Data) {
-
+    let data = [UInt8](payload)
+      
     peripheralId = identifier
-    data = [UInt8](payload)
+    options = Options(rawValue: data[0])
 
-    let flags = data[0]
-    format = (flags & (1 << 0)) == 0 ? .uInt8 : .uInt16
-
-    let hasSensorStatus = (flags & (1 << 2)) != 0
-    let hasEnergyExpended = (flags & (1 << 3)) != 0
-    let hasRRIntervals = (flags & (1 << 4)) != 0
-
-    if hasSensorStatus {
-      sensorStatus = (flags & (1 << 1)) == 0 ? .poor : .good
+    if options.contains(.sensorContact) {
+      sensorStatus = options.contains(.sensorStatus) ? .good : .poor
     } else {
       sensorStatus = .unsupported
     }
-
+      
+     // TODO - use an interator for 1..n-1 in data and push next for values
+     // instead of maintaining the pointer
     var pointer = 1
 
-    if format == .uInt8 {
+    if options.contains(.uInt16Format) {
+      value = Double(Self.combine(data[pointer], data[pointer + 1]))
+      pointer += 2
+    } else {
       value = Double(data[pointer])
-    } else {
-      var partial = Double(data[pointer])
       pointer += 1
-      value = partial + Double(Int(data[pointer]) << 8)
+    }
+       
+
+    if options.contains(.energyExpended) {
+      energyExpended = Int(Self.combine(data[pointer], data[pointer + 1]))
+      pointer += 2
+    } else {
+      energyExpended = nil
     }
 
-    pointer += 1
-
-    if hasEnergyExpended {
-      var partial = Int(data[pointer])
-      pointer += 1
-      energyExpended  = partial + (Int(data[pointer]) << 8)
-      pointer += 1
-    } else {
-        energyExpended = nil
-    }
-
-    if pointer < data.count - 1 {
-        var intervals: [Int] = []
+    if options.contains(.rrIntervals) {
+      var intervals: [Int] = []
       for pointer in stride(from: pointer, to: data.count - 1, by: 2) {
-        let interval = Int(data[pointer]) + (Int(data[pointer + 1]) << 8)
+        let interval = Int(Self.combine(data[pointer], data[pointer + 1]))
         intervals.append(interval)
       }
       rrIntervals = intervals
     } else {
-        rrIntervals = nil
+      rrIntervals = nil
     }
   }
 }
