@@ -74,7 +74,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
     XCTAssertNoThrow(try view.find(HeartRateMonitorView.self, containing: name))
   }
 
-  func test_itShowsADefaultNoneViewWhenNothingIsConnected() throws {
+    @MainActor func test_itShowsADefaultNoneViewWhenNothingIsConnected() throws {
     let exp = sut!.inspection.inspect { view in
       try self.hasHeartRateMonitorView(view, name: "None")
     }
@@ -84,7 +84,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
 
   }
 
-  func test_itShowsConnectedMonitor() throws {
+    @MainActor func test_itShowsConnectedMonitor() throws {
     let exp = sut!.inspection.inspect { view in
       try self.hasHeartRateMonitorView(view, name: "None")
 
@@ -98,7 +98,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
     wait(for: [exp], timeout: timeout)
   }
 
-  func test_itDoesNotShowTheListByDefault() throws {
+    @MainActor func test_itDoesNotShowTheListByDefault() throws {
     let exp: XCTestExpectation = sut!.inspection.inspect { view in
       try self.listIsNotVisible(view)
     }
@@ -107,7 +107,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
     wait(for: [exp], timeout: timeout)
   }
 
-  func test_itShowsTheListWhenTapped() throws {
+    @MainActor func test_itShowsTheListWhenTapped() throws {
     let exp: XCTestExpectation = sut!.inspection.inspect { view in
       try self.openList(view)
       try self.listIsVisible(view)
@@ -118,7 +118,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
     wait(for: [exp], timeout: timeout)
   }
 
-  func test_itShowsExtendedHeartRateMonitorViewsForDiscoveredDevices() throws {
+    @MainActor func test_itShowsExtendedHeartRateMonitorViewsForDiscoveredDevices() throws {
     let exp = sut!.inspection.inspect { view in
 
       try self.openList(view)
@@ -133,7 +133,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
     wait(for: [exp], timeout: timeout)
   }
 
-  func test_itTogglesHeartRateMonitorConnectionsOnTap() throws {
+    @MainActor func test_itTogglesHeartRateMonitorConnectionsOnTap() throws {
     let exp = sut!.inspection.inspect { view in
 
       try self.openList(view)
@@ -156,7 +156,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
     wait(for: [exp], timeout: timeout)
   }
 
-  func test_itHidesTheListOnDone() throws {
+    @MainActor func test_itHidesTheListOnDone() throws {
     let exp = sut!.inspection.inspect { view in
       try self.openList(view)
       let done = try view.find(button: "done")
