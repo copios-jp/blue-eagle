@@ -12,7 +12,6 @@
 		250F27AD297667BC001C3FB2 /* HeartRateMonitorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27AC297667BC001C3FB2 /* HeartRateMonitorViewModel.swift */; };
 		250F27B02978A901001C3FB2 /* HeartRateMonitorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27AF2978A901001C3FB2 /* HeartRateMonitorTest.swift */; };
 		250F27B329791E4A001C3FB2 /* EventBusMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27B229791E4A001C3FB2 /* EventBusMock.swift */; };
-		250F27B629796971001C3FB2 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 250F27B529796971001C3FB2 /* ViewInspector */; };
 		250F27BA297969D0001C3FB2 /* HeartRateMonitorViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27B9297969D0001C3FB2 /* HeartRateMonitorViewTest.swift */; };
 		250F27BF297A3D03001C3FB2 /* HeartRateMonitorListViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27BE297A3D03001C3FB2 /* HeartRateMonitorListViewTest.swift */; };
 		250F27C1297A5BBC001C3FB2 /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27C0297A5BBC001C3FB2 /* Inspection.swift */; };
@@ -48,6 +47,8 @@
 		3D98CB022C458ADC00159BAB /* RoundsCountOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D98CB012C458ADC00159BAB /* RoundsCountOverlayView.swift */; };
 		3DCA80C82C2A74A7005D47B6 /* TrainingZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCA80C72C2A74A7005D47B6 /* TrainingZone.swift */; };
 		3DDD2DA22C2DA09D00375F21 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD2DA12C2DA09D00375F21 /* SettingsViewModel.swift */; };
+		3DE025A92C9AB101004E5BFC /* HeartRateMeasurementCharacteristicTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE025A82C9AB0F0004E5BFC /* HeartRateMeasurementCharacteristicTest.swift */; };
+		3DE025AF2C9AF097004E5BFC /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 3DE025AE2C9AF097004E5BFC /* ViewInspector */; };
 		3DE3162A2C3EC48F00325781 /* TrainingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE316292C3EC48F00325781 /* TrainingTimer.swift */; };
 		3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */; };
 		3DE371FD26F4DC8700CC1F3F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE371FC26F4DC8700CC1F3F /* ContentView.swift */; };
@@ -56,7 +57,6 @@
 		3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3722526FA076500CC1F3F /* BluetoothService.swift */; };
 		3DEB1EEA2C271348008281CD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEB1EE92C271348008281CD /* User.swift */; };
 		3DEB1EEC2C287BCA008281CD /* TrainingZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEB1EEB2C287BCA008281CD /* TrainingZoneViewModel.swift */; };
-		3DEB1EF22C289210008281CD /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 3DEB1EF12C289210008281CD /* ViewInspector */; };
 		3DEB1EF32C289245008281CD /* TrainingZoneViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEB1EEF2C2888B0008281CD /* TrainingZoneViewTest.swift */; };
 		3DF928DD272CCB7A007BF669 /* TrainingZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */; };
 		3DF928DF272CCCE4007BF669 /* TrainingStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */; };
@@ -135,6 +135,7 @@
 		3D98CB012C458ADC00159BAB /* RoundsCountOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundsCountOverlayView.swift; sourceTree = "<group>"; };
 		3DCA80C72C2A74A7005D47B6 /* TrainingZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZone.swift; sourceTree = "<group>"; };
 		3DDD2DA12C2DA09D00375F21 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		3DE025A82C9AB0F0004E5BFC /* HeartRateMeasurementCharacteristicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMeasurementCharacteristicTest.swift; sourceTree = "<group>"; };
 		3DE316292C3EC48F00325781 /* TrainingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingTimer.swift; sourceTree = "<group>"; };
 		3DE371F726F4DC8700CC1F3F /* BlueEagle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueEagle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueEagleApp.swift; sourceTree = "<group>"; };
@@ -167,7 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				250F27B629796971001C3FB2 /* ViewInspector in Frameworks */,
+				3DE025AF2C9AF097004E5BFC /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +176,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DEB1EF22C289210008281CD /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +293,7 @@
 		25EC056D2971239E008D99E7 /* Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
+				3DE025A82C9AB0F0004E5BFC /* HeartRateMeasurementCharacteristicTest.swift */,
 				25EC056E297359B6008D99E7 /* BluetoothViewModelTest.swift */,
 			);
 			path = Bluetooth;
@@ -516,7 +517,7 @@
 			);
 			name = BlueEagleTests;
 			packageProductDependencies = (
-				250F27B529796971001C3FB2 /* ViewInspector */,
+				3DE025AE2C9AF097004E5BFC /* ViewInspector */,
 			);
 			productName = BlueEagleTests;
 			productReference = 3DE3720826F4DC8800CC1F3F /* BlueEagleTests.xctest */;
@@ -537,7 +538,6 @@
 			);
 			name = BlueEagleUITests;
 			packageProductDependencies = (
-				3DEB1EF12C289210008281CD /* ViewInspector */,
 			);
 			productName = BlueEagleUITests;
 			productReference = 3DE3721326F4DC8800CC1F3F /* BlueEagleUITests.xctest */;
@@ -551,7 +551,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1310;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					3DE371F626F4DC8700CC1F3F = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -578,7 +578,7 @@
 			);
 			mainGroup = 3DE371EE26F4DC8700CC1F3F;
 			packageReferences = (
-				250F27B429796971001C3FB2 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+				3DE025AD2C9AEFFC004E5BFC /* XCRemoteSwiftPackageReference "ViewInspector" */,
 			);
 			productRefGroup = 3DE371F826F4DC8700CC1F3F /* Products */;
 			projectDirPath = "";
@@ -667,6 +667,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DE025A92C9AB101004E5BFC /* HeartRateMeasurementCharacteristicTest.swift in Sources */,
 				250F27BA297969D0001C3FB2 /* HeartRateMonitorViewTest.swift in Sources */,
 				3DEB1EF32C289245008281CD /* TrainingZoneViewTest.swift in Sources */,
 				2572B2A4296E8AA8006BEFE4 /* CalorieCounterTest.swift in Sources */,
@@ -896,7 +897,6 @@
 		3DE3722026F4DC8800CC1F3F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -920,7 +920,6 @@
 		3DE3722126F4DC8800CC1F3F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -943,7 +942,6 @@
 		3DE3722326F4DC8800CC1F3F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LK4ALGF966;
 				INFOPLIST_FILE = BlueEagleUITests/Info.plist;
@@ -963,7 +961,6 @@
 		3DE3722426F4DC8800CC1F3F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LK4ALGF966;
 				INFOPLIST_FILE = BlueEagleUITests/Info.plist;
@@ -1022,25 +1019,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		250F27B429796971001C3FB2 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+		3DE025AD2C9AEFFC004E5BFC /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nalexn/ViewInspector";
 			requirement = {
-				branch = 0.9.7;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		250F27B529796971001C3FB2 /* ViewInspector */ = {
+		3DE025AE2C9AF097004E5BFC /* ViewInspector */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 250F27B429796971001C3FB2 /* XCRemoteSwiftPackageReference "ViewInspector" */;
-			productName = ViewInspector;
-		};
-		3DEB1EF12C289210008281CD /* ViewInspector */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 250F27B429796971001C3FB2 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			package = 3DE025AD2C9AEFFC004E5BFC /* XCRemoteSwiftPackageReference "ViewInspector" */;
 			productName = ViewInspector;
 		};
 /* End XCSwiftPackageProductDependency section */

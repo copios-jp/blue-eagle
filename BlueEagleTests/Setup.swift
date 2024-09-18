@@ -12,9 +12,11 @@ import XCTest
 @testable import BlueEagle
 
 // https://github.com/nalexn/ViewInspector
-extension Inspection: InspectionEmissary {}
-extension InspectableSheet: PopupPresenter {}
-extension InspectableFullScreenCover: PopupPresenter {}
+extension Inspection: @retroactive InspectionEmissary {}
+extension InspectableSheet: @retroactive BasePopupPresenter {}
+extension InspectableSheet: @retroactive PopupPresenter {}
+extension InspectableFullScreenCover: @retroactive BasePopupPresenter {}
+extension InspectableFullScreenCover: @retroactive PopupPresenter {}
 
 func WithUser(birthdate: Date = Calendar.current.date(byAdding: .year, value: -30, to: Date())!,  restingHeartRate: Int = 50) {
     User.current.birthdate = birthdate
