@@ -33,7 +33,6 @@ class HeartRateMonitorViewModel: NSObject, ObservableObject {
 }
 extension HeartRateMonitorViewModel: HeartRateMonitorDelegate {
      func sampleRecorded(_ value: Double) {
-        print("sample")
     // TODO - change icon color then let it fade back
     }
     
