@@ -7,8 +7,21 @@
 
 import Foundation
 
+/*
+ * HeartRateMonitor
+ *
+ * Observes connection, disconnection and value updates from the Bluetooth service
+ * and passes them on to a delegate object.
+ *
+ * Notifies Bluetooth service to connect or disconnect a peripheral.
+ *
+ * Monitors value updates to ensure that we represent the peripheral as 'disconected'
+ * when more than MAX_IDENTICAL_HEART_RATE samples are consecutively recieved. Heart
+ * rate monitors will send in a default value, or keep sending the same value for a
+ * considerable duration
+ */
 class HeartRateMonitor {
-  private enum HeartRateMonitorState: Int {
+  enum HeartRateMonitorState: Int {
     case connected
     // monitors will continue sending the last known value, or garbage when
     // connected but not actually measuring due to poor connectivity or
@@ -26,7 +39,7 @@ class HeartRateMonitor {
   private let MAX_IDENTICAL_HEART_RATE: Int = 30
   private var identicalSampleCount: Int = 0
 
-  private var state: HeartRateMonitorState = .dead {
+  var state: HeartRateMonitorState = .dead {
     didSet {
       guard oldValue != state else { return }
 
