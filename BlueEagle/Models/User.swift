@@ -61,7 +61,7 @@ class User: ObservableObject {
     return maxHeartRate - restingHeartRate
   }
 
-  var zone: Zone {
+  var zone: TrainingZone {
     func kernel(_ bound: Double) -> Double {
       return round(Double(heartRateReserve) * bound + Double(restingHeartRate))
     }

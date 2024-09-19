@@ -7,8 +7,7 @@
 import Foundation
 import SwiftUI
 
-// TODO - this is where we configure timers, intervals, alerts
-// and collect heart rate samples during the training for generating reports.
+// TODO collect heart rate samples during the training for generating reports.
 class Training: ObservableObject {
 
   private let observing: [Selector: NSNotification.Name] = [

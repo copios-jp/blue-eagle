@@ -6,7 +6,11 @@
 //
 
 import Foundation
-
+/**
+ Events
+ 
+ The following are events published via the EventBus 
+ */
 extension NSNotification.Name {
   static let BluetoothRequestScan = NSNotification.Name("bluetooth_request_scan")
   static let BluetoothScanStarted = NSNotification.Name("bluetooth_scan_started")

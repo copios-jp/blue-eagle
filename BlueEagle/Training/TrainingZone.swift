@@ -15,7 +15,7 @@ private let ZoneFour = 0.8
 private let ZoneFive = 0.9
 private let Maximum = Double.infinity
 
-struct Zone: Equatable {
+struct TrainingZone: Equatable {
 
   // minimum heart rate in zone as calculated by the kernel
   var lowerBound: Double = -Double.infinity
@@ -31,32 +31,32 @@ struct Zone: Equatable {
   }
 }
 
-let TrainingZones: [Zone] = [
-  Zone(
+let TrainingZones: [TrainingZone] = [
+  TrainingZone(
     upperBound: ZoneOne,
     description: "zone-zero"
   ),
-  Zone(
+  TrainingZone(
     lowerBound: ZoneOne,
     upperBound: ZoneTwo,
     description: "zone-one"
   ),
-  Zone(
+  TrainingZone(
     lowerBound: ZoneTwo,
     upperBound: ZoneThree,
     description: "zone-two"
   ),
-  Zone(
+  TrainingZone(
     lowerBound: ZoneThree,
     upperBound: ZoneFour,
     description: "zone-three"
   ),
-  Zone(
+  TrainingZone(
     lowerBound: ZoneFour,
     upperBound: ZoneFive,
     description: "zone-four"
   ),
-  Zone(
+  TrainingZone(
     lowerBound: ZoneFive,
     description: "zone-five"
   ),

@@ -8,16 +8,21 @@
 import Foundation
 
 protocol EventBusNotificationCenter {
+    
   func trigger(_ name: NSNotification.Name, _ data: [AnyHashable: AnyHashable])
+    
   func trigger(_ name: NSNotification.Name)
+    
   func registerObservers(_ observer: Any, _ observing: [Selector: NSNotification.Name])
+    
   func removeObserver(_ observer: Any)
 }
 
 extension NotificationCenter: EventBusNotificationCenter {
-    
   func trigger(_ name: NSNotification.Name) {
-    post(name: name, object: self)
+      DispatchQueue.main.async {
+          self.post(name: name, object: self)
+      }
   }
 
   func trigger(_ name: NSNotification.Name, _ data: [AnyHashable: AnyHashable]) {
@@ -32,5 +37,8 @@ extension NotificationCenter: EventBusNotificationCenter {
     }
   }
 }
-
+/**
+ EventBus extends Foundation NotificationCenter.default with the ``EventBusNotificationCenter`` protocol
+ providing a simpler interface for registering observers and triggering events
+*/
 let EventBus: EventBusNotificationCenter = NotificationCenter.default

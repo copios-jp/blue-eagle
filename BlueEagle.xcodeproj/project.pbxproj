@@ -17,13 +17,9 @@
 		250F27C1297A5BBC001C3FB2 /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27C0297A5BBC001C3FB2 /* Inspection.swift */; };
 		250F27C3297A628E001C3FB2 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27C2297A628E001C3FB2 /* View.swift */; };
 		250F27C5297A64B0001C3FB2 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250F27C4297A64B0001C3FB2 /* Setup.swift */; };
-		25376654297F6E30008E3D8A /* BroadcastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25376653297F6E30008E3D8A /* BroadcastService.swift */; };
-		255E0562274BC79A00E1DE8A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255E0561274BC79A00E1DE8A /* Preferences.swift */; };
 		2572B29E296E70AF006BEFE4 /* CalorieCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2572B29D296E70AF006BEFE4 /* CalorieCounter.swift */; };
 		2572B2A1296E856F006BEFE4 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2572B2A0296E856F006BEFE4 /* Date.swift */; };
 		2572B2A4296E8AA8006BEFE4 /* CalorieCounterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2572B2A3296E8AA8006BEFE4 /* CalorieCounterTest.swift */; };
-		25C9E207275F4FF50034623C /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C9E206275F4FF50034623C /* QRCode.swift */; };
-		25C9E2112763E52C0034623C /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C9E2102763E52C0034623C /* Api.swift */; };
 		25D6E6292750298F0060F047 /* HeartRateMonitorListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6E6282750298F0060F047 /* HeartRateMonitorListView.swift */; };
 		25D6E62B27502A900060F047 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6E62A27502A900060F047 /* SettingsView.swift */; };
 		25EC05692970C2A7008D99E7 /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EC05682970C2A7008D99E7 /* EventBus.swift */; };
@@ -41,13 +37,11 @@
 		3D2FB8AD272ABFEE001C473D /* HRSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8AC272ABFEE001C473D /* HRSample.swift */; };
 		3D2FB8B2272C21B5001C473D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D2FB8B4272C21B5001C473D /* Localizable.strings */; };
 		3D34075327060FE10089E234 /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34075227060FE10089E234 /* TrainingView.swift */; };
-		3D6B615E2C2C5A1C0087CAB3 /* ZoneTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B615D2C2C5A1C0087CAB3 /* ZoneTable.swift */; };
 		3D757B232C46AC2A00B65E57 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D757B222C46AC2A00B65E57 /* AudioService.swift */; };
 		3D97E9242C9BDB23003E239D /* HeartRateMeasurementCharacteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D97E9232C9BDB18003E239D /* HeartRateMeasurementCharacteristic.swift */; };
 		3D98CB002C45865600159BAB /* RatioColon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D98CAFF2C45865600159BAB /* RatioColon.swift */; };
 		3D98CB022C458ADC00159BAB /* RoundsCountOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D98CB012C458ADC00159BAB /* RoundsCountOverlayView.swift */; };
 		3DCA80C82C2A74A7005D47B6 /* TrainingZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCA80C72C2A74A7005D47B6 /* TrainingZone.swift */; };
-		3DDD2DA22C2DA09D00375F21 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD2DA12C2DA09D00375F21 /* SettingsViewModel.swift */; };
 		3DE025A92C9AB101004E5BFC /* HeartRateMeasurementCharacteristicTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE025A82C9AB0F0004E5BFC /* HeartRateMeasurementCharacteristicTest.swift */; };
 		3DE025AF2C9AF097004E5BFC /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 3DE025AE2C9AF097004E5BFC /* ViewInspector */; };
 		3DE3162A2C3EC48F00325781 /* TrainingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE316292C3EC48F00325781 /* TrainingTimer.swift */; };
@@ -60,7 +54,6 @@
 		3DEB1EEC2C287BCA008281CD /* TrainingZoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEB1EEB2C287BCA008281CD /* TrainingZoneViewModel.swift */; };
 		3DEB1EF32C289245008281CD /* TrainingZoneViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEB1EEF2C2888B0008281CD /* TrainingZoneViewTest.swift */; };
 		3DF928DD272CCB7A007BF669 /* TrainingZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */; };
-		3DF928DF272CCCE4007BF669 /* TrainingStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,13 +97,9 @@
 		250F27C0297A5BBC001C3FB2 /* Inspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspection.swift; sourceTree = "<group>"; };
 		250F27C2297A628E001C3FB2 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		250F27C4297A64B0001C3FB2 /* Setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
-		25376653297F6E30008E3D8A /* BroadcastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastService.swift; sourceTree = "<group>"; };
-		255E0561274BC79A00E1DE8A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		2572B29D296E70AF006BEFE4 /* CalorieCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalorieCounter.swift; sourceTree = "<group>"; };
 		2572B2A0296E856F006BEFE4 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		2572B2A3296E8AA8006BEFE4 /* CalorieCounterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieCounterTest.swift; sourceTree = "<group>"; };
-		25C9E206275F4FF50034623C /* QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
-		25C9E2102763E52C0034623C /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		25D6E6282750298F0060F047 /* HeartRateMonitorListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMonitorListView.swift; sourceTree = "<group>"; };
 		25D6E62A27502A900060F047 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		25EC05682970C2A7008D99E7 /* EventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
@@ -130,13 +119,11 @@
 		3D2FB8B3272C21B5001C473D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D2FB8B5272C21BA001C473D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D34075227060FE10089E234 /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
-		3D6B615D2C2C5A1C0087CAB3 /* ZoneTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoneTable.swift; sourceTree = "<group>"; };
 		3D757B222C46AC2A00B65E57 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		3D97E9232C9BDB18003E239D /* HeartRateMeasurementCharacteristic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMeasurementCharacteristic.swift; sourceTree = "<group>"; };
 		3D98CAFF2C45865600159BAB /* RatioColon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatioColon.swift; sourceTree = "<group>"; };
 		3D98CB012C458ADC00159BAB /* RoundsCountOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundsCountOverlayView.swift; sourceTree = "<group>"; };
 		3DCA80C72C2A74A7005D47B6 /* TrainingZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZone.swift; sourceTree = "<group>"; };
-		3DDD2DA12C2DA09D00375F21 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		3DE025A82C9AB0F0004E5BFC /* HeartRateMeasurementCharacteristicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMeasurementCharacteristicTest.swift; sourceTree = "<group>"; };
 		3DE316292C3EC48F00325781 /* TrainingTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingTimer.swift; sourceTree = "<group>"; };
 		3DE371F726F4DC8700CC1F3F /* BlueEagle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueEagle.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,7 +141,6 @@
 		3DEB1EEB2C287BCA008281CD /* TrainingZoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZoneViewModel.swift; sourceTree = "<group>"; };
 		3DEB1EEF2C2888B0008281CD /* TrainingZoneViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZoneViewTest.swift; sourceTree = "<group>"; };
 		3DF928DC272CCB7A007BF669 /* TrainingZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingZoneView.swift; sourceTree = "<group>"; };
-		3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingStatsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,9 +186,6 @@
 				3DCA80C62C2A737C005D47B6 /* HeartRateMonitor */,
 				3DCA80C52C2A7357005D47B6 /* HeartRateMonitorList */,
 				3DCA80C42C2A7313005D47B6 /* TrainingZone */,
-				25C9E206275F4FF50034623C /* QRCode.swift */,
-				3DF928DE272CCCE4007BF669 /* TrainingStatsView.swift */,
-				3D6B615D2C2C5A1C0087CAB3 /* ZoneTable.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -241,18 +224,9 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		255E0560274BC78B00E1DE8A /* Preferences */ = {
-			isa = PBXGroup;
-			children = (
-				255E0561274BC79A00E1DE8A /* Preferences.swift */,
-			);
-			path = Preferences;
-			sourceTree = "<group>";
-		};
 		2572B29F296E855D006BEFE4 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				25EC056A2970C4C9008D99E7 /* EventBus */,
 				2572B2A0296E856F006BEFE4 /* Date.swift */,
 				250F27C2297A628E001C3FB2 /* View.swift */,
 			);
@@ -273,14 +247,6 @@
 				2572B29D296E70AF006BEFE4 /* CalorieCounter.swift */,
 			);
 			path = Calories;
-			sourceTree = "<group>";
-		};
-		25C9E20F2763E51B0034623C /* API */ = {
-			isa = PBXGroup;
-			children = (
-				25C9E2102763E52C0034623C /* Api.swift */,
-			);
-			path = API;
 			sourceTree = "<group>";
 		};
 		25EC056A2970C4C9008D99E7 /* EventBus */ = {
@@ -329,8 +295,8 @@
 			children = (
 				3D97E9222C9BDB0B003E239D /* bluetooth */,
 				250F27C0297A5BBC001C3FB2 /* Inspection.swift */,
-				25376653297F6E30008E3D8A /* BroadcastService.swift */,
 				3D757B222C46AC2A00B65E57 /* AudioService.swift */,
+				25EC056A2970C4C9008D99E7 /* EventBus */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -410,7 +376,6 @@
 			children = (
 				25D6E62A27502A900060F047 /* SettingsView.swift */,
 				25F58FBE274A8B4000FCBDF1 /* EditSettingsView.swift */,
-				3DDD2DA12C2DA09D00375F21 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -448,9 +413,7 @@
 				25EC057729753C3A008D99E7 /* Models */,
 				25EC057629751A83008D99E7 /* UI */,
 				2572B29F296E855D006BEFE4 /* Core */,
-				25C9E20F2763E51B0034623C /* API */,
 				25C9E201275E0F490034623C /* Calories */,
-				255E0560274BC78B00E1DE8A /* Preferences */,
 				3D085B702707630F007DEB5B /* BlueEagle.entitlements */,
 				3DE371FA26F4DC8700CC1F3F /* BlueEagleApp.swift */,
 				3DE371FC26F4DC8700CC1F3F /* ContentView.swift */,
@@ -642,20 +605,16 @@
 				25EC05692970C2A7008D99E7 /* EventBus.swift in Sources */,
 				3DEB1EEA2C271348008281CD /* User.swift in Sources */,
 				3DF928DD272CCB7A007BF669 /* TrainingZoneView.swift in Sources */,
-				3DF928DF272CCCE4007BF669 /* TrainingStatsView.swift in Sources */,
 				3D757B232C46AC2A00B65E57 /* AudioService.swift in Sources */,
 				2572B29E296E70AF006BEFE4 /* CalorieCounter.swift in Sources */,
-				3DDD2DA22C2DA09D00375F21 /* SettingsViewModel.swift in Sources */,
 				3D98CB022C458ADC00159BAB /* RoundsCountOverlayView.swift in Sources */,
 				3DE3162A2C3EC48F00325781 /* TrainingTimer.swift in Sources */,
 				2572B2A1296E856F006BEFE4 /* Date.swift in Sources */,
 				3D2072932C417E2C00AF162B /* ProgrammableTimer.swift in Sources */,
 				3D2FB8AB272ABFA3001C473D /* Training.swift in Sources */,
 				25EC05752973DDD7008D99E7 /* HeartRateMonitor.swift in Sources */,
-				25C9E207275F4FF50034623C /* QRCode.swift in Sources */,
 				25F58FBF274A8B4000FCBDF1 /* EditSettingsView.swift in Sources */,
 				250F27C3297A628E001C3FB2 /* View.swift in Sources */,
-				3D6B615E2C2C5A1C0087CAB3 /* ZoneTable.swift in Sources */,
 				3D34075327060FE10089E234 /* TrainingView.swift in Sources */,
 				3DE3722626FA076500CC1F3F /* BluetoothService.swift in Sources */,
 				3D2FB8AD272ABFEE001C473D /* HRSample.swift in Sources */,
@@ -664,14 +623,11 @@
 				250F27AB2976662E001C3FB2 /* HeartRateMonitorView.swift in Sources */,
 				3DCA80C82C2A74A7005D47B6 /* TrainingZone.swift in Sources */,
 				3D98CB002C45865600159BAB /* RatioColon.swift in Sources */,
-				255E0562274BC79A00E1DE8A /* Preferences.swift in Sources */,
 				250F27A8297665C3001C3FB2 /* HeartRateMonitorListViewModel.swift in Sources */,
 				3DEB1EEC2C287BCA008281CD /* TrainingZoneViewModel.swift in Sources */,
 				3D2072902C417E0000AF162B /* ProgrammableTimerView.swift in Sources */,
-				25376654297F6E30008E3D8A /* BroadcastService.swift in Sources */,
 				3DE371FB26F4DC8700CC1F3F /* BlueEagleApp.swift in Sources */,
 				25D6E62B27502A900060F047 /* SettingsView.swift in Sources */,
-				25C9E2112763E52C0034623C /* Api.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

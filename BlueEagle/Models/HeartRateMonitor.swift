@@ -7,26 +7,20 @@
 
 import Foundation
 
-/*
- * HeartRateMonitor
- *
- * Observes connection, disconnection and value updates from the Bluetooth service
- * and passes them on to a delegate object.
- *
- * Notifies Bluetooth service to connect or disconnect a peripheral.
- *
- * Monitors value updates to ensure that we represent the peripheral as 'disconected'
- * when more than MAX_IDENTICAL_HEART_RATE samples are consecutively recieved. Heart
- * rate monitors will send in a default value, or keep sending the same value for a
- * considerable duration
+/**
+ A model object that interacts with the ``BluetoothService`` via the EventBus to manage
+ connectivity while providing a delegate to monitor for changes
+ 
+ When a heart rate monitor is discovered an instance of this model is how we monitor the connection
+and changes to the heart rate for consumption by view models.
+ 
+ In addition to observing changes in the connection status as notified from the bluetooth service, this model
+ also keeps track of consecutive, identical heart rate samples and notifies delegates that the monitor is disconnected
+when the heart rate was identical for the last 30 samples.
  */
 class HeartRateMonitor {
   enum HeartRateMonitorState: Int {
     case connected
-    // monitors will continue sending the last known value, or garbage when
-    // connected but not actually measuring due to poor connectivity or
-    // inaccurate placement/usage
-    // we treat disconnected and 'dead' as same state
     case dead
   }
 
@@ -39,18 +33,18 @@ class HeartRateMonitor {
   private let MAX_IDENTICAL_HEART_RATE: Int = 30
   private var identicalSampleCount: Int = 0
 
-  var state: HeartRateMonitorState = .dead {
+  private(set) var state: HeartRateMonitorState = .dead {
     didSet {
       guard oldValue != state else { return }
 
       state == .dead ? delegate?.disconnected() : delegate?.connected()
     }
   }
-
-  var lastSample: Double = 0
+    
   let name: String
   let identifier: UUID
-
+ 
+  private(set) var lastSample: Double = 0
   weak var delegate: (any HeartRateMonitorDelegate)?
 
   init(name: String = "Unknown", identifier: UUID = UUID()) {
