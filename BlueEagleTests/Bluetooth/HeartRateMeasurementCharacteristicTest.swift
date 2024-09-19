@@ -8,14 +8,9 @@ import XCTest
 
 final class HeartRateMeasurementCharacteristicTest: XCTestCase {
     let identifier: UUID = .init()
-    var characteristic: HeartRateMeasurementCharacteristic?
     let uInt16 = 1815
-    let lsb: UInt8 = 7
-    let msb: UInt8 = 23
-    
-    override func setUp() {
-        characteristic = .init(UUID.init(), Data([16, 75, msb, lsb]))
-    }
+    let lsb: UInt8 = 23
+    let msb: UInt8 = 7
    
     func makeCharacteristic(data: [UInt8]) -> HeartRateMeasurementCharacteristic {
         .init(UUID.init(), Data(data))
@@ -28,7 +23,7 @@ final class HeartRateMeasurementCharacteristicTest: XCTestCase {
     }
      
     func test_uInt16_value() {
-        let sut = makeCharacteristic(data: [1, msb, lsb])
+        let sut = makeCharacteristic(data: [1, lsb, msb])
         XCTAssertTrue(sut.options.contains(.uInt16Format))
         XCTAssertEqual(sut.value, Double(uInt16))
         
@@ -55,21 +50,23 @@ final class HeartRateMeasurementCharacteristicTest: XCTestCase {
     func test_energy_expended_not_available() {
         let sut = makeCharacteristic(data: [16, 0])
         XCTAssertFalse(sut.options.contains(.energyExpended))
-        XCTAssertEqual(characteristic!.energyExpended, nil)
+        XCTAssertEqual(sut.energyExpended, nil)
     }
     
     func test_energy_expended_available() {
-        let sut = makeCharacteristic(data: [8, 0, msb, lsb])
+        let sut = makeCharacteristic(data: [8, 0, lsb, msb])
         XCTAssertTrue(sut.options.contains(.energyExpended))
         XCTAssertEqual(sut.energyExpended, uInt16)
     }
 
     func test_rrInterval() {
-        XCTAssertEqual(characteristic!.rrIntervals, [uInt16])
+        let sut = makeCharacteristic(data: [16, 0, lsb, msb])
+        XCTAssertTrue(sut.options.contains(.rrIntervals))
+        XCTAssertEqual(sut.rrIntervals, [uInt16])
     }
     
     func test_all_options_available() {
-        let sut = makeCharacteristic(data: [31, msb, lsb, msb, lsb, msb, lsb, msb, lsb])
+        let sut = makeCharacteristic(data: [31, lsb, msb, lsb, msb, lsb, msb, lsb, msb])
         
         XCTAssertTrue(sut.options.contains(.uInt16Format))
         XCTAssertTrue(sut.options.contains(.sensorContact))
