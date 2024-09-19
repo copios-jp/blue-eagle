@@ -9,8 +9,8 @@ import Foundation
 
 // MARK: - Bluetooth Service
 
-// http://bluetooth.com
 struct Gatt {
+  // @see Assigned_Numbers.pdf in repo docs
   static let HeartRateMonitor = CBUUID(string: "0x180D")
   static let HeartRateMeasurment = CBUUID(string: "2A37")
 }
