@@ -30,21 +30,28 @@ class HeartRateMonitor {
     #selector(heartRateMonitorDisconnected(notification:)): .HeartRateMonitorDisconnected,
   ]
 
-  private let MAX_IDENTICAL_HEART_RATE: Int = 30
-  private var identicalSampleCount: Int = 0
-
+  private(set) var identicalSampleCount: Int = 0
+  private(set) var lastSample: Double = 0
+    
   private(set) var state: HeartRateMonitorState = .dead {
     didSet {
       guard oldValue != state else { return }
 
+      // we switch to connected when the actual device connects and when we get a
+      // new sample that differs from the lastSample after hitting MAX_IDENTICAL_HEART_RATE
+      // In both cases we want to clear the identicalSampleCount
+      if state == .connected {
+        identicalSampleCount = 0
+      }
+        
       state == .dead ? delegate?.disconnected() : delegate?.connected()
     }
   }
     
+  let MAX_IDENTICAL_HEART_RATE: Int = 30
   let name: String
   let identifier: UUID
  
-  private(set) var lastSample: Double = 0
   weak var delegate: (any HeartRateMonitorDelegate)?
 
   init(name: String = "Unknown", identifier: UUID = UUID()) {

@@ -12,7 +12,7 @@ final class HeartRateMeasurementCharacteristicTest: XCTestCase {
     let lsb: UInt8 = 23
     let msb: UInt8 = 7
    
-    func makeCharacteristic(data: [UInt8]) -> HeartRateMeasurementCharacteristic {
+    func makeCharacteristic(data: [UInt8]) -> BluetoothService.HeartRateMeasurementCharacteristic {
         .init(UUID.init(), Data(data))
     }
     
