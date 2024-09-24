@@ -41,18 +41,20 @@ class TrainingTimer: Equatable {
     func onTimerStart(_ event: Event)
     func onTimerStop(_ event: Event)
   }
-
-  var value: TimeInterval = 0
-  var direction: Direction = .incrementing
+    
+  private var initialDuration: TimeInterval = 0
+  private var timer: Timer?
+  private var startAt: Date?
+  private let tickInterval: TimeInterval = 1.0
+   
+  private(set) var value: TimeInterval = 0
+  private(set) var direction: Direction = .incrementing
   var status: Status {
     timer == nil ? .stopped : .running
   }
+
   weak var delegate: Delegate?
-
-  private var initialDuration: TimeInterval = 0
-  private var timer: Timer?
-  private let interval: TimeInterval = 1.0
-
+    
   init(duration: TimeInterval = 0) {
     self.initialDuration = max(0, duration)
     self.value = initialDuration
@@ -63,9 +65,10 @@ class TrainingTimer: Equatable {
     if timer != nil {
       killTimer()
     }
-
+    startAt = Date()
     value = initialDuration
-    timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) {
+      
+    timer = Timer.scheduledTimer(withTimeInterval: tickInterval, repeats: true) {
       [weak self] _ in
       self?.tick()
     }
@@ -82,8 +85,9 @@ class TrainingTimer: Equatable {
 
   @objc private func tick() {
     guard timer != nil else { return }
-
-    value += direction == .incrementing ? interval : interval * -1
+      
+    let interval = Double(Date().timeIntervalSince(startAt!)).rounded()
+    value = direction == .incrementing ? interval : initialDuration - interval
 
     guard value > -1 else {
       killTimer()
@@ -99,6 +103,7 @@ class TrainingTimer: Equatable {
     timer?.invalidate()
     timer = nil
     value = 0
+    startAt = nil
   }
 
   private func broadcast(_ name: EventName = .tick) {
