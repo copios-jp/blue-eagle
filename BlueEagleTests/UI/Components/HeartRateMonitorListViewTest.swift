@@ -11,6 +11,7 @@ import XCTest
 
 @testable import BlueEagle
 
+@MainActor
 final class HeartRateMonitorListViewTest: XCTestCase {
 
   let eventBus: EventBusMock = .init()
@@ -74,7 +75,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
     XCTAssertNoThrow(try view.find(HeartRateMonitorView.self, containing: name))
   }
 
-    @MainActor func test_itShowsADefaultNoneViewWhenNothingIsConnected() throws {
+    func test_itShowsADefaultNoneViewWhenNothingIsConnected() throws {
     let exp = sut!.inspection.inspect { view in
       try self.hasHeartRateMonitorView(view, name: "None")
     }
@@ -84,13 +85,14 @@ final class HeartRateMonitorListViewTest: XCTestCase {
 
   }
 
-    @MainActor func test_itShowsConnectedMonitor() throws {
+    func test_itShowsConnectedMonitor() throws {
     let exp = sut!.inspection.inspect { view in
       try self.hasHeartRateMonitorView(view, name: "None")
 
       let monitor = self.viewModel!.items[0]
-      self.eventBus.trigger(.HeartRateMonitorConnected, ["identifier": monitor.identifier])
-
+      EventBus.trigger(.HeartRateMonitorConnected, ["identifier": monitor.identifier])
+      self.waitForNotification(.HeartRateMonitorConnected)
+        
       try self.hasHeartRateMonitorView(view, name: monitor.name)
     }
 
@@ -107,7 +109,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
     wait(for: [exp], timeout: timeout)
   }
 
-    @MainActor func test_itShowsTheListWhenTapped() throws {
+  func test_itShowsTheListWhenTapped() throws {
     let exp: XCTestExpectation = sut!.inspection.inspect { view in
       try self.openList(view)
       try self.listIsVisible(view)
@@ -118,7 +120,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
     wait(for: [exp], timeout: timeout)
   }
 
-    @MainActor func test_itShowsExtendedHeartRateMonitorViewsForDiscoveredDevices() throws {
+    func test_itShowsExtendedHeartRateMonitorViewsForDiscoveredDevices() throws {
     let exp = sut!.inspection.inspect { view in
 
       try self.openList(view)
@@ -133,7 +135,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
     wait(for: [exp], timeout: timeout)
   }
 
-    @MainActor func test_itTogglesHeartRateMonitorConnectionsOnTap() throws {
+    func test_itTogglesHeartRateMonitorConnectionsOnTap() throws {
     let exp = sut!.inspection.inspect { view in
 
       try self.openList(view)
@@ -156,7 +158,7 @@ final class HeartRateMonitorListViewTest: XCTestCase {
     wait(for: [exp], timeout: timeout)
   }
 
-    @MainActor func test_itHidesTheListOnDone() throws {
+    func test_itHidesTheListOnDone() throws {
     let exp = sut!.inspection.inspect { view in
       try self.openList(view)
       let done = try view.find(button: "done")

@@ -9,6 +9,45 @@ import Foundation
 
 @testable import BlueEagle
 
+class EventBusMonitor {
+  var notifications: [Notification] = []
+
+  private let observing: [Selector: [NSNotification.Name]] = [
+    #selector(notified(notification:)): [
+      .BluetoothRequestScan,
+      .BluetoothScanStarted,
+      .BluetoothScanStopped,
+      .BluetoothRequestConnection,
+      .BluetoothRequestDisconnection,
+      .HeartRateMonitorDiscovered,
+      .HeartRateMonitorConnected,
+      .HeartRateMonitorValueUpdated,
+      .HeartRateMonitorDisconnected,
+      .HeartRateMonitorDead,
+    ]
+  ]
+
+  init() {
+    EventBus.registerObservers(self, observing)
+  }
+
+  @objc func notified(notification: Notification) {
+    notifications.append(notification)
+  }
+
+  func has(_ name: NSNotification.Name) -> Bool {
+    notifications.contains(where: { $0.name == name })
+  }
+
+  func reset() {
+    notifications.removeAll()
+  }
+
+  deinit {
+    EventBus.removeObserver(self)
+  }
+}
+
 class EventBusMock: EventBusNotificationCenter {
 
   var observing: [Selector: NSNotification.Name]?
@@ -85,7 +124,19 @@ class EventBusMock: EventBusNotificationCenter {
       }
     }
   }
+  func registerObservers(_ observer: Any, _ observing: [Selector: [NSNotification.Name]]) {
+    /*
+      self.observer = observer
+      self.observing = observing
 
+      if passThru {
+        for (selector, name) in observing {
+          NotificationCenter.default.addObserver(
+            observer, selector: selector, name: name, object: nil)
+        }
+      }
+         */
+  }
   func removeObserver(_ observer: Any) {
     NotificationCenter.default.removeObserver(observer)
 

@@ -17,7 +17,7 @@ struct HeartRateMonitorListView: View {
   var body: some View {
     HStack {
      if viewModel.current == nil {
-        HeartRateMonitorView()
+         HeartRateMonitorView(viewModel: .init(HeartRateMonitor(name: "None")))
       } else {
         HeartRateMonitorView(viewModel: viewModel.current!)
      }
