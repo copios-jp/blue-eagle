@@ -22,3 +22,11 @@ func WithUser(birthdate: Date = Calendar.current.date(byAdding: .year, value: -3
     User.current.birthdate = birthdate
     User.current.restingHeartRate = restingHeartRate
 }
+
+@MainActor
+extension XCTestCase {
+ func waitForNotification(_ notification: Notification.Name) {
+    let expectation = XCTNSNotificationExpectation(name: notification)
+    wait(for: [expectation], timeout: 1)
+}
+}
