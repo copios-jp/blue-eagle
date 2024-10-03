@@ -7,17 +7,15 @@
 
 import Foundation
 
-/**
- A model object that interacts with the ``BluetoothService`` via the EventBus to manage
- connectivity while providing a delegate to monitor for changes
- 
- When a heart rate monitor is discovered an instance of this model is how we monitor the connection
-and changes to the heart rate for consumption by view models.
- 
- In addition to observing changes in the connection status as notified from the bluetooth service, this model
- also keeps track of consecutive, identical heart rate samples and notifies delegates that the monitor is disconnected
-when the heart rate was identical for the last 30 samples.
- */
+/// A model object that interacts with the ``BluetoothService`` via the EventBus to manage
+/// connectivity while providing a delegate to monitor for changes
+///
+/// When a heart rate monitor is discovered an instance of this model is how we monitor the connection
+/// and changes to the heart rate for consumption by view models.
+///
+/// In addition to observing changes in the connection status as notified from the bluetooth service, this model
+/// also keeps track of consecutive, identical heart rate samples and notifies delegates that the monitor is disconnected
+/// when the heart rate was identical for the last 30 samples.
 class HeartRateMonitor {
   enum HeartRateMonitorState: Int {
     case connected
@@ -32,7 +30,7 @@ class HeartRateMonitor {
 
   private(set) var identicalSampleCount: Int = 0
   private(set) var lastSample: Double = 0
-    
+
   private(set) var state: HeartRateMonitorState = .dead {
     didSet {
       guard oldValue != state else { return }
@@ -43,15 +41,15 @@ class HeartRateMonitor {
       if state == .connected {
         identicalSampleCount = 0
       }
-        
+
       state == .dead ? delegate?.disconnected() : delegate?.connected()
     }
   }
-    
+
   let MAX_IDENTICAL_HEART_RATE: Int = 30
   let name: String
   let identifier: UUID
- 
+
   weak var delegate: (any HeartRateMonitorDelegate)?
 
   init(name: String = "Unknown", identifier: UUID = UUID()) {
@@ -103,8 +101,9 @@ class HeartRateMonitor {
       identicalSampleCount = sample == lastSample ? identicalSampleCount + 1 : 0
       lastSample = sample
 
-      state = identicalSampleCount >= MAX_IDENTICAL_HEART_RATE ? .dead : .connected
       delegate?.sampleRecorded(sample)
+
+      state = identicalSampleCount > MAX_IDENTICAL_HEART_RATE ? .dead : .connected
     }
   }
 
