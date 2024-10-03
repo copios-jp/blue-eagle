@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HeartRateMonitorView: View {
-  @StateObject var viewModel: HeartRateMonitorViewModel = .init(HeartRateMonitor(name: "None"))
+  @ObservedObject var viewModel: HeartRateMonitorViewModel = .init(HeartRateMonitor(name: "None"))
   @State var extended: Bool = false
 
   var body: some View {
