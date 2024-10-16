@@ -15,12 +15,12 @@ enum Sex: String, Equatable, CaseIterable, Codable {
 }
 
 @Observable
-class User: ObservableObject {
+class User: ObservableObject, EventBusObserver {
 
   static let current = User()
 
-  private let observing: [Selector: NSNotification.Name] = [
-    #selector(heartRateMonitorValueUpdated(notification:)): .HeartRateMonitorValueUpdated
+  let observing: [Selector: [NSNotification.Name]] = [
+    #selector(heartRateMonitorValueUpdated(notification:)): [.HeartRateMonitorValueUpdated]
   ]
 
   @objc private func heartRateMonitorValueUpdated(notification: Notification) {
@@ -38,7 +38,7 @@ class User: ObservableObject {
   var heartRate: Int = 0
 
   init() {
-    EventBus.registerObservers(self, observing)
+    EventBus.addObserver(self)
   }
 
   var birthdate: Date {

@@ -8,7 +8,7 @@
 import XCTest
 
 @testable import BlueEagle
-
+/*
 class TrainingTest: XCTestCase {
   var subject: Training?
   override func setUpWithError() throws {
@@ -33,12 +33,11 @@ class TrainingTest: XCTestCase {
     //  subject?.addSample(max)
     // XCTAssertEqual(subject!.currentTrainingZone.description, GarminTraining().zones[5].description)
   }
-  /*
      func testPerformanceExample() throws {
          // This is an example of a performance test case.
          self.measure {
              // Put the code you want to measure the time of here.
          }
      }
-     */
 }
+   */

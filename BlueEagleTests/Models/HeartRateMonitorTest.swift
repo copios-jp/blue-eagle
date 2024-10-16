@@ -9,6 +9,45 @@ import XCTest
 
 @testable import BlueEagle
 
+class EventBusMonitor: EventBusObserver {
+  var notifications: [Notification] = []
+
+  let observing: [Selector: [NSNotification.Name]] = [
+    #selector(notified(notification:)): [
+      .BluetoothRequestScan,
+      .BluetoothScanStarted,
+      .BluetoothScanStopped,
+      .BluetoothRequestConnection,
+      .BluetoothRequestDisconnection,
+      .HeartRateMonitorDiscovered,
+      .HeartRateMonitorConnected,
+      .HeartRateMonitorValueUpdated,
+      .HeartRateMonitorDisconnected,
+      .HeartRateMonitorDead,
+    ]
+  ]
+
+  init() {
+    EventBus.addObserver(self)
+  }
+
+  @objc func notified(notification: Notification) {
+    notifications.append(notification)
+  }
+
+  func has(_ name: NSNotification.Name) -> Bool {
+    notifications.contains(where: { $0.name == name })
+  }
+
+  func reset() {
+    notifications.removeAll()
+  }
+
+  deinit {
+    EventBus.removeObserver(self)
+  }
+}
+
 @MainActor
 final class HeartRateMonitorTest: XCTestCase {
   class TestDelegate: NSObject, HeartRateMonitorDelegate {

@@ -7,25 +7,24 @@ import XCTest
 @testable import BlueEagle
 
 final class HeartRateMeasurementCharacteristicTest: XCTestCase {
-    let identifier: UUID = .init()
     let uInt16 = 1815
     let lsb: UInt8 = 23
     let msb: UInt8 = 7
    
     func makeCharacteristic(data: [UInt8]) -> BluetoothService.HeartRateMeasurementCharacteristic {
-        .init(UUID.init(), Data(data))
+        .init(Data(data))
     }
     
     func test_uInt8_value() {
       let sut = makeCharacteristic(data: [0, 75])
       XCTAssertFalse(sut.options.contains(.uInt16Format))
-      XCTAssertEqual(sut.value, 75)
+      XCTAssertEqual(sut.sample, 75)
     }
      
     func test_uInt16_value() {
         let sut = makeCharacteristic(data: [1, lsb, msb])
         XCTAssertTrue(sut.options.contains(.uInt16Format))
-        XCTAssertEqual(sut.value, Double(uInt16))
+        XCTAssertEqual(sut.sample, Double(uInt16))
         
     }
     
@@ -73,7 +72,7 @@ final class HeartRateMeasurementCharacteristicTest: XCTestCase {
         XCTAssertTrue(sut.options.contains(.energyExpended))
         XCTAssertTrue(sut.options.contains(.rrIntervals))
         
-        XCTAssertEqual(sut.value, Double(uInt16))
+        XCTAssertEqual(sut.sample, Double(uInt16))
         XCTAssertEqual(sut.sensorStatus, .good)
         XCTAssertEqual(sut.energyExpended, uInt16)
         XCTAssertEqual(sut.rrIntervals, [uInt16, uInt16])

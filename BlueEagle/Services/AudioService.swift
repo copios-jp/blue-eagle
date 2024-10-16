@@ -1,10 +1,3 @@
-//
-//  AudioService.swift
-//  BlueEagle
-//
-//  Created by Randy Morgan on 2024/07/16.
-//
-
 import AVFoundation
 
 class AudioService {

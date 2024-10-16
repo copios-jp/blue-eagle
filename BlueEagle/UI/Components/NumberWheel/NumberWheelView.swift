@@ -15,8 +15,8 @@ struct NumberWheelView: View {
   var fontSize: CGFloat = 80
 
   private var itemSize: CGSize {
-      return String(format: format, range.upperBound).size(withAttributes: [
-        .font: UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .regular),
+    return String(format: format, range.upperBound).size(withAttributes: [
+      .font: UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .regular)
     ])
   }
 

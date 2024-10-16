@@ -10,6 +10,7 @@ import Foundation
 
 @Observable
 class ProgrammableTimer: ObservableObject, TrainingTimer.Delegate {
+
   var isProgrammed: Bool {
     return timers.first(where: { $0.direction == .decrementing }) != nil
   }
@@ -20,23 +21,10 @@ class ProgrammableTimer: ObservableObject, TrainingTimer.Delegate {
     currentTimer?.status ?? .stopped
   }
 
-    
-  private var alarm: AVAudioPlayer = AudioService.load("alarm")
-  private var currentTimer: TrainingTimer? {
-    guard index >= 0 && index < timers.count else { return nil }
-    return timers[index]
-  }
-  private var index: Int = -1
-  private var rounds: Double = Double.infinity
-  private var timers: [TrainingTimer] = []
-  private var value: TimeInterval {
-    Double(seconds + minutes * 60)
-  }
-      
   func start() {
     guard currentTimer?.status != .running else { return }
 
-    // inject an incrementing timer if there are not programmed timers
+    // inject an incrementing timer if there are no programmed timers
     if timers.isEmpty {
       addTimer()
     }
@@ -47,7 +35,7 @@ class ProgrammableTimer: ObservableObject, TrainingTimer.Delegate {
 
   func stop() {
     guard let timer = currentTimer else { return }
-      
+
     timer.delegate = nil
     timer.stop()
 
@@ -84,7 +72,47 @@ class ProgrammableTimer: ObservableObject, TrainingTimer.Delegate {
     extractMinutesAndSeconds(0)
   }
 
-  internal func extractMinutesAndSeconds(_ value: TimeInterval) {
+  // MARK: Training Timer Delegate
+
+  internal func onTimerStart(_ event: TrainingTimer.Event) {
+    extractMinutesAndSeconds(event.value)
+  }
+
+  internal func onTimerTick(_ event: TrainingTimer.Event) {
+    extractMinutesAndSeconds(event.value)
+
+    if isProgrammed && event.value == 0 {
+      alarm.play()
+    }
+  }
+
+  internal func onTimerStop(_ event: TrainingTimer.Event) {
+    extractMinutesAndSeconds(event.value)
+
+    guard isProgrammed, let timer = nextTimer() else { return }
+
+    if index == 0 {
+      decrementRounds()
+    }
+
+    outOfRounds ? stop() : timer.start()
+  }
+
+  // MARK: Private
+
+  private var alarm: AVAudioPlayer = AudioService.load("alarm")
+  private var currentTimer: TrainingTimer? {
+    guard index >= 0 && index < timers.count else { return nil }
+    return timers[index]
+  }
+  private var index: Int = -1
+  private var rounds: Double = Double.infinity
+  private var timers: [TrainingTimer] = []
+  private var value: TimeInterval {
+    Double(seconds + minutes * 60)
+  }
+
+  private func extractMinutesAndSeconds(_ value: TimeInterval) {
     self.minutes = Int(value) / 60
     self.seconds = Int(value) % 60
   }
@@ -109,31 +137,5 @@ class ProgrammableTimer: ObservableObject, TrainingTimer.Delegate {
     guard index == 0 else { return }
 
     roundsRemaining = max(0, roundsRemaining - 1)
-  }
-
-  // MARK: Training Timer Delegate
-
-  func onTimerStart(_ event: TrainingTimer.Event) {
-    extractMinutesAndSeconds(event.value)
-  }
-
-  func onTimerTick(_ event: TrainingTimer.Event) {
-    extractMinutesAndSeconds(event.value)
-
-    if isProgrammed && event.value == 0 {
-      alarm.play()
-    }
-  }
-
-  func onTimerStop(_ event: TrainingTimer.Event) {
-    extractMinutesAndSeconds(event.value)
-
-    guard isProgrammed, let timer = nextTimer() else { return }
-
-    if index == 0 {
-      decrementRounds()
-    }
-
-    outOfRounds ? stop() : timer.start()
   }
 }

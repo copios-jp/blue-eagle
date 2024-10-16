@@ -1,10 +1,3 @@
-//
-//  HeartRateMonitor.swift
-//  BlueEagle
-//
-//  Created by Randy Morgan on 2023/01/15.
-//
-
 import Foundation
 
 /// A model object that interacts with the ``BluetoothService`` via the EventBus to manage
@@ -16,33 +9,31 @@ import Foundation
 /// In addition to observing changes in the connection status as notified from the bluetooth service, this model
 /// also keeps track of consecutive, identical heart rate samples and notifies delegates that the monitor is disconnected
 /// when the heart rate was identical for the last 30 samples.
-class HeartRateMonitor {
+class HeartRateMonitor: EventBusObserver {
   enum HeartRateMonitorState: Int {
     case connected
     case dead
   }
 
-  private let observing: [Selector: NSNotification.Name] = [
-    #selector(heartRateMonitorValueUpdated(notification:)): .HeartRateMonitorValueUpdated,
-    #selector(heartRateMonitorConnected(notification:)): .HeartRateMonitorConnected,
-    #selector(heartRateMonitorDisconnected(notification:)): .HeartRateMonitorDisconnected,
+  let observing: [Selector: [NSNotification.Name]] = [
+    #selector(heartRateMonitorValueUpdated(notification:)): [.HeartRateMonitorValueUpdated],
+    #selector(heartRateMonitorDisconnected(notification:)): [.HeartRateMonitorDisconnected],
   ]
 
   private(set) var identicalSampleCount: Int = 0
   private(set) var lastSample: Double = 0
-
   private(set) var state: HeartRateMonitorState = .dead {
     didSet {
       guard oldValue != state else { return }
-
-      // we switch to connected when the actual device connects and when we get a
-      // new sample that differs from the lastSample after hitting MAX_IDENTICAL_HEART_RATE
-      // In both cases we want to clear the identicalSampleCount
       if state == .connected {
         identicalSampleCount = 0
       }
-
-      state == .dead ? delegate?.disconnected() : delegate?.connected()
+      switch state {
+      case .dead:
+        delegate?.disconnected()
+      case .connected:
+        delegate?.connected()
+      }
     }
   }
 
@@ -56,7 +47,7 @@ class HeartRateMonitor {
     self.name = name
     self.identifier = identifier
 
-    EventBus.registerObservers(self, observing)
+    EventBus.addObserver(self)
   }
 
   deinit {
@@ -81,12 +72,6 @@ class HeartRateMonitor {
   private func validated(_ notification: Notification, _ proc: () -> Void) {
     if isMine(notification) {
       proc()
-    }
-  }
-
-  @objc private func heartRateMonitorConnected(notification: Notification) {
-    validated(notification) {
-      state = .connected
     }
   }
 

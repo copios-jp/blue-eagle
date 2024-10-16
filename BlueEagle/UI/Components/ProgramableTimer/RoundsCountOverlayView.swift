@@ -18,7 +18,7 @@ struct RoundsCountOverlayView: View {
   }
 
   func position(_ size: CGSize) -> CGPoint {
-      return CGPoint(x: size.width * 0.85, y: size.height * 0.05)
+    return CGPoint(x: size.width * 0.85, y: size.height * 0.05)
   }
 
   func scaledFontSize(_ size: CGSize) -> CGFloat {
@@ -26,7 +26,7 @@ struct RoundsCountOverlayView: View {
   }
 
   func scaledCapsuleSize(_ size: CGSize) -> CGSize {
-      return CGSize(width: size.width / 2.7, height: size.height / 2.7)
+    return CGSize(width: size.width / 2.7, height: size.height / 2.7)
   }
 
   var body: some View {

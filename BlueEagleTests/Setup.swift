@@ -11,13 +11,6 @@ import XCTest
 
 @testable import BlueEagle
 
-// https://github.com/nalexn/ViewInspector
-extension Inspection: @retroactive InspectionEmissary {}
-extension InspectableSheet: @retroactive BasePopupPresenter {}
-extension InspectableSheet: @retroactive PopupPresenter {}
-extension InspectableFullScreenCover: @retroactive BasePopupPresenter {}
-extension InspectableFullScreenCover: @retroactive PopupPresenter {}
-
 func WithUser(birthdate: Date = Calendar.current.date(byAdding: .year, value: -30, to: Date())!,  restingHeartRate: Int = 50) {
     User.current.birthdate = birthdate
     User.current.restingHeartRate = restingHeartRate
@@ -27,6 +20,6 @@ func WithUser(birthdate: Date = Calendar.current.date(byAdding: .year, value: -3
 extension XCTestCase {
  func waitForNotification(_ notification: Notification.Name) {
     let expectation = XCTNSNotificationExpectation(name: notification)
-    wait(for: [expectation], timeout: 1)
+     wait(for: [expectation], timeout: 1)
 }
 }

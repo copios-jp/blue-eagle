@@ -1,11 +1,8 @@
-//
-//  EventBus.swift
-//  BlueEagle
-//
-//  Created by Randy Morgan on 2023/01/13.
-//
-
 import Foundation
+
+protocol EventBusObserver {
+  var observing: [Selector: [NSNotification.Name]] { get }
+}
 
 protocol EventBusNotificationCenter {
 
@@ -13,14 +10,13 @@ protocol EventBusNotificationCenter {
 
   func trigger(_ name: NSNotification.Name)
 
-  func registerObservers(_ observer: Any, _ observing: [Selector: NSNotification.Name])
-
-  func registerObservers(_ observer: Any, _ observing: [Selector: [NSNotification.Name]])
+  func addObserver(_ observer: EventBusObserver)
 
   func removeObserver(_ observer: Any)
 }
 
 extension NotificationCenter: EventBusNotificationCenter {
+
   func trigger(_ name: NSNotification.Name) {
     DispatchQueue.main.async {
       self.post(name: name, object: self)
@@ -33,17 +29,11 @@ extension NotificationCenter: EventBusNotificationCenter {
     }
   }
 
-  func registerObservers(_ observer: Any, _ observing: [Selector: [NSNotification.Name]]) {
-    for (selector, notifications) in observing {
+  func addObserver(_ observer: EventBusObserver) {
+    for (selector, notifications) in observer.observing {
       for (notification) in notifications {
         addObserver(observer, selector: selector, name: notification, object: nil)
       }
-    }
-  }
-
-  func registerObservers(_ observer: Any, _ observing: [Selector: NSNotification.Name]) {
-    for (selector, name) in observing {
-      addObserver(observer, selector: selector, name: name, object: nil)
     }
   }
 }

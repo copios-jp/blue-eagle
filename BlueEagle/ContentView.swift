@@ -1,26 +1,48 @@
-import SwiftData
-//
-//  ContentView.swift
-//  BlueEagle
-//
-//  Created by Randy Morgan on 2021/09/17.
-//
 import SwiftUI
 
-struct ContentView: View {
-    
-  var body: some View {
-    VStack {
-      TrainingView()
+enum Routes: String, CaseIterable, Hashable {
+  case Settings
+  case Devices
+}
+
+@MainActor internal struct ContentView: View {
+  internal var body: some View {
+    NavigationStack {
+      VStack {
+        TrainingScreen()
+          .environment(ProgrammableTimer())
+          .padding()
+
+      }
+      .toolbar {
+        ToolbarItemGroup {
+          NavigationLink(value: Routes.Devices) {
+            AppStatusView()
+          }
+          Spacer()
+          NavigationLink(value: Routes.Settings) {
+            Image(systemName: "person.fill")
+              .foregroundColor(.primary)
+
+          }
+        }
+      }
+      .navigationDestination(for: Routes.self) { screen in
+        switch screen {
+        case .Settings:
+          SettingsScreen()
+        case .Devices:
+          DevicesScreen()
+        }
+      }
+
     }
     .preferredColorScheme(.dark)
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    NavigationView {
-      ContentView()
-    }
+@MainActor internal struct ContentView_Previews: PreviewProvider {
+  internal static var previews: some View {
+    ContentView()
   }
 }

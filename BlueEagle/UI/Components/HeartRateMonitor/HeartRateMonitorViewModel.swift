@@ -11,15 +11,15 @@ import SwiftUI
 class HeartRateMonitorViewModel: NSObject, ObservableObject {
 
   private var heartRateMonitor: HeartRateMonitor
-    
+
   var identifier: UUID {
     heartRateMonitor.identifier
   }
-    
+
   @Published var name: String = "Unknown"
-  @Published var systemName: String =  "heart.slash"
-  @Published var foregroundColor: Color =  .secondary
-    
+  @Published var systemName: String = "heart.slash"
+  @Published var foregroundColor: Color = .secondary
+
   init(_ heartRateMonitor: HeartRateMonitor) {
     self.heartRateMonitor = heartRateMonitor
     name = heartRateMonitor.name
@@ -32,20 +32,22 @@ class HeartRateMonitorViewModel: NSObject, ObservableObject {
   }
 }
 extension HeartRateMonitorViewModel: HeartRateMonitorDelegate {
-     func sampleRecorded(_ value: Double) {
+  func sampleRecorded(_ value: Double) {
     // TODO - change icon color then let it fade back
-    }
-    
-    func connected() {
-      print("HeartRateMonitorViewModel CONNECTED")
-        systemName = "heart.fill"
-        foregroundColor = .primary
-    }
-    
-    func disconnected() {
-        systemName = "heart.slash"
-        foregroundColor = .secondary
-    }
-  
+  }
 
+  func connected() {
+    systemName = "heart.fill"
+    foregroundColor = .primary
+  }
+
+  func disconnected() {
+    systemName = "heart.slash"
+    foregroundColor = .secondary
+  }
+
+  func scanning() {
+    systemName = "antenna.radiowaves.left.and.right"
+    foregroundColor = .primary
+  }
 }
