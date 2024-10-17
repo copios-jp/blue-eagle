@@ -17,6 +17,8 @@ class HeartRateMonitor: EventBusObserver {
 
   let observing: [Selector: [NSNotification.Name]] = [
     #selector(heartRateMonitorValueUpdated(notification:)): [.HeartRateMonitorValueUpdated],
+    #selector(heartRateMonitorConnected(notification:)): [.HeartRateMonitorConnected],
+
     #selector(heartRateMonitorDisconnected(notification:)): [.HeartRateMonitorDisconnected],
   ]
 
@@ -74,7 +76,13 @@ class HeartRateMonitor: EventBusObserver {
       proc()
     }
   }
-
+    
+  @objc private func heartRateMonitorConnected(notification: Notification) {
+    validated(notification) {
+      state = .connected
+    }
+  }
+    
   @objc private func heartRateMonitorDisconnected(notification: Notification) {
     validated(notification) {
       state = .dead

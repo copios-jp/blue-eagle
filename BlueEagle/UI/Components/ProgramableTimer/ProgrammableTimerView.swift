@@ -15,7 +15,7 @@ struct ProgrammableTimerView: View {
   private var playStopImage: String {
     model.status == .running ? "stop.circle" : "play.circle"
   }
-
+ 
   var body: some View {
     VStack(alignment: .center, spacing: 0) {
       HStack(spacing: 0) {

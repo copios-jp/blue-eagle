@@ -74,11 +74,12 @@ final class BluetoothService: NSObject, EventBusObserver  {
     disconnect(identifier)
   }
 
-  private func scan(_ timeout: Double = 60.0) {
-    guard manager.state == CBManagerState.poweredOn else {
+  private func scan(_ timeout: Double = 5.0) {
+    guard manager.state == CBManagerState.poweredOn && manager.isScanning == false else {
       return
     }
-      
+      disconnectAll()
+    print("BluetoothService: ScanForPeripherals")
     manager.scanForPeripherals(withServices: [Gatt.HeartRateMonitor], options: nil)
     EventBus.trigger(.BluetoothScanStarted)
 
@@ -87,7 +88,7 @@ final class BluetoothService: NSObject, EventBusObserver  {
       self?.stopScan()
     }
   }
-
+    
   private func connect(_ uuid: UUID, _ timeout: Double = 5.0) {
     guard let peripheral = getPeripheral(uuid) else {
       return
@@ -184,6 +185,7 @@ extension BluetoothService: CBCentralManagerDelegate {
     _: CBCentralManager, didDiscover peripheral: CBPeripheral,
     advertisementData _: [String: Any], rssi _: NSNumber
   ) {
+      print("discovered \(peripheral.name)")
     EventBus.trigger(.HeartRateMonitorDiscovered, userInfo(peripheral))
       
     if User.current.heartRateMonitor == peripheral.identifier.uuidString {

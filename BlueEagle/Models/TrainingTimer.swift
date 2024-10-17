@@ -107,16 +107,17 @@ class TrainingTimer: Equatable {
   }
 
   private func broadcast(_ name: EventName = .tick) {
-    guard let target = delegate else { return }
-
+    guard delegate != nil else { return }
+      
     let event = Event(name: name, value: value, direction: direction, status: status)
+      
     switch name {
     case .start:
-      target.onTimerStart(event)
+      delegate!.onTimerStart(event)
     case .tick:
-      target.onTimerTick(event)
+      delegate!.onTimerTick(event)
     case .stop:
-      target.onTimerStop(event)
+      delegate!.onTimerStop(event)
     }
   }
 

@@ -1,16 +1,12 @@
 import XCTest
-//  HeartRateMeasurementCharacteristicTest.swift
-//  BlueEagle
-//
-//  Created by Randy Morgan on 2024/09/18.
-//
 @testable import BlueEagle
+import CoreBluetooth
 
 final class HeartRateMeasurementCharacteristicTest: XCTestCase {
     let uInt16 = 1815
     let lsb: UInt8 = 23
     let msb: UInt8 = 7
-   
+       
     func makeCharacteristic(data: [UInt8]) -> BluetoothService.HeartRateMeasurementCharacteristic {
         .init(Data(data))
     }
@@ -66,7 +62,6 @@ final class HeartRateMeasurementCharacteristicTest: XCTestCase {
     
     func test_all_options_available() {
         let sut = makeCharacteristic(data: [31, lsb, msb, lsb, msb, lsb, msb, lsb, msb])
-        
         XCTAssertTrue(sut.options.contains(.uInt16Format))
         XCTAssertTrue(sut.options.contains(.sensorContact))
         XCTAssertTrue(sut.options.contains(.energyExpended))
