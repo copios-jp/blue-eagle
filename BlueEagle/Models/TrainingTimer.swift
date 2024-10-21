@@ -99,7 +99,6 @@ class TrainingTimer: Equatable {
   }
 
   private func killTimer() {
-    guard timer != nil else { return }
     timer?.invalidate()
     timer = nil
     value = 0

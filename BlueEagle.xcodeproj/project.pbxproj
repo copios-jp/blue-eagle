@@ -30,6 +30,9 @@
 		3D2FB8AD272ABFEE001C473D /* HRSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2FB8AC272ABFEE001C473D /* HRSample.swift */; };
 		3D2FB8B2272C21B5001C473D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D2FB8B4272C21B5001C473D /* Localizable.strings */; };
 		3D34075327060FE10089E234 /* TrainingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34075227060FE10089E234 /* TrainingScreen.swift */; };
+		3D47B77A2CC6405E00B795EA /* AudioServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B7792CC6405E00B795EA /* AudioServiceTest.swift */; };
+		3D47B77D2CC6433300B795EA /* EventBusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B77C2CC6433300B795EA /* EventBusTest.swift */; };
+		3D47B77F2CC6490B00B795EA /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B77E2CC6490800B795EA /* Events.swift */; };
 		3D757B232C46AC2A00B65E57 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D757B222C46AC2A00B65E57 /* AudioService.swift */; };
 		3D97E9242C9BDB23003E239D /* HeartRateMeasurementCharacteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D97E9232C9BDB18003E239D /* HeartRateMeasurementCharacteristic.swift */; };
 		3D98CB002C45865600159BAB /* RatioColon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D98CAFF2C45865600159BAB /* RatioColon.swift */; };
@@ -103,6 +106,9 @@
 		3D2FB8B3272C21B5001C473D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D2FB8B5272C21BA001C473D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D34075227060FE10089E234 /* TrainingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingScreen.swift; sourceTree = "<group>"; };
+		3D47B7792CC6405E00B795EA /* AudioServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServiceTest.swift; sourceTree = "<group>"; };
+		3D47B77C2CC6433300B795EA /* EventBusTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBusTest.swift; sourceTree = "<group>"; };
+		3D47B77E2CC6490800B795EA /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		3D757B222C46AC2A00B65E57 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		3D97E9232C9BDB18003E239D /* HeartRateMeasurementCharacteristic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateMeasurementCharacteristic.swift; sourceTree = "<group>"; };
 		3D98CAFF2C45865600159BAB /* RatioColon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatioColon.swift; sourceTree = "<group>"; };
@@ -215,6 +221,7 @@
 		25EC056A2970C4C9008D99E7 /* EventBus */ = {
 			isa = PBXGroup;
 			children = (
+				3D47B77E2CC6490800B795EA /* Events.swift */,
 				25EC05682970C2A7008D99E7 /* EventBus.swift */,
 				25EC056B2970C4DC008D99E7 /* Notifications.swift */,
 			);
@@ -300,6 +307,8 @@
 		3D47B7732CC0DDAA00B795EA /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3D47B77B2CC6431D00B795EA /* EventBus */,
+				3D47B7762CC6402B00B795EA /* AudioService */,
 				3D47B7742CC0DDB000B795EA /* Bluetooth */,
 			);
 			path = Services;
@@ -319,6 +328,22 @@
 				3D757B222C46AC2A00B65E57 /* AudioService.swift */,
 			);
 			path = AudioService;
+			sourceTree = "<group>";
+		};
+		3D47B7762CC6402B00B795EA /* AudioService */ = {
+			isa = PBXGroup;
+			children = (
+				3D47B7792CC6405E00B795EA /* AudioServiceTest.swift */,
+			);
+			path = AudioService;
+			sourceTree = "<group>";
+		};
+		3D47B77B2CC6431D00B795EA /* EventBus */ = {
+			isa = PBXGroup;
+			children = (
+				3D47B77C2CC6433300B795EA /* EventBusTest.swift */,
+			);
+			path = EventBus;
 			sourceTree = "<group>";
 		};
 		3D97E9222C9BDB0B003E239D /* Bluetooth */ = {
@@ -585,6 +610,7 @@
 				3DCA80C82C2A74A7005D47B6 /* TrainingZone.swift in Sources */,
 				3D98CB002C45865600159BAB /* RatioColon.swift in Sources */,
 				3D1CB4922CBDFF8C00FB4018 /* DevicesScreen.swift in Sources */,
+				3D47B77F2CC6490B00B795EA /* Events.swift in Sources */,
 				3D1CB4902CBDFB1700FB4018 /* SettingsScreen.swift in Sources */,
 				3DEB1EEC2C287BCA008281CD /* TrainingZoneViewModel.swift in Sources */,
 				3D2072902C417E0000AF162B /* ProgrammableTimerView.swift in Sources */,
@@ -596,10 +622,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D47B77D2CC6433300B795EA /* EventBusTest.swift in Sources */,
 				3DE025A92C9AB101004E5BFC /* HeartRateMeasurementCharacteristicTest.swift in Sources */,
 				2572B2A4296E8AA8006BEFE4 /* CalorieCounterTest.swift in Sources */,
 				250F27B02978A901001C3FB2 /* HeartRateMonitorTest.swift in Sources */,
 				3D2FB8A8272ABF64001C473D /* TrainingTest.swift in Sources */,
+				3D47B77A2CC6405E00B795EA /* AudioServiceTest.swift in Sources */,
 				250F27C5297A64B0001C3FB2 /* Setup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

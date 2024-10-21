@@ -21,16 +21,16 @@ extension AppStatusView {
 
     enum AppStates: Int {
       case offline
-      case connected
       case scanning
-      case dead
+      case connected
+      case disconnected
     }
 
     let observing: [Selector: [NSNotification.Name]] = [
       #selector(bluetoothServiceDidUpdateState(notification:)): [.BluetoothServiceDidUpdateState],
       #selector(bluetoothScanStarted(notification:)): [.BluetoothScanStarted],
       #selector(heartRateMonitorValueUpdated(notification:)): [.HeartRateMonitorValueUpdated],
-      #selector(heartRateMonitorDisconnected(notification:)): [.HeartRateMonitorConnected],
+      #selector(heartRateMonitorDisconnected(notification:)): [.HeartRateMonitorDisconnected],
     ]
 
     private(set) var identicalSampleCount: Int = 0
@@ -46,7 +46,7 @@ extension AppStatusView {
         case .offline:
           systemName = "antenna.radiowaves.left.and.right.slash"
           color = .red
-        case .dead:
+        case .disconnected:
           systemName = "heart.slash"
           color = .secondary
         case .scanning:
@@ -73,14 +73,14 @@ extension AppStatusView {
     }
 
     private func isMine(_ notification: Notification) -> Bool {
-      let notificationIdentifier = notification.userInfo!["identifier"] as! UUID
-      return notificationIdentifier.uuidString == User.current.heartRateMonitor
+      let event = notification.object as! PeripheralEvent
+      return event.identifier.uuidString == User.current.heartRateMonitor
     }
 
     private func validated(_ notification: Notification, _ proc: (_ sample: Double) -> Void) {
       if isMine(notification) {
-        let sample: Double = notification.userInfo!["sample"] as! Double
-        proc(sample)
+        let event = notification.object as! PeripheralValueUpdatedEvent
+        proc(event.sample)
       }
     }
 
@@ -91,8 +91,8 @@ extension AppStatusView {
     }
 
     @objc private func bluetoothServiceDidUpdateState(notification: Notification) {
-      let managerState = notification.userInfo!["state"] as! CBManagerState
-      switch managerState {
+      let event = notification.object as! BluetoothServiceDidUpdateStateEvent
+      switch event.state {
       case .poweredOff, .unauthorized, .unsupported, .resetting, .unknown:
         state = .offline
       default: break
@@ -105,7 +105,7 @@ extension AppStatusView {
 
     @objc private func heartRateMonitorDisconnected(notification: Notification) {
       validated(notification) {
-        state = .dead
+          state = .disconnected
       }
     }
 
@@ -114,7 +114,7 @@ extension AppStatusView {
         identicalSampleCount = sample == lastSample ? identicalSampleCount + 1 : 0
         lastSample = sample
 
-        state = identicalSampleCount > MAX_IDENTICAL_HEART_RATE ? .dead : .connected
+        state = identicalSampleCount > MAX_IDENTICAL_HEART_RATE ? .disconnected : .connected
       }
     }
 

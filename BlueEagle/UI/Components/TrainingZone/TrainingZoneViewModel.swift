@@ -43,7 +43,7 @@ extension TrainingZoneView {
     }
 
     var heartRateLabel: String {
-      return user.heartRate > 0 ? String(format: "%d bpm", user.heartRate) : ""
+      return user.heartRate > 0 ? String(format: "%d bpm", Int(user.heartRate)) : ""
     }
   }
 }

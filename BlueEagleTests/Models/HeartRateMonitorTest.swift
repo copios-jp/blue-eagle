@@ -33,19 +33,16 @@ final class HeartRateMonitorTest: XCTestCase {
     }
   }
 
-  let identifier = UUID()
-  var userInfo: [AnyHashable: AnyHashable] = [:]
-  let HEART_RATE_SAMPLE_1 = 90
-  let HEART_RATE_SAMPLE_2 = 91
-  var eventBusMonitor: EventBusMonitor!// = .init()
+  let HEART_RATE_SAMPLE_1 = 90.0
+  let HEART_RATE_SAMPLE_2 = 91.0
+  var eventBusMonitor: EventBusMonitor!
   var delegate: TestDelegate!
-
   var sut: HeartRateMonitor!
+
   override func setUp() {
-    //super.setUp()
     eventBusMonitor = .init()
     delegate = .init()
-    sut = HeartRateMonitor(identifier: identifier)
+    sut = HeartRateMonitor(identifier: UUID())
     sut.delegate = delegate
   }
 
@@ -68,11 +65,11 @@ final class HeartRateMonitorTest: XCTestCase {
   }
 
   func test_itRequestsToggleToDisconnect() throws {
-    EventBus.trigger(.HeartRateMonitorConnected, ["identifier": sut.identifier])
+    PeripheralConnectedEvent(label: "test", identifier: sut.identifier).trigger()
     waitForNotification(.HeartRateMonitorConnected)
     sut.toggle()
     waitForNotification(.BluetoothRequestDisconnection)
-      XCTAssertTrue(eventBusMonitor.has(.BluetoothRequestDisconnection))
+    XCTAssertTrue(eventBusMonitor.has(.BluetoothRequestDisconnection))
   }
 
   func test_itRequestsDisconnection() throws {
@@ -82,53 +79,55 @@ final class HeartRateMonitorTest: XCTestCase {
   }
 
   func test_connectedDelegate() {
-    EventBus.trigger(.HeartRateMonitorConnected, ["identifier": sut.identifier])
+    PeripheralConnectedEvent(label: "test", identifier: sut.identifier).trigger()
     waitForNotification(.HeartRateMonitorConnected)
     XCTAssertTrue(delegate.has("connected"))
   }
 
   func test_disconnectedDelegate() {
-    EventBus.trigger(.HeartRateMonitorConnected, ["identifier": sut.identifier])
+    PeripheralConnectedEvent(label: "test", identifier: sut.identifier).trigger()
     waitForNotification(.HeartRateMonitorConnected)
 
-    EventBus.trigger(.HeartRateMonitorDisconnected, ["identifier": sut.identifier])
+    PeripheralDisconnectedEvent(label: "test", identifier: sut.identifier).trigger()
     waitForNotification(.HeartRateMonitorDisconnected)
 
     XCTAssertTrue(delegate.has("disconnected"))
   }
 
   func test_sampleRecordedDelegate() {
-    EventBus.trigger(.HeartRateMonitorValueUpdated, ["identifier": sut.identifier, "sample": 120])
+    PeripheralValueUpdatedEvent(label: "test", identifier: sut.identifier).trigger(sample: HEART_RATE_SAMPLE_1)
     waitForNotification(.HeartRateMonitorValueUpdated)
-    XCTAssertTrue(delegate.has("sampleRecorded", 120))
+    XCTAssertTrue(delegate.has("sampleRecorded", HEART_RATE_SAMPLE_1))
   }
 
   func test_ignoresInvalidEvents() {
-    EventBus.trigger(.HeartRateMonitorConnected, ["identifier": UUID()])
+    PeripheralConnectedEvent(label: "test", identifier: UUID()).trigger()
     waitForNotification(.HeartRateMonitorConnected)
     XCTAssertFalse(delegate.has("connected"))
   }
 
-  func test_deadOnMaxIdenticalSamples() {
-    EventBus.trigger(.HeartRateMonitorConnected, ["identifier": sut.identifier])
+  func test_disconnectedOnMaxIdenticalSamples() {
+    PeripheralConnectedEvent(label: "test", identifier: sut.identifier).trigger()
     waitForNotification(.HeartRateMonitorConnected)
 
     XCTAssertEqual(delegate.calls.last!.name, "connected")
 
     for _ in 0...sut.MAX_IDENTICAL_HEART_RATE {
-      EventBus.trigger(
-        .HeartRateMonitorValueUpdated, ["identifier": sut.identifier, "sample": 100])
+      PeripheralValueUpdatedEvent(label: "test", identifier: sut.identifier).trigger(
+        sample: HEART_RATE_SAMPLE_1)
     }
     // is still "connected" after maximum identical samples
     XCTAssertEqual(delegate.calls.last!.name, "connected")
 
-    EventBus.trigger(.HeartRateMonitorValueUpdated, ["identifier": sut.identifier, "sample": 100])
+    PeripheralValueUpdatedEvent(label: "test", identifier: sut.identifier).trigger(
+      sample: HEART_RATE_SAMPLE_1)
     waitForNotification(.HeartRateMonitorValueUpdated)
 
     // is disconnected after maximum identical samples + 1
     XCTAssertEqual(delegate.calls.last!.name, "disconnected")
 
-    EventBus.trigger(.HeartRateMonitorValueUpdated, ["identifier": sut.identifier, "sample": 99])
+    PeripheralValueUpdatedEvent(label: "test", identifier: sut.identifier).trigger(
+      sample: HEART_RATE_SAMPLE_2)
     waitForNotification(.HeartRateMonitorValueUpdated)
 
     // is re-connected after receiving a non-identical sample

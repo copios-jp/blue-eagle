@@ -10,7 +10,7 @@ import SwiftUI
 struct ProgrammableTimerView: View {
   @EnvironmentObject var model: ProgrammableTimer
 
-  @State var fontSize: CGFloat = 150
+  var fontSize: CGFloat = 150
 
   private var playStopImage: String {
     model.status == .running ? "stop.circle" : "play.circle"

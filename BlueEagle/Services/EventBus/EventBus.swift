@@ -6,9 +6,7 @@ protocol EventBusObserver {
 
 protocol EventBusNotificationCenter {
 
-  func trigger(_ name: NSNotification.Name, _ data: [AnyHashable: AnyHashable])
-
-  func trigger(_ name: NSNotification.Name)
+  func trigger(_ event: EventBusEvent)
 
   func addObserver(_ observer: EventBusObserver)
 
@@ -16,19 +14,12 @@ protocol EventBusNotificationCenter {
 }
 
 extension NotificationCenter: EventBusNotificationCenter {
-
-  func trigger(_ name: NSNotification.Name) {
-    DispatchQueue.main.async {
-      self.post(name: name, object: self)
+    func trigger(_ event: any EventBusEvent) {
+      DispatchQueue.main.async {
+        self.post(name: event.name, object: event)
+      }
     }
-  }
-
-  func trigger(_ name: NSNotification.Name, _ data: [AnyHashable: AnyHashable]) {
-    DispatchQueue.main.async {
-      self.post(name: name, object: self, userInfo: data)
-    }
-  }
-
+  
   func addObserver(_ observer: EventBusObserver) {
     for (selector, notifications) in observer.observing {
       for (notification) in notifications {

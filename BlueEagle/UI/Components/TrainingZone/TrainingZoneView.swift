@@ -30,12 +30,12 @@ import SwiftUI
 
   @StateObject var viewModel: ViewModel = .init()
 
-  var strokeWidth: CGFloat = 30
+  var lineWidth: CGFloat = 30
 
   var body: some View {
     ZStack(alignment: .center) {
       Circle()
-        .stroke(Self.gradient, style: StrokeStyle(lineWidth: strokeWidth))
+        .stroke(Self.gradient, style: StrokeStyle(lineWidth: lineWidth))
         .opacity(0.5)
 
       // TODO: rotation causes the view to expand to maximum height
@@ -44,26 +44,26 @@ import SwiftUI
       Circle()
         .trim(from: 0.0, to: CGFloat(viewModel.exertionGradient))
         .rotation(Angle(degrees: -90.0))
-        .stroke(Self.gradient, style: StrokeStyle(lineWidth: strokeWidth))
+        .stroke(Self.gradient, style: StrokeStyle(lineWidth: lineWidth))
         .opacity(0.8)
         .animation(.easeIn, value: viewModel.exertionGradient)
 
       Circle()
         .fill(viewModel.color)
         .opacity(0.4)
-        .padding(strokeWidth / 2 - 1)
+        .padding(lineWidth / 2 - 1)
 
       VStack {
         Text(viewModel.exertion)
-          .font(.system(size: strokeWidth))
+          .font(.system(size: lineWidth))
         Text(LocalizedStringKey(viewModel.description))
-          .font(.system(size: strokeWidth))
+          .font(.system(size: lineWidth))
         Text(viewModel.heartRateLabel)
-          .font(.system(size: strokeWidth))
+          .font(.system(size: lineWidth))
       }
       .foregroundColor(viewModel.color)
     }
-    .padding(strokeWidth / 2)
+    .padding(lineWidth / 2)
   }
 }
 

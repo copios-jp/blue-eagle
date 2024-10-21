@@ -10,6 +10,8 @@ class AudioService: NSObject {
   private var player: AVAudioPlayer = .init()
   private var audioSession = AVAudioSession.sharedInstance()
 
+  var isPlaying: Bool { player.isPlaying }
+  var cache: [Sounds: AVAudioPlayer] = [:]
   func play(_ sound: Sounds) {
     guard let path = Bundle.main.path(forResource: sound.rawValue, ofType: "wav") else {
       print("Sound resource for \(sound) not found")
@@ -20,11 +22,19 @@ class AudioService: NSObject {
 
     do {
       try audioSession.setCategory(.playback, options: .duckOthers)
-      player = try AVAudioPlayer(contentsOf: url)
-      player.delegate = self
-      player.prepareToPlay()
-      player.play()
-    } catch let error {
+        if let player = cache[.alarm] {
+            player.play()
+        } else {
+            let player = try AVAudioPlayer(contentsOf: url)
+          
+          cache[.alarm] = player
+          
+          player.delegate = self
+          player.prepareToPlay()
+          player.play()
+          
+      }
+        } catch let error {
       print(error.localizedDescription)
     }
   }
@@ -33,6 +43,7 @@ class AudioService: NSObject {
 extension AudioService: AVAudioPlayerDelegate {
   func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
     do {
+        print("finished")
       try self.audioSession.setActive(false, options: .notifyOthersOnDeactivation)
     } catch let error {
       print(error.localizedDescription)

@@ -12,34 +12,21 @@ import Foundation
 class HeartRateMonitor: EventBusObserver {
   enum HeartRateMonitorState: Int {
     case connected
-    case dead
+    case disconnected
   }
 
   let observing: [Selector: [NSNotification.Name]] = [
-    #selector(heartRateMonitorValueUpdated(notification:)): [.HeartRateMonitorValueUpdated],
     #selector(heartRateMonitorConnected(notification:)): [.HeartRateMonitorConnected],
-
     #selector(heartRateMonitorDisconnected(notification:)): [.HeartRateMonitorDisconnected],
   ]
 
-  private(set) var identicalSampleCount: Int = 0
-  private(set) var lastSample: Double = 0
-  private(set) var state: HeartRateMonitorState = .dead {
+  private(set) var state: HeartRateMonitorState = .disconnected {
     didSet {
       guard oldValue != state else { return }
-      if state == .connected {
-        identicalSampleCount = 0
-      }
-      switch state {
-      case .dead:
-        delegate?.disconnected()
-      case .connected:
-        delegate?.connected()
-      }
+      state == .disconnected ? delegate?.disconnected() : delegate?.connected()
     }
   }
 
-  let MAX_IDENTICAL_HEART_RATE: Int = 30
   let name: String
   let identifier: UUID
 
@@ -55,19 +42,16 @@ class HeartRateMonitor: EventBusObserver {
   deinit {
     EventBus.removeObserver(self)
   }
-
-  private func trigger(_ name: Notification.Name) {
-    EventBus.trigger(name, ["identifier": identifier])
-  }
-
+    
   private func isMine(_ notification: Notification) -> Bool {
-    return notification.userInfo!["identifier"] as! UUID == identifier
+    let event = notification.object as! PeripheralEvent
+    return event.identifier == identifier
   }
 
   private func validated(_ notification: Notification, _ proc: (_ sample: Double) -> Void) {
     if isMine(notification) {
-      let sample: Double = notification.userInfo!["sample"] as! Double
-      proc(sample)
+        let event = notification.object as! PeripheralValueUpdatedEvent
+        proc(event.sample)
     }
   }
 
@@ -85,27 +69,16 @@ class HeartRateMonitor: EventBusObserver {
     
   @objc private func heartRateMonitorDisconnected(notification: Notification) {
     validated(notification) {
-      state = .dead
-    }
-  }
-
-  @objc private func heartRateMonitorValueUpdated(notification: Notification) {
-    validated(notification) { sample in
-      identicalSampleCount = sample == lastSample ? identicalSampleCount + 1 : 0
-      lastSample = sample
-
-      delegate?.sampleRecorded(sample)
-
-      state = identicalSampleCount > MAX_IDENTICAL_HEART_RATE ? .dead : .connected
+      state = .disconnected
     }
   }
 
   func connect() {
-    trigger(.BluetoothRequestConnection)
+      BluetoothRequestConnectionEvent.trigger(identifier: identifier)
   }
 
   func disconnect() {
-    trigger(.BluetoothRequestDisconnection)
+      BluetoothRequestDisconnectionEvent.trigger(identifier: identifier)
   }
 
   func toggle() {

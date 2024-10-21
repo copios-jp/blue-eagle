@@ -17,15 +17,16 @@ private let Maximum = Double.infinity
 
 struct TrainingZone: Equatable {
 
-  // minimum heart rate in zone as calculated by the kernel
+  // minimum exertion percentage
   var lowerBound: Double = -Double.infinity
 
-  // maximum heart rate in zone as calculated by the kernel
+  // maximum exertion percentage
   var upperBound: Double = Double.infinity
 
   // description of the zone
   var description: String = "Unknown Zone"
 
+  // see: User#zone
   func range(_ kernel: (_ bound: Double) -> Double) -> Range<Double> {
     return kernel(lowerBound)..<kernel(upperBound)
   }
@@ -61,3 +62,4 @@ let TrainingZones: [TrainingZone] = [
     description: "zone-five"
   ),
 ]
+

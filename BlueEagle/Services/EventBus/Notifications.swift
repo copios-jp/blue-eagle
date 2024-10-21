@@ -16,7 +16,6 @@ extension NSNotification.Name {
   static let BluetoothRequestDisconnection = NSNotification.Name("bluetooth_request_disconnection")
   static let HeartRateMonitorDiscovered = NSNotification.Name("heart_rate_monitor_discovered")
   static let HeartRateMonitorConnected = NSNotification.Name("heart_rate_monitor_connected")
-  static let HeartRateMonitorDead = NSNotification.Name("heart_rate_monitor_dead")
   static let HeartRateMonitorDisconnected = NSNotification.Name("heart_rate_monitor_disconnected")
   static let HeartRateMonitorValueUpdated = NSNotification.Name("heart_rate_monitor_value_updated")
 }

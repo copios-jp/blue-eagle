@@ -42,7 +42,6 @@ class EventBusMonitor: EventBusObserver {
       .HeartRateMonitorConnected,
       .HeartRateMonitorValueUpdated,
       .HeartRateMonitorDisconnected,
-      .HeartRateMonitorDead,
     ]
   ]
 

@@ -25,8 +25,8 @@ import SwiftUI
           }
         }
 
-        Picker(selection: $user.restingHeartRate, label: Text("resting heart rate")) {
-          ForEach(40...100, id: \.self) { value in
+        Picker(selection: $user.storedRestingHeartRate, label: Text("resting heart rate")) {
+            ForEach(40...100, id: \.self) { value in
             Text("\(value) bpm")
           }
         }

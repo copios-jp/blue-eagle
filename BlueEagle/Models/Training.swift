@@ -39,7 +39,8 @@ class Training: ObservableObject, EventBusObserver {
     
   @objc private func heartRateMonitorValueUpdated(notification: Notification) {
     guard startedAt != nil && endedAt == nil else { return }
-    addSample(notification.userInfo!["sample"] as! Double)
+      let event = notification.object as! PeripheralValueUpdatedEvent
+      addSample(event.sample)
   }
 
   private func addSample(_ sample: Double, _ at: Date = Date()) {

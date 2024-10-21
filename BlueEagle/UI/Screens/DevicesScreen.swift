@@ -28,7 +28,7 @@ import SwiftUI
   }
 
   private func scan() {
-    EventBus.trigger(.BluetoothRequestScan)
+    BluetoothRequestScanEvent.trigger()
   }
 }
 
@@ -84,19 +84,17 @@ extension DevicesScreen {
     }
 
     @objc func heartRateMonitorDiscovered(notification: Notification) {
-      let identifier: UUID = notification.userInfo!["identifier"] as! UUID
-      let name: String = notification.userInfo!["name"] as! String
+        let event = notification.object as! PeripheralEvent
+        add(event.label, event.identifier)
 
-      add(name, identifier)
-
-      if User.current.heartRateMonitor == identifier.uuidString {
-        EventBus.trigger(.BluetoothRequestConnection, ["identifier": identifier])
-      }
+        if User.current.heartRateMonitor == event.identifier.uuidString {
+            BluetoothRequestConnectionEvent.trigger(identifier: event.identifier)
+        }
     }
 
     @objc func heartRateMonitorConnected(notification: Notification) {
-      let identifier: UUID = notification.userInfo!["identifier"] as! UUID
-      User.current.heartRateMonitor = identifier.uuidString
+        let event = notification.object as! PeripheralEvent
+        User.current.heartRateMonitor = event.identifier.uuidString
     }
   }
 }
